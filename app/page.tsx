@@ -1,65 +1,186 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState, useEffect } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { createClient } from "@/lib/supabase/client"
+
+export default function WhitehatTerminalPage() {
+  const [terminalId, setTerminalId] = useState("")
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTerminalId(Math.random().toString(16).substring(2, 10).toUpperCase())
+    }, 0)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const handleSocialLogin = async (provider: 'twitter' | 'discord') => {
+    const supabase = createClient()
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: provider,
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    })
+    if (error) {
+      console.error('Error logging in:', error.message)
+    }
+  }
+
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen lg:h-screen w-full bg-[#050505] text-[#e5e5e5] font-mono selection:bg-white selection:text-black relative flex flex-col overflow-x-hidden lg:overflow-hidden">
+
+      {/* --- BACKGROUND FX --- */}
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+      <div className="fixed inset-0 z-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+
+      {/* --- HEADER BAR --- */}
+      <header className="relative z-20 w-full px-6 py-5 md:px-8 md:py-6 border-b border-[#1a1a1a] bg-[#050505]/80 backdrop-blur-md flex justify-between items-center shrink-0">
+        <div className="flex items-center gap-4 text-[10px] md:text-xs tracking-[0.3em] text-[#555] uppercase">
+          <span className="w-6 md:w-8 h-[1px] bg-[#333]"></span>
+          <span className="text-white font-bold">CODEESURA // V2</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="hidden md:flex items-center gap-3 text-[10px] text-[#444] tracking-widest uppercase">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+            SYSTEM: ONLINE
+          </div>
         </div>
-      </main>
+      </header>
+
+      {/* --- CONTENT GRID --- */}
+      <div className="relative z-10 flex-1 grid grid-cols-1 lg:grid-cols-12">
+
+        {/* --- LEFT PANEL --- */}
+        <div className="lg:col-span-8 p-6 md:p-12 lg:p-16 flex flex-col border-b lg:border-b-0 lg:border-r border-[#1a1a1a] lg:overflow-y-auto lg:no-scrollbar">
+
+          {/* HERO HEADER */}
+          <div className="mb-8 lg:mb-12 mt-4 lg:mt-auto">
+            <h1 className="text-5xl sm:text-6xl md:text-8xl xl:text-9xl font-black tracking-[-0.05em] text-white leading-[0.9] md:leading-[0.85] mb-6">
+              WHITEHAT <br />
+              <span className="text-[#222] hover:text-[#333] transition-colors cursor-default">RESCUE OPS.</span>
+            </h1>
+            <p className="text-base md:text-xl text-[#888] font-light max-w-2xl leading-relaxed">
+              Compromised keys don&apos;t mean total loss. We execute <span className="text-white">counter-sweeper strategies</span> across all EVM chains. From locked staking positions to vesting airdrops, we extract assets before malicious bots can react.
+            </p>
+          </div>
+
+          {/* MOBILE ONLY: LOGIN BUTTONS (Shown here on mobile, hidden on desktop) */}
+          <div className="lg:hidden mb-12 border-t border-[#1a1a1a] pt-8">
+            <LoginPanel onLogin={handleSocialLogin} />
+          </div>
+
+          {/* DETAILED PROCESS GRID */}
+          <div className="flex flex-col gap-10 border-t border-[#1a1a1a] pt-10 pb-8 lg:pb-0 lg:mt-auto">
+
+            {/* Step 01 */}
+            <div className="space-y-3">
+              <div className="text-[#777] text-4xl font-black">01</div>
+              <h2 className="text-white font-bold uppercase tracking-widest text-xs">
+                Identity Verification
+              </h2>
+              <p className="text-[11px] text-[#999] leading-relaxed text-justify">
+                To maintain Whitehat ethics, we must verify you are the legitimate owner. We require cryptographic proof (First Tx Hash or CEX Receipt) to ensure we are rescuing funds for the victim.
+              </p>
+            </div>
+
+            {/* Step 02 */}
+            <div className="space-y-3">
+              <div className="text-[#777] text-4xl font-black">02</div>
+              <h2 className="text-white font-bold uppercase tracking-widest text-xs">
+                Secure Simulation
+              </h2>
+              <p className="text-[11px] text-[#999] leading-relaxed text-justify">
+                We analyze the sweeper bot&apos;s behavior on the compromised wallet. Your private key is encrypted client-side and used only in a sandboxed environment to simulate the extraction transaction without broadcasting it.
+              </p>
+            </div>
+
+            {/* Step 03 */}
+            <div className="space-y-3">
+              <div className="text-[#777] text-4xl font-black">03</div>
+              <h2 className="text-white font-bold uppercase tracking-widest text-xs">
+                Asset Rescue
+              </h2>
+              <p className="text-[11px] text-[#999] leading-relaxed text-justify">
+                Once verified, our system automatically bundles and transfers your assets to the safe wallet address you provide. This happens instantly, ensuring the malicious bot cannot intercept the funds.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        {/* --- RIGHT PANEL: DESKTOP ONLY --- */}
+        <div className="hidden lg:flex lg:col-span-4 bg-[#080808] relative flex-col justify-center p-8 md:p-12 lg:border-l border-[#1a1a1a]">
+          {/* Grid Overlay */}
+          <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:2rem_2rem] opacity-50 pointer-events-none"></div>
+
+          <div className="relative z-10 w-full max-w-sm mx-auto">
+            <LoginPanel onLogin={handleSocialLogin} />
+          </div>
+        </div>
+
+      </div>
+
+      {/* --- BOTTOM FOOTER STRIP --- */}
+      <footer className="relative z-20 border-t border-[#1a1a1a] bg-[#050505] py-4 px-6 md:px-8 flex flex-col md:flex-row justify-between items-center text-[9px] text-[#888] tracking-[0.2em] shrink-0 gap-2 md:gap-0">
+        <div>ETH ISTANBUL // BLOCKCHAIN FORENSICS</div>
+        <div className="flex items-center gap-6">
+          <Link href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+            TWITTER
+          </Link>
+          <Link href="mailto:contact@codeesura.dev" className="hover:text-white transition-colors">
+            CONTACT@CODEESURA.DEV
+          </Link>
+        </div>
+        <div className="flex items-center gap-4">
+          {terminalId && <span>SID: <span className="text-white">{terminalId}</span></span>}
+          <span>ALL_SYSTEMS_GO</span>
+        </div>
+      </footer>
+
+    </main>
+  )
+}
+
+function LoginPanel({ onLogin }: { onLogin: (provider: 'twitter' | 'discord') => void }) {
+  return (
+    <div className="space-y-8">
+      <div className="border-l-2 border-white pl-6 py-2">
+        <h2 className="text-xl font-bold text-white tracking-widest uppercase">
+          Initiate Rescue
+        </h2>
+        <p className="text-[10px] text-[#555] uppercase mt-1">
+          Secure Whitehat Portal Access
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        <button
+          onClick={() => onLogin('twitter')}
+          className="w-full bg-[#050505] border border-[#222] text-[#888] hover:text-white hover:border-white hover:bg-black py-5 px-6 flex items-center justify-between transition-all duration-300 group cursor-pointer"
+        >
+          <span className="flex items-center gap-3 font-bold text-[10px] tracking-[0.2em] uppercase">
+            <Image src="/twitter.svg" alt="X" width={16} height={16} className="w-4 h-4 invert opacity-70 group-hover:opacity-100 transition-opacity" /> Connect X.com
+          </span>
+          <span className="text-xs opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all">→</span>
+        </button>
+
+        <button
+          onClick={() => onLogin('discord')}
+          className="w-full bg-[#050505] border border-[#222] text-[#888] hover:text-white hover:border-white hover:bg-black py-5 px-6 flex items-center justify-between transition-all duration-300 group cursor-pointer"
+        >
+          <span className="flex items-center gap-3 font-bold text-[10px] tracking-[0.2em] uppercase">
+            <Image src="/discord.svg" alt="Discord" width={16} height={16} className="w-4 h-4 invert opacity-70 group-hover:opacity-100 transition-opacity" /> Connect Discord
+          </span>
+          <span className="text-xs opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all">→</span>
+        </button>
+      </div>
+
+      <p className="text-[9px] text-[#333] uppercase leading-relaxed text-center">
+        Secure connection established. <br /> Authenticated sessions only.
+      </p>
     </div>
-  );
+  )
 }
