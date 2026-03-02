@@ -33,16 +33,16 @@ export default function WhitehatTerminalPage() {
     <main className="min-h-screen lg:h-screen w-full bg-[#050505] text-[#e5e5e5] font-mono selection:bg-white selection:text-black relative flex flex-col overflow-x-hidden lg:overflow-hidden">
 
       {/* --- BACKGROUND FX --- */}
-      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0 bg-[url('data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20256%20256%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.7%22%20numOctaves%3D%224%22%20stitchTiles%3D%22stitch%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url(%23n)%22%2F%3E%3C%2Fsvg%3E')]"></div>
       <div className="fixed inset-0 z-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
       {/* --- HEADER BAR --- */}
       <header className="relative z-20 w-full px-6 py-5 md:px-8 md:py-6 border-b border-[#1a1a1a] bg-[#050505]/80 backdrop-blur-md flex justify-between items-center shrink-0">
-        <div className="flex items-center gap-4 text-[10px] md:text-xs tracking-[0.3em] text-[#555] uppercase">
+        <div className="flex items-center gap-4 text-[10px] md:text-xs tracking-[0.3em] text-[#999] uppercase">
           <span className="w-6 md:w-8 h-[1px] bg-[#333]"></span>
           <span className="text-white font-bold">CODEESURA // V2</span>
         </div>
-        <div className="hidden md:flex items-center gap-3 text-[10px] text-[#444] tracking-widest uppercase">
+        <div className="hidden md:flex items-center gap-3 text-[10px] text-[#aaa] tracking-widest uppercase">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
             SYSTEM: ONLINE
@@ -60,10 +60,10 @@ export default function WhitehatTerminalPage() {
           <div className="mb-8 lg:mb-12 mt-4 lg:mt-auto">
             <h1 className="text-5xl sm:text-6xl md:text-8xl xl:text-9xl font-black tracking-[-0.05em] text-white leading-[0.9] md:leading-[0.85] mb-6">
               WHITEHAT <br />
-              <span className="text-[#222] hover:text-[#333] transition-colors cursor-default">RESCUE OPS.</span>
+              <span className="text-[#222] hover:text-[#999] transition-colors cursor-default">RESCUE OPS.</span>
             </h1>
-            <p className="text-base md:text-xl text-[#888] font-light max-w-2xl leading-relaxed">
-              Compromised keys don&apos;t mean total loss. We execute <span className="text-white">counter-sweeper strategies</span> across all EVM chains. From locked staking positions to vesting airdrops, we extract assets before malicious bots can react.
+            <p className="text-base md:text-xl text-[#aaa] font-light max-w-2xl leading-relaxed">
+              A compromised key doesn&apos;t mean total loss. I specialize in <span className="text-white">rescuing assets from sweeper-compromised wallets</span> across all EVM chains — including locked staking positions, pending airdrops, and vesting contracts.
             </p>
           </div>
 
@@ -77,34 +77,34 @@ export default function WhitehatTerminalPage() {
 
             {/* Step 01 */}
             <div className="space-y-3">
-              <div className="text-[#777] text-4xl font-black">01</div>
+              <div className="text-[#999] text-4xl font-black">01</div>
               <h2 className="text-white font-bold uppercase tracking-widest text-xs">
-                Identity Verification
+                Submit Your Wallet
               </h2>
               <p className="text-[11px] text-[#999] leading-relaxed text-justify">
-                To maintain Whitehat ethics, we must verify you are the legitimate owner. We require cryptographic proof (First Tx Hash or CEX Receipt) to ensure we are rescuing funds for the victim.
+                Provide the private key of your compromised wallet. The key is <span className="text-white">encrypted on the server</span> before storage and cannot be read by anyone except me. Your wallet address is automatically derived from the key.
               </p>
             </div>
 
             {/* Step 02 */}
             <div className="space-y-3">
-              <div className="text-[#777] text-4xl font-black">02</div>
+              <div className="text-[#999] text-4xl font-black">02</div>
               <h2 className="text-white font-bold uppercase tracking-widest text-xs">
-                Secure Simulation
+                Ownership Verification
               </h2>
               <p className="text-[11px] text-[#999] leading-relaxed text-justify">
-                We analyze the sweeper bot&apos;s behavior on the compromised wallet. Your private key is encrypted client-side and used only in a sandboxed environment to simulate the extraction transaction without broadcasting it.
+                The first funding transaction of your wallet is automatically traced across all EVM chains. If it was funded from a known exchange, you&apos;ll be asked to upload the original withdrawal email (.eml) for <span className="text-white">cryptographic verification</span>.
               </p>
             </div>
 
             {/* Step 03 */}
             <div className="space-y-3">
-              <div className="text-[#777] text-4xl font-black">03</div>
+              <div className="text-[#999] text-4xl font-black">03</div>
               <h2 className="text-white font-bold uppercase tracking-widest text-xs">
                 Asset Rescue
               </h2>
               <p className="text-[11px] text-[#999] leading-relaxed text-justify">
-                Once verified, our system automatically bundles and transfers your assets to the safe wallet address you provide. This happens instantly, ensuring the malicious bot cannot intercept the funds.
+                Once ownership is confirmed, a counter-sweeper strategy is executed to extract your assets — staked tokens, pending airdrops, vesting contracts — and transfer them to your designated safe wallet before the malicious bot can react.
               </p>
             </div>
 
@@ -124,7 +124,7 @@ export default function WhitehatTerminalPage() {
       </div>
 
       {/* --- BOTTOM FOOTER STRIP --- */}
-      <footer className="relative z-20 border-t border-[#1a1a1a] bg-[#050505] py-4 px-6 md:px-8 flex flex-col md:flex-row justify-between items-center text-[9px] text-[#888] tracking-[0.2em] shrink-0 gap-2 md:gap-0">
+      <footer className="relative z-20 border-t border-[#1a1a1a] bg-[#050505] py-4 px-6 md:px-8 flex flex-col md:flex-row justify-between items-center text-[9px] text-[#aaa] tracking-[0.2em] shrink-0 gap-2 md:gap-0">
         <div>ETH ISTANBUL // BLOCKCHAIN FORENSICS</div>
         <div className="flex items-center gap-6">
           <Link href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
@@ -151,7 +151,7 @@ function LoginPanel({ onLogin }: { onLogin: (provider: 'twitter' | 'discord') =>
         <h2 className="text-xl font-bold text-white tracking-widest uppercase">
           Initiate Rescue
         </h2>
-        <p className="text-[10px] text-[#555] uppercase mt-1">
+        <p className="text-[10px] text-[#999] uppercase mt-1">
           Secure Whitehat Portal Access
         </p>
       </div>
@@ -159,7 +159,7 @@ function LoginPanel({ onLogin }: { onLogin: (provider: 'twitter' | 'discord') =>
       <div className="space-y-4">
         <button
           onClick={() => onLogin('twitter')}
-          className="w-full bg-[#050505] border border-[#222] text-[#888] hover:text-white hover:border-white hover:bg-black py-5 px-6 flex items-center justify-between transition-all duration-300 group cursor-pointer"
+          className="w-full bg-[#050505] border border-[#222] text-[#aaa] hover:text-white hover:border-white hover:bg-black py-5 px-6 flex items-center justify-between transition-all duration-300 group cursor-pointer"
         >
           <span className="flex items-center gap-3 font-bold text-[10px] tracking-[0.2em] uppercase">
             <Image src="/twitter.svg" alt="X" width={16} height={16} className="w-4 h-4 invert opacity-70 group-hover:opacity-100 transition-opacity" /> Connect X.com
@@ -169,7 +169,7 @@ function LoginPanel({ onLogin }: { onLogin: (provider: 'twitter' | 'discord') =>
 
         <button
           onClick={() => onLogin('discord')}
-          className="w-full bg-[#050505] border border-[#222] text-[#888] hover:text-white hover:border-white hover:bg-black py-5 px-6 flex items-center justify-between transition-all duration-300 group cursor-pointer"
+          className="w-full bg-[#050505] border border-[#222] text-[#aaa] hover:text-white hover:border-white hover:bg-black py-5 px-6 flex items-center justify-between transition-all duration-300 group cursor-pointer"
         >
           <span className="flex items-center gap-3 font-bold text-[10px] tracking-[0.2em] uppercase">
             <Image src="/discord.svg" alt="Discord" width={16} height={16} className="w-4 h-4 invert opacity-70 group-hover:opacity-100 transition-opacity" /> Connect Discord
@@ -178,8 +178,8 @@ function LoginPanel({ onLogin }: { onLogin: (provider: 'twitter' | 'discord') =>
         </button>
       </div>
 
-      <p className="text-[9px] text-[#333] uppercase leading-relaxed text-center">
-        Secure connection established. <br /> Authenticated sessions only.
+      <p className="text-[9px] text-[#999] uppercase leading-relaxed text-center">
+        Encrypted session established. <br /> All credentials are securely protected.
       </p>
     </div>
   )

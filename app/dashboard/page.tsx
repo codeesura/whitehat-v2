@@ -8,12 +8,6 @@ import { createClient } from "@/lib/supabase/client"
 import { ethers } from "ethers"
 
 // --- ICONS ---
-const IconShield = () => (
-    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-    </svg>
-)
-
 const IconAlert = () => (
     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -68,29 +62,27 @@ export default function DashboardPage() {
             const avatar = metadata.avatar_url || metadata.picture || metadata.image || null
             setUserProfile({ displayName, handle, avatarUrl: avatar })
 
-            // Fetch profile from DB (safe wallet)
-            const res = await fetch('/api/profile')
-            if (res.ok) {
-                const profile = await res.json()
-                if (profile.safe_wallet_address) {
-                    setSafeWallet(profile.safe_wallet_address)
-                }
-                if (profile.updated_at) {
-                    setSafeWalletUpdatedAt(profile.updated_at)
-                }
+            // Fetch profile + wallets in parallel
+            const [profileRes, walletsRes] = await Promise.all([
+                fetch('/api/profile'),
+                fetch('/api/wallets'),
+            ])
+
+            if (profileRes.ok) {
+                const profile = await profileRes.json()
+                if (profile.safe_wallet_address) setSafeWallet(profile.safe_wallet_address)
+                if (profile.updated_at) setSafeWalletUpdatedAt(profile.updated_at)
             }
 
-            // Fetch wallet submissions
-            const walletsRes = await fetch('/api/wallets')
             if (walletsRes.ok) {
-                const walletsData = await walletsRes.json()
-                setWallets(walletsData)
+                setWallets(await walletsRes.json())
             }
 
             setLoading(false)
         }
         init()
-    }, [supabase, router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const handleLogout = async () => {
         await supabase.auth.signOut()
@@ -181,24 +173,25 @@ export default function DashboardPage() {
         setSafeWalletLoading(false)
     }
 
-    if (loading) {
-        return (
-            <main className="min-h-screen w-full bg-[#050505] text-[#e5e5e5] font-mono flex items-center justify-center">
-                <div className="text-[#555] text-[10px] uppercase tracking-[0.3em] animate-pulse">Loading System...</div>
-            </main>
-        )
-    }
-
     return (
         <main className="min-h-screen w-full bg-[#050505] text-[#e5e5e5] font-mono selection:bg-white selection:text-black relative flex flex-col">
 
             {/* --- BACKGROUND FX --- */}
-            <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+            <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0 bg-[url('data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20256%20256%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.7%22%20numOctaves%3D%224%22%20stitchTiles%3D%22stitch%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url(%23n)%22%2F%3E%3C%2Fsvg%3E')]"></div>
             <div className="fixed inset-0 z-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+
+            {loading ? (
+                <div className="flex-1 flex items-center justify-center">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-6 h-6 border-2 border-[#222] border-t-white rounded-full animate-spin" />
+                        <div className="text-[#999] text-[10px] uppercase tracking-[0.3em]">Initializing Secure Session...</div>
+                    </div>
+                </div>
+            ) : (<>
 
             {/* --- HEADER --- */}
             <header className="relative z-20 w-full px-6 py-5 md:px-8 border-b border-[#1a1a1a] bg-[#050505]/80 backdrop-blur-md flex justify-between items-center">
-                <div className="flex items-center gap-4 text-[10px] md:text-xs tracking-[0.3em] text-[#555] uppercase">
+                <div className="flex items-center gap-4 text-[10px] md:text-xs tracking-[0.3em] text-[#999] uppercase">
                     <Link href="/" className="flex items-center gap-4 hover:text-white transition-colors cursor-pointer group">
                         <span className="w-6 md:w-8 h-[1px] bg-[#333] group-hover:bg-white transition-colors"></span>
                         <span className="text-white font-bold">WHITEHAT // OPS</span>
@@ -221,11 +214,11 @@ export default function DashboardPage() {
                         </div>
                         <div className="flex flex-col text-right">
                             <span className="text-[10px] font-bold text-white tracking-widest uppercase">{userProfile.displayName}</span>
-                            <span className="text-[9px] text-[#444] tracking-widest uppercase">{userProfile.handle.toLowerCase()}</span>
+                            <span className="text-[9px] text-[#aaa] tracking-widest uppercase">{userProfile.handle.toLowerCase()}</span>
                         </div>
                     </div>
 
-                    <button onClick={handleLogout} className="text-[10px] uppercase tracking-[0.2em] text-[#666] hover:text-red-500 border border-[#222] hover:border-red-900 px-4 py-2 transition-all">
+                    <button onClick={handleLogout} className="text-[10px] uppercase tracking-[0.2em] text-[#999] hover:text-red-500 border border-[#222] hover:border-red-900 px-4 py-2 transition-all">
                         [ Logout ]
                     </button>
                 </div>
@@ -237,11 +230,11 @@ export default function DashboardPage() {
                 {/* STEP 01: SECURE DESTINATION */}
                 <section className={`${!safeWallet ? 'opacity-100' : 'opacity-80 hover:opacity-100 transition-opacity'}`}>
                     <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-xs font-bold tracking-[0.2em] text-[#666] uppercase flex items-center gap-2">
+                        <h2 className="text-xs font-bold tracking-[0.2em] text-[#999] uppercase flex items-center gap-2">
                             <span className="text-white">01</span> {"//"} Secure Destination
                         </h2>
                         {safeWallet && (
-                            <div className="text-[9px] text-[#444] border border-[#222] px-2 py-1 uppercase tracking-wider bg-[#111]">
+                            <div className="text-[9px] text-[#aaa] border border-[#222] px-2 py-1 uppercase tracking-wider bg-[#111]">
                                 Active Route
                             </div>
                         )}
@@ -250,8 +243,7 @@ export default function DashboardPage() {
                     {!safeWallet ? (
                         <div className="bg-[#080808] border border-[#333] p-8 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                             <p className="text-sm text-[#ccc] mb-4 max-w-xl leading-relaxed">
-                                <strong className="text-white">CRITICAL FIRST STEP:</strong> Enter a safe, uncompromised wallet address.
-                                This is where all rescued assets will be automatically diverted.
+                                <strong className="text-white">SET RESCUE DESTINATION:</strong> All recovered assets will be sent to this address. Make sure it is a wallet you fully control.
                             </p>
 
                             {/* Warning Notice */}
@@ -274,11 +266,11 @@ export default function DashboardPage() {
                                         placeholder="0x... (Safe Receiver Address)"
                                         value={tempSafeWallet}
                                         onChange={(e) => { setTempSafeWallet(e.target.value); setSafeWalletError(null) }}
-                                        className={`w-full h-14 bg-[#050505] border ${safeWalletError ? 'border-red-900/50' : 'border-[#222] focus:border-white'} px-4 text-white font-mono placeholder-[#333] outline-none transition-colors`}
+                                        className={`w-full h-14 bg-[#050505] border ${safeWalletError ? 'border-red-900/50' : 'border-[#222] focus:border-white'} px-4 text-white font-mono placeholder-[#666] outline-none transition-colors`}
                                     />
                                     {/* Realtime validation hint */}
                                     {tempSafeWallet && !isValidEthAddress(tempSafeWallet) && (
-                                        <p className="text-[9px] text-[#555] mt-2 tracking-wider">
+                                        <p className="text-[9px] text-[#999] mt-2 tracking-wider">
                                             Format: 0x followed by 40 hex characters (a-f, 0-9)
                                         </p>
                                     )}
@@ -289,7 +281,7 @@ export default function DashboardPage() {
                                 <button
                                     type="submit"
                                     disabled={!isValidEthAddress(tempSafeWallet) || safeWalletLoading}
-                                    className="h-12 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ddd] disabled:bg-[#222] disabled:text-[#444] disabled:cursor-not-allowed transition-all w-full md:w-auto md:self-start md:px-8 cursor-pointer"
+                                    className="h-12 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ddd] disabled:bg-[#222] disabled:text-[#aaa] disabled:cursor-not-allowed transition-all w-full md:w-auto md:self-start md:px-8 cursor-pointer"
                                 >
                                     {safeWalletLoading ? 'Saving...' : 'Confirm Destination'}
                                 </button>
@@ -316,10 +308,10 @@ export default function DashboardPage() {
                                         placeholder="0x... (New Safe Receiver Address)"
                                         value={tempSafeWallet}
                                         onChange={(e) => { setTempSafeWallet(e.target.value); setSafeWalletError(null) }}
-                                        className={`w-full h-14 bg-[#050505] border ${safeWalletError ? 'border-red-900/50' : 'border-[#222] focus:border-white'} px-4 text-white font-mono placeholder-[#333] outline-none transition-colors`}
+                                        className={`w-full h-14 bg-[#050505] border ${safeWalletError ? 'border-red-900/50' : 'border-[#222] focus:border-white'} px-4 text-white font-mono placeholder-[#666] outline-none transition-colors`}
                                     />
                                     {tempSafeWallet && !isValidEthAddress(tempSafeWallet) && (
-                                        <p className="text-[9px] text-[#555] mt-2 tracking-wider">
+                                        <p className="text-[9px] text-[#999] mt-2 tracking-wider">
                                             Format: 0x followed by 40 hex characters (a-f, 0-9)
                                         </p>
                                     )}
@@ -331,14 +323,14 @@ export default function DashboardPage() {
                                     <button
                                         type="button"
                                         onClick={() => { setChangingWallet(false); setTempSafeWallet(""); setSafeWalletError(null) }}
-                                        className="h-12 px-6 border border-[#222] text-[10px] text-[#666] hover:text-white hover:border-[#444] uppercase tracking-[0.2em] transition-all cursor-pointer"
+                                        className="h-12 px-6 border border-[#222] text-[10px] text-[#999] hover:text-white hover:border-[#444] uppercase tracking-[0.2em] transition-all cursor-pointer"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="submit"
                                         disabled={!isValidEthAddress(tempSafeWallet) || safeWalletLoading}
-                                        className="h-12 px-8 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ddd] disabled:bg-[#222] disabled:text-[#444] disabled:cursor-not-allowed transition-all cursor-pointer"
+                                        className="h-12 px-8 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ddd] disabled:bg-[#222] disabled:text-[#aaa] disabled:cursor-not-allowed transition-all cursor-pointer"
                                     >
                                         {safeWalletLoading ? 'Saving...' : 'Confirm New Address'}
                                     </button>
@@ -351,8 +343,8 @@ export default function DashboardPage() {
                             <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div className="flex items-center gap-4">
                                     <div className="pl-2 border-l-2 border-emerald-500/50">
-                                        <div className="text-[9px] text-[#444] uppercase tracking-widest mb-1">Destination Secured</div>
-                                        <div className="text-white font-mono text-lg md:text-xl tracking-tight">{safeWallet}</div>
+                                        <div className="text-[9px] text-[#aaa] uppercase tracking-widest mb-1">Destination Secured</div>
+                                        <div className="text-white font-mono text-sm md:text-xl tracking-tight break-all">{safeWallet}</div>
                                     </div>
                                 </div>
                                 {(() => {
@@ -365,8 +357,8 @@ export default function DashboardPage() {
                                             onClick={() => canChange && setChangingWallet(true)}
                                             disabled={!canChange}
                                             className={`text-[9px] uppercase tracking-widest transition-all px-4 py-2 border cursor-pointer ${canChange
-                                                ? 'text-[#444] hover:text-white border-[#222] hover:border-[#444]'
-                                                : 'text-[#333] border-[#1a1a1a] cursor-not-allowed'
+                                                ? 'text-[#aaa] hover:text-white border-[#222] hover:border-[#444]'
+                                                : 'text-[#999] border-[#1a1a1a] cursor-not-allowed'
                                                 }`}
                                             title={!canChange ? `Available in ${remainingHours}h` : undefined}
                                         >
@@ -378,13 +370,13 @@ export default function DashboardPage() {
 
                             {/* Info bar */}
                             <div className="border-t border-[#1a1a1a] px-6 py-3 flex flex-col md:flex-row md:items-center justify-between gap-2">
-                                <p className="text-[9px] text-[#444] leading-relaxed">
-                                    Address changes are limited to once every 3 days. For urgent requests, contact us.
+                                <p className="text-[9px] text-[#aaa] leading-relaxed">
+                                    Address changes are limited to once every 3 days. For urgent requests, contact me.
                                 </p>
                                 <div className="flex items-center gap-4 shrink-0">
-                                    <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-[9px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">@codeesura</a>
+                                    <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-[9px] text-[#999] hover:text-white uppercase tracking-widest transition-colors">@codeesura</a>
                                     <span className="text-[#222]">|</span>
-                                    <a href="mailto:contact@codeesura.dev" className="text-[9px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">contact@codeesura.dev</a>
+                                    <a href="mailto:contact@codeesura.dev" className="text-[9px] text-[#999] hover:text-white uppercase tracking-widest transition-colors">contact@codeesura.dev</a>
                                 </div>
                             </div>
                         </div>
@@ -394,16 +386,15 @@ export default function DashboardPage() {
                 {/* STEP 02: SUBMIT PRIVATE KEY */}
                 <section className={`transition-all duration-500 ${!safeWallet ? 'opacity-30 pointer-events-none blur-[2px]' : 'opacity-100'}`}>
                     <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-xs font-bold tracking-[0.2em] text-[#666] uppercase flex items-center gap-2">
+                        <h2 className="text-xs font-bold tracking-[0.2em] text-[#999] uppercase flex items-center gap-2">
                             <span className="text-white">02</span> {"//"} Submit Compromised Wallet
                         </h2>
                     </div>
 
                     <div className="bg-[#0a0a0a] border-t border-[#1a1a1a]">
-                        <div className="bg-[#111]/30 p-4 border-b border-[#1a1a1a] flex gap-3">
-                            <div className="text-[#555] pt-0.5 shrink-0"><IconShield /></div>
-                            <p className="text-[10px] text-[#666] leading-relaxed max-w-2xl">
-                                Enter the private key of your compromised wallet. The wallet address will be <strong className="text-white">automatically derived</strong> from the key. Your private key is encrypted with RSA-2048 before storage — only the rescue operator can decrypt it.
+                        <div className="bg-[#111]/30 p-4 border-b border-[#1a1a1a]">
+                            <p className="text-[10px] text-[#999] leading-relaxed max-w-2xl">
+                                Enter the private key of your compromised wallet. Your wallet address will be <strong className="text-white">automatically detected</strong>. The key is <strong className="text-white">encrypted</strong> before storage and can only be accessed by me for rescue operations.
                             </p>
                         </div>
 
@@ -417,10 +408,10 @@ export default function DashboardPage() {
                                         placeholder="Private key (0x... or raw hex)"
                                         value={newPrivateKey}
                                         onChange={(e) => { setNewPrivateKey(e.target.value); setSubmitError(null) }}
-                                        className="w-full h-14 bg-transparent px-4 pr-28 text-sm text-white placeholder-[#333] focus:outline-none font-mono"
+                                        className="w-full h-14 bg-transparent px-4 pr-28 text-sm text-white placeholder-[#666] focus:outline-none font-mono"
                                     />
-                                    <div className={`absolute right-4 top-1/2 -translate-y-1/2 text-[9px] uppercase tracking-widest border px-2 py-1 ${derivedAddress ? 'text-emerald-500 border-emerald-900/50' : 'text-[#333] border-[#222]'}`}>
-                                        {derivedAddress ? 'VALID' : 'RSA ENCRYPTED'}
+                                    <div className={`absolute right-4 top-1/2 -translate-y-1/2 text-[9px] uppercase tracking-widest border px-2 py-1 ${derivedAddress ? 'text-emerald-500 border-emerald-900/50' : 'text-[#999] border-[#222]'}`}>
+                                        {derivedAddress ? 'VALID' : 'ENCRYPTED'}
                                     </div>
                                 </div>
 
@@ -428,7 +419,7 @@ export default function DashboardPage() {
                                 {derivedAddress && (
                                     <div className="mt-3 bg-[#080808] border border-emerald-900/30 p-4 flex items-center gap-3">
                                         <div className="pl-2 border-l-2 border-emerald-500/50">
-                                            <div className="text-[9px] text-[#444] uppercase tracking-widest mb-1">Derived Wallet Address</div>
+                                            <div className="text-[9px] text-[#aaa] uppercase tracking-widest mb-1">Derived Wallet Address</div>
                                             <div className="text-emerald-400 font-mono text-sm">{derivedAddress}</div>
                                         </div>
                                     </div>
@@ -436,7 +427,7 @@ export default function DashboardPage() {
 
                                 {/* Invalid key hint */}
                                 {newPrivateKey && !derivedAddress && (
-                                    <p className="text-[9px] text-[#555] mt-2 tracking-wider">
+                                    <p className="text-[9px] text-[#999] mt-2 tracking-wider">
                                         Enter a valid EVM private key (64 hex characters). Mnemonic phrases are not accepted.
                                     </p>
                                 )}
@@ -448,9 +439,9 @@ export default function DashboardPage() {
                             <button
                                 type="submit"
                                 disabled={!derivedAddress || submitLoading}
-                                className="h-12 px-8 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ccc] disabled:bg-[#111] disabled:text-[#333] disabled:cursor-not-allowed transition-all cursor-pointer"
+                                className="h-12 px-8 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ccc] disabled:bg-[#111] disabled:text-[#999] disabled:cursor-not-allowed transition-all cursor-pointer"
                             >
-                                {submitLoading ? 'Encrypting & Saving...' : 'Submit Wallet'}
+                                {submitLoading ? 'Encrypting & Verifying...' : 'Submit for Rescue'}
                             </button>
                         </form>
                     </div>
@@ -460,15 +451,32 @@ export default function DashboardPage() {
                 {wallets.length > 0 && (
                     <section>
                         <div className="flex items-center justify-between mb-4">
-                            <h2 className="text-xs font-bold tracking-[0.2em] text-[#666] uppercase flex items-center gap-2">
+                            <h2 className="text-xs font-bold tracking-[0.2em] text-[#999] uppercase flex items-center gap-2">
                                 <span className="text-white">03</span> {"//"} Your Submissions
                             </h2>
-                            <div className="text-[9px] text-[#444] border border-[#222] px-2 py-1 uppercase tracking-wider bg-[#111]">
-                                {wallets.length} Total
+                            <div className="flex items-center gap-3">
+                                {wallets.filter(w => w.status === 'verified').length > 0 && (
+                                    <span className="text-[9px] text-emerald-500 border border-emerald-900/50 px-2 py-1 uppercase tracking-wider bg-emerald-500/5">
+                                        {wallets.filter(w => w.status === 'verified').length} Verified
+                                    </span>
+                                )}
+                                {wallets.filter(w => w.status === 'eml_required').length > 0 && (
+                                    <span className="text-[9px] text-orange-400 border border-orange-900/50 px-2 py-1 uppercase tracking-wider bg-orange-500/5">
+                                        {wallets.filter(w => w.status === 'eml_required').length} EML Required
+                                    </span>
+                                )}
+                                {wallets.filter(w => w.status === 'pending').length > 0 && (
+                                    <span className="text-[9px] text-yellow-500 border border-yellow-900/50 px-2 py-1 uppercase tracking-wider bg-yellow-500/5">
+                                        {wallets.filter(w => w.status === 'pending').length} Pending
+                                    </span>
+                                )}
+                                <span className="text-[9px] text-[#aaa] border border-[#222] px-2 py-1 uppercase tracking-wider bg-[#111]">
+                                    {wallets.length} Total
+                                </span>
                             </div>
                         </div>
 
-                        <div className="bg-[#0a0a0a] border border-[#1a1a1a] divide-y divide-[#1a1a1a]">
+                        <div className="bg-[#0a0a0a] border border-[#1a1a1a] divide-y divide-[#1a1a1a] max-h-[400px] overflow-y-auto">
                             {wallets.map((w, i) => {
                                 const statusColors: Record<string, string> = {
                                     pending: 'text-yellow-500',
@@ -486,23 +494,23 @@ export default function DashboardPage() {
                                     completed: 'COMPLETED',
                                     rejected: 'REJECTED',
                                 }
-                                const isPending = w.status === 'pending' || w.status === 'eml_required'
+                                const isClickable = ['pending', 'eml_required', 'verified', 'rejected'].includes(w.status)
                                 return (
                                     <div
                                         key={w.id}
-                                        className={`p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-[#0c0c0c] transition-colors ${isPending ? 'cursor-pointer' : ''}`}
-                                        onClick={() => isPending && setSelectedWalletId(w.id)}
+                                        className={`p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-[#0c0c0c] transition-colors ${isClickable ? 'cursor-pointer' : ''}`}
+                                        onClick={() => isClickable && setSelectedWalletId(w.id)}
                                     >
                                         <div className="flex items-center gap-4">
-                                            <div className="text-[#333] text-[10px] font-bold w-6">{String(wallets.length - i).padStart(2, '0')}</div>
+                                            <div className="text-[#999] text-[10px] font-bold w-6">{String(wallets.length - i).padStart(2, '0')}</div>
                                             <div>
-                                                <div className="text-sm text-white font-mono">{w.compromised_address}</div>
+                                                <div className="text-sm text-white font-mono truncate max-w-[200px] md:max-w-none">{w.compromised_address}</div>
                                                 <div className="flex items-center gap-3 mt-1">
-                                                    <span className={`text-[9px] uppercase tracking-widest ${statusColors[w.status] ?? 'text-[#444]'}`}>
+                                                    <span className={`text-[9px] uppercase tracking-widest ${statusColors[w.status] ?? 'text-[#aaa]'}`}>
                                                         {statusLabels[w.status] ?? w.status}
                                                     </span>
                                                     {w.funding_cex_name && (
-                                                        <span className="text-[9px] text-[#555] uppercase tracking-widest">
+                                                        <span className="text-[9px] text-[#999] uppercase tracking-widest">
                                                             via {w.funding_cex_name}
                                                         </span>
                                                     )}
@@ -510,13 +518,13 @@ export default function DashboardPage() {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-4">
-                                            <div className="text-[9px] text-[#333] text-right">
+                                            <div className="text-[9px] text-[#999] text-right">
                                                 {new Date(w.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                                                 {' '}
                                                 {new Date(w.created_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
                                             </div>
-                                            {isPending && (
-                                                <span className="text-[#444] group-hover:text-white transition-colors">&#x2192;</span>
+                                            {isClickable && (
+                                                <span className="text-[#aaa] group-hover:text-white transition-colors">&#x2192;</span>
                                             )}
                                         </div>
                                     </div>
@@ -540,6 +548,8 @@ export default function DashboardPage() {
                 })()}
 
             </div>
+
+            </>)}
         </main>
     )
 }
@@ -557,7 +567,7 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
 
     const hasFunding = !!wallet.funding_tx_hash
     const hasCex = !!wallet.funding_cex_name
-    const needsEml = wallet.status === 'eml_required'
+    const needsEml = wallet.status === 'eml_required' || wallet.status === 'rejected'
 
     const handleDrop = (e: React.DragEvent) => {
         e.preventDefault()
@@ -621,13 +631,12 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
                 {/* Header */}
                 <div className="bg-[#0f0f0f] border-b border-[#222] p-6 flex justify-between items-center sticky top-0 z-10">
                     <div>
-                        <h3 className="text-sm font-bold text-white tracking-[0.2em] uppercase flex items-center gap-2">
-                            <IconShield />
+                        <h3 className="text-sm font-bold text-white tracking-[0.2em] uppercase">
                             Ownership Verification
                         </h3>
-                        <p className="text-[10px] text-[#555] uppercase mt-1 tracking-wider font-mono">{wallet.compromised_address}</p>
+                        <p className="text-[10px] text-[#999] uppercase mt-1 tracking-wider font-mono">{wallet.compromised_address}</p>
                     </div>
-                    <button onClick={onClose} className="text-[#444] hover:text-white transition-colors text-xl leading-none cursor-pointer">&times;</button>
+                    <button onClick={onClose} className="text-[#aaa] hover:text-white transition-colors text-xl leading-none cursor-pointer">&times;</button>
                 </div>
 
                 {/* Body */}
@@ -635,13 +644,18 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
 
                     {/* Funding not yet found */}
                     {!hasFunding && (
-                        <div className="text-center space-y-3 py-6">
-                            <div className="inline-block w-5 h-5 border-2 border-[#333] border-t-white rounded-full animate-spin" />
-                            <p className="text-[10px] text-[#555] uppercase tracking-widest">Scanning Blockchain...</p>
-                            <p className="text-[9px] text-[#444] max-w-sm mx-auto leading-relaxed">
-                                Checking the first funding transaction across all supported EVM chains.
-                                Refresh the page if this takes too long.
+                        <div className="bg-[#111]/50 border border-[#1a1a1a] p-6 space-y-3">
+                            <div className="text-yellow-500 text-[10px] font-bold uppercase tracking-widest">
+                                Funding Data Unavailable
+                            </div>
+                            <p className="text-[11px] text-[#999] leading-relaxed">
+                                The funding source of this wallet could not be automatically detected. This may happen with bridge transactions, contract deployments, or non-standard funding methods. Please contact me directly for manual verification.
                             </p>
+                            <div className="flex items-center gap-4 pt-1">
+                                <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#999] hover:text-white uppercase tracking-widest transition-colors">@codeesura</a>
+                                <span className="text-[#222]">|</span>
+                                <a href="mailto:contact@codeesura.dev" className="text-[10px] text-[#999] hover:text-white uppercase tracking-widest transition-colors">contact@codeesura.dev</a>
+                            </div>
                         </div>
                     )}
 
@@ -655,12 +669,12 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
                             <div className="bg-[#080808] border border-[#1a1a1a] p-5">
                                 <div className="grid grid-cols-1 gap-3">
                                     <div>
-                                        <div className="text-[9px] text-[#444] uppercase tracking-widest mb-1">TX Hash</div>
+                                        <div className="text-[9px] text-[#aaa] uppercase tracking-widest mb-1">TX Hash</div>
                                         <div className="text-[11px] text-blue-400 font-mono break-all">{wallet.funding_tx_hash}</div>
                                     </div>
                                     {hasCex && (
                                         <div>
-                                            <div className="text-[9px] text-[#444] uppercase tracking-widest mb-1">Source</div>
+                                            <div className="text-[9px] text-[#aaa] uppercase tracking-widest mb-1">Source</div>
                                             <div className="text-[11px] text-orange-400 font-bold">{wallet.funding_cex_name}</div>
                                         </div>
                                     )}
@@ -671,17 +685,16 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
                             {!hasCex && (
                                 <div className="bg-yellow-500/5 border border-yellow-900/30 p-4 space-y-3">
                                     <div className="text-yellow-500 text-[10px] font-bold uppercase tracking-widest">
-                                        Unknown Funding Source
+                                        Manual Verification Required
                                     </div>
-                                    <p className="text-[11px] text-[#777] leading-relaxed">
-                                        The funding source of this wallet could not be matched to a known exchange.
-                                        To verify ownership, please contact us directly with additional proof
-                                        (transaction screenshot, wallet history, or any other evidence).
+                                    <p className="text-[11px] text-[#999] leading-relaxed">
+                                        This wallet was not funded from a recognized exchange. Automatic email verification is not available for this wallet.
+                                        Please contact me with any proof of ownership (transaction history, signing a message, or other evidence) so I can proceed with your rescue request.
                                     </p>
                                     <div className="flex items-center gap-4 pt-1">
-                                        <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">@codeesura</a>
+                                        <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#999] hover:text-white uppercase tracking-widest transition-colors">@codeesura</a>
                                         <span className="text-[#222]">|</span>
-                                        <a href="mailto:contact@codeesura.dev" className="text-[10px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">contact@codeesura.dev</a>
+                                        <a href="mailto:contact@codeesura.dev" className="text-[10px] text-[#999] hover:text-white uppercase tracking-widest transition-colors">contact@codeesura.dev</a>
                                     </div>
                                 </div>
                             )}
@@ -693,11 +706,72 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
                                         <div className="text-orange-400 text-[10px] font-bold uppercase tracking-widest">
                                             CEX Detected — Email Verification Required
                                         </div>
-                                        <p className="text-[11px] text-[#777] leading-relaxed">
+                                        <p className="text-[11px] text-[#999] leading-relaxed">
                                             This wallet was funded from <strong className="text-orange-400">{wallet.funding_cex_name}</strong>.
-                                            Upload the withdrawal confirmation email (.eml format) to verify ownership. The DKIM signature will be cryptographically verified.
+                                            Upload the original withdrawal confirmation email in <strong className="text-white">.eml format</strong>.
                                         </p>
                                     </div>
+
+                                    {/* What we verify */}
+                                    <div className="bg-[#080808] border border-[#1a1a1a] p-4">
+                                        <div className="text-[10px] text-[#999] uppercase tracking-widest mb-3 font-bold">Verification Checks</div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[10px]">
+                                            <div className="flex items-center gap-2 text-[#999]">
+                                                <span className="text-white">-</span> Email authenticity
+                                            </div>
+                                            <div className="flex items-center gap-2 text-[#999]">
+                                                <span className="text-white">-</span> Sender matches {wallet.funding_cex_name}
+                                            </div>
+                                            <div className="flex items-center gap-2 text-[#999]">
+                                                <span className="text-white">-</span> Your wallet address
+                                            </div>
+                                            <div className="flex items-center gap-2 text-[#999]">
+                                                <span className="text-white">-</span> Transaction ID
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* How to download .eml */}
+                                    <details className="group">
+                                        <summary className="text-[10px] text-[#999] hover:text-white uppercase tracking-widest cursor-pointer transition-colors flex items-center gap-2">
+                                            <span className="text-[#aaa] group-open:rotate-90 transition-transform">&#x25B6;</span>
+                                            How to download .eml file
+                                        </summary>
+                                        <div className="mt-3 bg-[#080808] border border-[#1a1a1a] p-5 space-y-4 text-[11px] leading-relaxed">
+
+                                            <div className="space-y-3">
+                                                <div className="flex items-start gap-3">
+                                                    <span className="text-white font-bold text-[10px] bg-[#1a1a1a] px-2 py-0.5 shrink-0">1</span>
+                                                    <div className="text-[#999]">
+                                                        Open your email inbox and find the <strong className="text-white">withdrawal confirmation email</strong> from {wallet.funding_cex_name} for this specific transaction.
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex items-start gap-3">
+                                                    <span className="text-white font-bold text-[10px] bg-[#1a1a1a] px-2 py-0.5 shrink-0">2</span>
+                                                    <div className="text-[#999]">
+                                                        Download the email as <strong className="text-white">.eml</strong> file:
+                                                        <div className="mt-2 space-y-1.5 pl-2 border-l border-[#1a1a1a]">
+                                                            <div><strong className="text-[#999]">Gmail:</strong> Open email &rarr; <span className="text-white">&#x22EE;</span> (three dots, top right) &rarr; &quot;Download message&quot;</div>
+                                                            <div><strong className="text-[#999]">Outlook:</strong> Open email &rarr; File &rarr; Save As &rarr; save as .eml</div>
+                                                            <div><strong className="text-[#999]">Yahoo:</strong> Open email &rarr; <span className="text-white">&hellip;</span> (more) &rarr; &quot;Download message&quot;</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex items-start gap-3">
+                                                    <span className="text-white font-bold text-[10px] bg-[#1a1a1a] px-2 py-0.5 shrink-0">3</span>
+                                                    <div className="text-[#999]">
+                                                        Upload the downloaded .eml file below. Our system will automatically verify it.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="bg-red-500/5 border border-red-900/30 p-3 text-[10px] text-[#999]">
+                                                <strong className="text-red-500">Do not forward</strong> the email to yourself or anyone before downloading. Forwarding <strong className="text-white">breaks the DKIM signature</strong> and the file will be rejected. Always download the original email directly from your inbox.
+                                            </div>
+                                        </div>
+                                    </details>
 
                                     {/* Drop zone */}
                                     <div
@@ -710,12 +784,12 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
                                         {emlFile ? (
                                             <div className="space-y-1">
                                                 <div className="text-emerald-400 text-xs font-mono">{emlFile.name}</div>
-                                                <div className="text-[9px] text-[#444]">{(emlFile.size / 1024).toFixed(1)} KB</div>
+                                                <div className="text-[9px] text-[#aaa]">{(emlFile.size / 1024).toFixed(1)} KB</div>
                                             </div>
                                         ) : (
                                             <div className="space-y-2">
-                                                <div className="text-[10px] text-[#666] uppercase tracking-widest">Drag & Drop .eml file</div>
-                                                <div className="text-[9px] text-[#444]">or click to browse</div>
+                                                <div className="text-[10px] text-[#999] uppercase tracking-widest">Drag & Drop .eml file</div>
+                                                <div className="text-[9px] text-[#aaa]">or click to browse</div>
                                             </div>
                                         )}
                                     </div>
@@ -728,7 +802,7 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
                                         <button
                                             onClick={handleUpload}
                                             disabled={uploading}
-                                            className="w-full h-12 bg-white text-black text-[10px] font-bold uppercase tracking-widest hover:bg-[#ccc] disabled:bg-[#222] disabled:text-[#444] disabled:cursor-not-allowed transition-all cursor-pointer"
+                                            className="w-full h-12 bg-white text-black text-[10px] font-bold uppercase tracking-widest hover:bg-[#ccc] disabled:bg-[#222] disabled:text-[#aaa] disabled:cursor-not-allowed transition-all cursor-pointer"
                                         >
                                             {uploading ? 'Verifying DKIM & Encrypting...' : 'Verify & Submit'}
                                         </button>
@@ -740,10 +814,11 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
                             {wallet.eml_verified && (
                                 <div className="bg-emerald-500/5 border border-emerald-900/30 p-4 space-y-2">
                                     <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-widest">
-                                        Email Verified (DKIM Pass)
+                                        Ownership Verified
                                     </div>
-                                    <p className="text-[11px] text-[#777]">
-                                        Ownership confirmed. Your rescue request is being processed.
+                                    <p className="text-[11px] text-[#999]">
+                                        DKIM signature verified successfully. Your wallet has been added to the rescue queue.
+                                        Your wallet is in the rescue queue. I will execute the rescue strategy as soon as possible. No further action is needed from you.
                                     </p>
                                 </div>
                             )}
@@ -754,13 +829,13 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
                                     <div className="text-red-500 text-[10px] font-bold uppercase tracking-widest">
                                         Verification Failed
                                     </div>
-                                    <p className="text-[11px] text-[#777]">
-                                        DKIM signature could not be verified. Please contact us for manual review.
+                                    <p className="text-[11px] text-[#999]">
+                                        The uploaded email could not be verified. This may happen if the email was forwarded, modified, or not downloaded in the original .eml format. Please contact me for manual review.
                                     </p>
                                     <div className="flex items-center gap-4 pt-2">
-                                        <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">@codeesura</a>
+                                        <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#999] hover:text-white uppercase tracking-widest transition-colors">@codeesura</a>
                                         <span className="text-[#222]">|</span>
-                                        <a href="mailto:contact@codeesura.dev" className="text-[10px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">contact@codeesura.dev</a>
+                                        <a href="mailto:contact@codeesura.dev" className="text-[10px] text-[#999] hover:text-white uppercase tracking-widest transition-colors">contact@codeesura.dev</a>
                                     </div>
                                 </div>
                             )}
@@ -771,7 +846,7 @@ function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
                     <div className="flex justify-end pt-4 border-t border-[#1a1a1a]">
                         <button
                             onClick={onClose}
-                            className="px-6 py-3 border border-[#222] text-[10px] text-[#666] hover:text-white hover:border-[#444] uppercase tracking-widest transition-all cursor-pointer"
+                            className="px-6 py-3 border border-[#222] text-[10px] text-[#999] hover:text-white hover:border-[#444] uppercase tracking-widest transition-all cursor-pointer"
                         >
                             Close
                         </button>
