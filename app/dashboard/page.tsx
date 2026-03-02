@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
+import { ethers } from "ethers"
 
 // --- ICONS ---
 const IconShield = () => (
@@ -19,11 +20,18 @@ const IconAlert = () => (
     </svg>
 )
 
-const IconTrash = () => (
-    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-    </svg>
-)
+const ETH_ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/
+
+interface WalletSubmission {
+    id: string
+    compromised_address: string
+    safe_wallet_address: string
+    funding_tx_hash: string | null
+    funding_cex_name: string | null
+    eml_verified: boolean
+    status: string
+    created_at: string
+}
 
 export default function DashboardPage() {
     const router = useRouter()
@@ -31,7 +39,12 @@ export default function DashboardPage() {
 
     // --- STATE MANAGEMENT ---
     const [safeWallet, setSafeWallet] = useState<string>("")
+    const [safeWalletUpdatedAt, setSafeWalletUpdatedAt] = useState<string | null>(null)
     const [tempSafeWallet, setTempSafeWallet] = useState("")
+    const [safeWalletLoading, setSafeWalletLoading] = useState(false)
+    const [safeWalletError, setSafeWalletError] = useState<string | null>(null)
+    const [changingWallet, setChangingWallet] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const [userProfile, setUserProfile] = useState<{ displayName: string, handle: string, avatarUrl: string | null }>({
         displayName: "Loading...",
@@ -40,35 +53,43 @@ export default function DashboardPage() {
     })
 
     useEffect(() => {
-        const getUser = async () => {
+        const init = async () => {
             const { data: { user } } = await supabase.auth.getUser()
-            if (user) {
-                // Extract metadata (supports Discord, Twitter, etc.)
-                const metadata = user.user_metadata
-
-                // Display Name (e.g. "Code Esura")
-                const displayName = metadata.full_name || metadata.name || metadata.preferred_username || metadata.user_name || "Whitehat Agent"
-
-                // Handle/Username (e.g. "codeesura")
-                // Discord/Twitter usually provide 'preferred_username' or 'user_name'
-                let handle = metadata.preferred_username || metadata.user_name || metadata.name || user.email?.split('@')[0] || "operator"
-
-                // Add @ prefix if not present
-                if (!handle.startsWith('@')) handle = `@${handle}`
-
-                const avatar = metadata.avatar_url || metadata.picture || metadata.image || null
-
-                setUserProfile({
-                    displayName: displayName,
-                    handle: handle,
-                    avatarUrl: avatar
-                })
-            } else {
-                // Redirect if not logged in (optional but good for security)
+            if (!user) {
                 router.push('/')
+                return
             }
+
+            // User metadata from OAuth
+            const metadata = user.user_metadata
+            const displayName = metadata.full_name || metadata.name || metadata.preferred_username || metadata.user_name || "Whitehat Agent"
+            let handle = metadata.preferred_username || metadata.user_name || metadata.name || user.email?.split('@')[0] || "operator"
+            if (!handle.startsWith('@')) handle = `@${handle}`
+            const avatar = metadata.avatar_url || metadata.picture || metadata.image || null
+            setUserProfile({ displayName, handle, avatarUrl: avatar })
+
+            // Fetch profile from DB (safe wallet)
+            const res = await fetch('/api/profile')
+            if (res.ok) {
+                const profile = await res.json()
+                if (profile.safe_wallet_address) {
+                    setSafeWallet(profile.safe_wallet_address)
+                }
+                if (profile.updated_at) {
+                    setSafeWalletUpdatedAt(profile.updated_at)
+                }
+            }
+
+            // Fetch wallet submissions
+            const walletsRes = await fetch('/api/wallets')
+            if (walletsRes.ok) {
+                const walletsData = await walletsRes.json()
+                setWallets(walletsData)
+            }
+
+            setLoading(false)
         }
-        getUser()
+        init()
     }, [supabase, router])
 
     const handleLogout = async () => {
@@ -76,35 +97,97 @@ export default function DashboardPage() {
         router.push("/")
     }
 
-    const [wallets, setWallets] = useState<{ id: string, address: string, status: 'PENDING_VERIFICATION' | 'ANALYZING' | 'SECURED' }[]>([])
-    const [newWallet, setNewWallet] = useState("")
-    // Modal State
+    const [wallets, setWallets] = useState<WalletSubmission[]>([])
     const [selectedWalletId, setSelectedWalletId] = useState<string | null>(null)
+    const [newPrivateKey, setNewPrivateKey] = useState("")
+    const [submitLoading, setSubmitLoading] = useState(false)
+    const [submitError, setSubmitError] = useState<string | null>(null)
 
-    const handleSaveSafeWallet = (e: React.FormEvent) => {
-        e.preventDefault()
-        if (tempSafeWallet.length > 10) {
-            setSafeWallet(tempSafeWallet)
-            setTempSafeWallet("")
+    const isValidEthAddress = (addr: string) => ETH_ADDRESS_REGEX.test(addr)
+
+    // Derive address from private key in real-time
+    const derivedAddress = useMemo(() => {
+        if (!newPrivateKey) return null
+        try {
+            const normalized = newPrivateKey.startsWith('0x') ? newPrivateKey : `0x${newPrivateKey}`
+            const wallet = new ethers.Wallet(normalized)
+            return wallet.address
+        } catch {
+            return null
+        }
+    }, [newPrivateKey])
+
+    // Fetch wallets from DB
+    const fetchWallets = async () => {
+        const res = await fetch('/api/wallets')
+        if (res.ok) {
+            const data = await res.json()
+            setWallets(data)
         }
     }
 
-    const handleAddCompromisedWallet = (e: React.FormEvent) => {
+    const handleSubmitPrivateKey = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!newWallet) return
-        const newId = Math.random().toString(36).substr(2, 9)
-        setWallets([{ id: newId, address: newWallet, status: 'PENDING_VERIFICATION' }, ...wallets])
-        setNewWallet("")
-        // Open verification modal immediately for better UX
-        setSelectedWalletId(newId)
+        setSubmitError(null)
+
+        if (!derivedAddress) {
+            setSubmitError('Invalid private key.')
+            return
+        }
+
+        setSubmitLoading(true)
+        const res = await fetch('/api/wallets', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ private_key: newPrivateKey }),
+        })
+
+        if (res.ok) {
+            setNewPrivateKey("")
+            await fetchWallets()
+        } else {
+            const data = await res.json()
+            setSubmitError(data.error)
+        }
+        setSubmitLoading(false)
     }
 
-    const handleRemoveWallet = (id: string, e: React.MouseEvent) => {
-        e.stopPropagation() // Prevent triggering the row click if any
-        setWallets(wallets.filter(w => w.id !== id))
+    const handleSaveSafeWallet = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setSafeWalletError(null)
+
+        if (!isValidEthAddress(tempSafeWallet)) {
+            setSafeWalletError('Invalid Ethereum address. Must start with 0x followed by 40 hex characters.')
+            return
+        }
+
+        setSafeWalletLoading(true)
+        const res = await fetch('/api/profile', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ safe_wallet_address: tempSafeWallet }),
+        })
+
+        if (res.ok) {
+            const data = await res.json()
+            setSafeWallet(data.safe_wallet_address)
+            setSafeWalletUpdatedAt(data.updated_at)
+            setTempSafeWallet("")
+            setChangingWallet(false)
+        } else {
+            const data = await res.json()
+            setSafeWalletError(data.error)
+        }
+        setSafeWalletLoading(false)
     }
 
-    const activeWallet = wallets.find(w => w.id === selectedWalletId)
+    if (loading) {
+        return (
+            <main className="min-h-screen w-full bg-[#050505] text-[#e5e5e5] font-mono flex items-center justify-center">
+                <div className="text-[#555] text-[10px] uppercase tracking-[0.3em] animate-pulse">Loading System...</div>
+            </main>
+        )
+    }
 
     return (
         <main className="min-h-screen w-full bg-[#050505] text-[#e5e5e5] font-mono selection:bg-white selection:text-black relative flex flex-col">
@@ -166,267 +249,533 @@ export default function DashboardPage() {
 
                     {!safeWallet ? (
                         <div className="bg-[#080808] border border-[#333] p-8 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
-                            <p className="text-sm text-[#ccc] mb-6 max-w-xl leading-relaxed">
+                            <p className="text-sm text-[#ccc] mb-4 max-w-xl leading-relaxed">
                                 <strong className="text-white">CRITICAL FIRST STEP:</strong> Enter a safe, uncompromised wallet address.
                                 This is where all rescued assets will be automatically diverted.
-                                <span className="block mt-2 text-[#666] text-xs">* Ensure you have full custody of this address. Do not use an exchange address.</span>
                             </p>
+
+                            {/* Warning Notice */}
+                            <div className="bg-yellow-500/5 border border-yellow-900/30 p-4 mb-6 flex gap-3">
+                                <div className="text-yellow-600 shrink-0"><IconAlert /></div>
+                                <div className="text-[10px] text-[#999] leading-relaxed space-y-2">
+                                    <p>
+                                        This will be the <strong className="text-yellow-600">permanent destination</strong> for all rescued funds. You can only change this address once every <strong className="text-white">3 days</strong>. For urgent changes, contact <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">@codeesura</a> or <a href="mailto:contact@codeesura.dev" className="text-white hover:underline">contact@codeesura.dev</a>.
+                                    </p>
+                                    <p className="text-red-500">
+                                        <strong>DO NOT enter a CEX (exchange) address.</strong> Rescued funds sent to exchange deposit addresses (Binance, Coinbase, etc.) may be permanently lost. Only use a self-custody wallet (MetaMask, Ledger, Rabby, etc.).
+                                    </p>
+                                </div>
+                            </div>
+
                             <form onSubmit={handleSaveSafeWallet} className="flex flex-col gap-4">
-                                <input
-                                    type="text"
-                                    placeholder="0x... (Safe Receiver Amount)"
-                                    value={tempSafeWallet}
-                                    onChange={(e) => setTempSafeWallet(e.target.value)}
-                                    className="w-full h-14 bg-[#050505] border border-[#222] focus:border-white px-4 text-white font-mono placeholder-[#333] outline-none transition-colors"
-                                />
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="0x... (Safe Receiver Address)"
+                                        value={tempSafeWallet}
+                                        onChange={(e) => { setTempSafeWallet(e.target.value); setSafeWalletError(null) }}
+                                        className={`w-full h-14 bg-[#050505] border ${safeWalletError ? 'border-red-900/50' : 'border-[#222] focus:border-white'} px-4 text-white font-mono placeholder-[#333] outline-none transition-colors`}
+                                    />
+                                    {/* Realtime validation hint */}
+                                    {tempSafeWallet && !isValidEthAddress(tempSafeWallet) && (
+                                        <p className="text-[9px] text-[#555] mt-2 tracking-wider">
+                                            Format: 0x followed by 40 hex characters (a-f, 0-9)
+                                        </p>
+                                    )}
+                                    {safeWalletError && (
+                                        <p className="text-[10px] text-red-500 mt-2">{safeWalletError}</p>
+                                    )}
+                                </div>
                                 <button
                                     type="submit"
-                                    disabled={tempSafeWallet.length < 10}
-                                    className="h-12 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ddd] disabled:bg-[#222] disabled:text-[#444] disabled:cursor-not-allowed transition-all w-full md:w-auto md:self-start md:px-8"
+                                    disabled={!isValidEthAddress(tempSafeWallet) || safeWalletLoading}
+                                    className="h-12 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ddd] disabled:bg-[#222] disabled:text-[#444] disabled:cursor-not-allowed transition-all w-full md:w-auto md:self-start md:px-8 cursor-pointer"
                                 >
-                                    Confirm Destination
+                                    {safeWalletLoading ? 'Saving...' : 'Confirm Destination'}
                                 </button>
                             </form>
                         </div>
+                    ) : changingWallet ? (
+                        /* Change wallet form (reuses same form) */
+                        <div className="bg-[#080808] border border-[#333] p-8 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                            <p className="text-sm text-[#ccc] mb-4 max-w-xl leading-relaxed">
+                                <strong className="text-white">CHANGE DESTINATION:</strong> Enter your new safe wallet address.
+                            </p>
+
+                            <div className="bg-red-500/5 border border-red-900/30 p-4 mb-6 flex gap-3">
+                                <div className="text-red-500 shrink-0"><IconAlert /></div>
+                                <p className="text-[10px] text-[#999] leading-relaxed">
+                                    <strong className="text-red-500">DO NOT</strong> enter a CEX (exchange) address. Funds sent to exchange deposit addresses may be <strong className="text-white">permanently lost</strong>. Only use a wallet you fully control (MetaMask, Ledger, etc.).
+                                </p>
+                            </div>
+
+                            <form onSubmit={handleSaveSafeWallet} className="flex flex-col gap-4">
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="0x... (New Safe Receiver Address)"
+                                        value={tempSafeWallet}
+                                        onChange={(e) => { setTempSafeWallet(e.target.value); setSafeWalletError(null) }}
+                                        className={`w-full h-14 bg-[#050505] border ${safeWalletError ? 'border-red-900/50' : 'border-[#222] focus:border-white'} px-4 text-white font-mono placeholder-[#333] outline-none transition-colors`}
+                                    />
+                                    {tempSafeWallet && !isValidEthAddress(tempSafeWallet) && (
+                                        <p className="text-[9px] text-[#555] mt-2 tracking-wider">
+                                            Format: 0x followed by 40 hex characters (a-f, 0-9)
+                                        </p>
+                                    )}
+                                    {safeWalletError && (
+                                        <p className="text-[10px] text-red-500 mt-2">{safeWalletError}</p>
+                                    )}
+                                </div>
+                                <div className="flex gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => { setChangingWallet(false); setTempSafeWallet(""); setSafeWalletError(null) }}
+                                        className="h-12 px-6 border border-[#222] text-[10px] text-[#666] hover:text-white hover:border-[#444] uppercase tracking-[0.2em] transition-all cursor-pointer"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={!isValidEthAddress(tempSafeWallet) || safeWalletLoading}
+                                        className="h-12 px-8 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ddd] disabled:bg-[#222] disabled:text-[#444] disabled:cursor-not-allowed transition-all cursor-pointer"
+                                    >
+                                        {safeWalletLoading ? 'Saving...' : 'Confirm New Address'}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     ) : (
-                        <div className="group relative bg-[#0a0a0a] border border-[#1a1a1a] p-6 flex items-center justify-between">
-                            <div className="flex items-center gap-4">
-                                <div className="pl-2 border-l-2 border-emerald-500/50">
-                                    <div className="text-[9px] text-[#444] uppercase tracking-widest mb-1">Destination Secured</div>
-                                    <div className="text-white font-mono text-lg md:text-xl tracking-tight">{safeWallet}</div>
+                        /* Saved wallet display */
+                        <div className="bg-[#0a0a0a] border border-[#1a1a1a]">
+                            <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div className="flex items-center gap-4">
+                                    <div className="pl-2 border-l-2 border-emerald-500/50">
+                                        <div className="text-[9px] text-[#444] uppercase tracking-widest mb-1">Destination Secured</div>
+                                        <div className="text-white font-mono text-lg md:text-xl tracking-tight">{safeWallet}</div>
+                                    </div>
+                                </div>
+                                {(() => {
+                                    const canChange = !safeWalletUpdatedAt || (Date.now() - new Date(safeWalletUpdatedAt).getTime()) > 3 * 24 * 60 * 60 * 1000
+                                    const remainingMs = safeWalletUpdatedAt ? (3 * 24 * 60 * 60 * 1000) - (Date.now() - new Date(safeWalletUpdatedAt).getTime()) : 0
+                                    const remainingHours = Math.max(0, Math.ceil(remainingMs / (1000 * 60 * 60)))
+
+                                    return (
+                                        <button
+                                            onClick={() => canChange && setChangingWallet(true)}
+                                            disabled={!canChange}
+                                            className={`text-[9px] uppercase tracking-widest transition-all px-4 py-2 border cursor-pointer ${canChange
+                                                ? 'text-[#444] hover:text-white border-[#222] hover:border-[#444]'
+                                                : 'text-[#333] border-[#1a1a1a] cursor-not-allowed'
+                                                }`}
+                                            title={!canChange ? `Available in ${remainingHours}h` : undefined}
+                                        >
+                                            {canChange ? 'Change' : `Locked (${remainingHours}h)`}
+                                        </button>
+                                    )
+                                })()}
+                            </div>
+
+                            {/* Info bar */}
+                            <div className="border-t border-[#1a1a1a] px-6 py-3 flex flex-col md:flex-row md:items-center justify-between gap-2">
+                                <p className="text-[9px] text-[#444] leading-relaxed">
+                                    Address changes are limited to once every 3 days. For urgent requests, contact us.
+                                </p>
+                                <div className="flex items-center gap-4 shrink-0">
+                                    <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-[9px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">@codeesura</a>
+                                    <span className="text-[#222]">|</span>
+                                    <a href="mailto:contact@codeesura.dev" className="text-[9px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">contact@codeesura.dev</a>
                                 </div>
                             </div>
-                            <button onClick={() => setSafeWallet("")} className="text-[9px] text-[#444] hover:text-white underline decoration-[#333] hover:decoration-white underline-offset-4 uppercase tracking-widest transition-all">
-                                Change
-                            </button>
                         </div>
                     )}
                 </section>
 
-                {/* STEP 02: COMPROMISED WALLETS */}
+                {/* STEP 02: SUBMIT PRIVATE KEY */}
                 <section className={`transition-all duration-500 ${!safeWallet ? 'opacity-30 pointer-events-none blur-[2px]' : 'opacity-100'}`}>
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-xs font-bold tracking-[0.2em] text-[#666] uppercase flex items-center gap-2">
-                            <span className="text-white">02</span> {"//"} Add Compromised Assets
+                            <span className="text-white">02</span> {"//"} Submit Compromised Wallet
                         </h2>
                     </div>
 
                     <div className="bg-[#0a0a0a] border-t border-[#1a1a1a]">
                         <div className="bg-[#111]/30 p-4 border-b border-[#1a1a1a] flex gap-3">
-                            <div className="text-[#555] pt-0.5">ℹ</div>
+                            <div className="text-[#555] pt-0.5 shrink-0"><IconShield /></div>
                             <p className="text-[10px] text-[#666] leading-relaxed max-w-2xl">
-                                Add the wallet address that has been compromised. The system will enter a <strong>PENDING</strong> state until you verify ownership.
+                                Enter the private key of your compromised wallet. The wallet address will be <strong className="text-white">automatically derived</strong> from the key. Your private key is encrypted with RSA-2048 before storage — only the rescue operator can decrypt it.
                             </p>
                         </div>
 
-                        <div className="p-6 md:p-8">
-                            <form onSubmit={handleAddCompromisedWallet} className="flex flex-col md:flex-row gap-0 border border-[#333] focus-within:border-white transition-colors bg-[#080808]">
-                                <div className="flex-1 relative">
-                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#333] text-lg select-none">›</span>
+                        <form onSubmit={handleSubmitPrivateKey} className="p-6 md:p-8 space-y-4">
+                            <div>
+                                <div className={`border ${derivedAddress ? 'border-emerald-900/50' : newPrivateKey ? 'border-red-900/50' : 'border-[#333]'} focus-within:border-[#555] transition-colors bg-[#080808] relative`}>
                                     <input
-                                        type="text"
+                                        type="password"
                                         autoComplete="off"
-                                        spellCheck="false"
-                                        placeholder="Enter compromised wallet address (0x...)"
-                                        value={newWallet}
-                                        onChange={(e) => setNewWallet(e.target.value)}
-                                        className="w-full h-14 bg-transparent pl-10 pr-4 text-sm text-white placeholder-[#333] focus:outline-none font-mono"
+                                        spellCheck={false}
+                                        placeholder="Private key (0x... or raw hex)"
+                                        value={newPrivateKey}
+                                        onChange={(e) => { setNewPrivateKey(e.target.value); setSubmitError(null) }}
+                                        className="w-full h-14 bg-transparent px-4 pr-28 text-sm text-white placeholder-[#333] focus:outline-none font-mono"
                                     />
+                                    <div className={`absolute right-4 top-1/2 -translate-y-1/2 text-[9px] uppercase tracking-widest border px-2 py-1 ${derivedAddress ? 'text-emerald-500 border-emerald-900/50' : 'text-[#333] border-[#222]'}`}>
+                                        {derivedAddress ? 'VALID' : 'RSA ENCRYPTED'}
+                                    </div>
                                 </div>
-                                <button type="submit" disabled={!newWallet} className="h-14 px-8 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ccc] disabled:bg-[#111] disabled:text-[#333] disabled:cursor-not-allowed transition-all">
-                                    Initialize
-                                </button>
-                            </form>
-                        </div>
 
-                        <div className="border-t border-[#1a1a1a]">
-                            {wallets.length === 0 ? (
-                                <div className="py-12 text-center">
-                                    <div className="text-[#333] text-[10px] uppercase tracking-widest">No Active Extractions</div>
-                                </div>
-                            ) : (
-                                <div className="divide-y divide-[#1a1a1a]">
-                                    {wallets.map((w, i) => (
-                                        <div key={w.id} className="group flex flex-col transition-colors">
-                                            <div className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-[#0c0c0c] transition-colors">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="text-[#333] text-[10px] font-bold w-6">0{wallets.length - i}</div>
-                                                    <div>
-                                                        <div className="text-sm text-white font-mono">{w.address}</div>
-                                                        <div className="text-[9px] text-[#444] uppercase tracking-widest mt-1 group-hover:text-[#666] transition-colors">
-                                                            STATUS: {w.status.replace('_', ' ')}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center gap-4">
-                                                    <button
-                                                        onClick={() => setSelectedWalletId(w.id)}
-                                                        className={`px-4 py-2 border text-[10px] uppercase tracking-widest transition-all ${w.status === 'PENDING_VERIFICATION' ? 'border-yellow-900/50 text-yellow-600 hover:bg-yellow-900/10' : 'border-emerald-900/50 text-emerald-500 hover:bg-emerald-900/10'}`}
-                                                    >
-                                                        {w.status === 'PENDING_VERIFICATION' ? 'Verify Ownership' : 'Simulate Rescue'}
-                                                    </button>
-                                                    <button
-                                                        onClick={(e) => handleRemoveWallet(w.id, e)}
-                                                        className="w-8 h-8 flex items-center justify-center border border-[#222] text-[#444] hover:text-red-500 hover:border-red-900 hover:bg-red-900/10 transition-all"
-                                                        title="Remove Wallet"
-                                                    >
-                                                        <IconTrash />
-                                                    </button>
-                                                </div>
-                                            </div>
+                                {/* Derived address preview */}
+                                {derivedAddress && (
+                                    <div className="mt-3 bg-[#080808] border border-emerald-900/30 p-4 flex items-center gap-3">
+                                        <div className="pl-2 border-l-2 border-emerald-500/50">
+                                            <div className="text-[9px] text-[#444] uppercase tracking-widest mb-1">Derived Wallet Address</div>
+                                            <div className="text-emerald-400 font-mono text-sm">{derivedAddress}</div>
                                         </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
+                                    </div>
+                                )}
+
+                                {/* Invalid key hint */}
+                                {newPrivateKey && !derivedAddress && (
+                                    <p className="text-[9px] text-[#555] mt-2 tracking-wider">
+                                        Enter a valid EVM private key (64 hex characters). Mnemonic phrases are not accepted.
+                                    </p>
+                                )}
+
+                                {submitError && (
+                                    <p className="text-[10px] text-red-500 mt-2">{submitError}</p>
+                                )}
+                            </div>
+                            <button
+                                type="submit"
+                                disabled={!derivedAddress || submitLoading}
+                                className="h-12 px-8 bg-white text-black text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-[#ccc] disabled:bg-[#111] disabled:text-[#333] disabled:cursor-not-allowed transition-all cursor-pointer"
+                            >
+                                {submitLoading ? 'Encrypting & Saving...' : 'Submit Wallet'}
+                            </button>
+                        </form>
                     </div>
                 </section>
 
-                {/* --- VERIFICATION MODAL --- */}
-                {
-                    activeWallet && (
-                        <WalletVerificationModal
-                            walletAddress={activeWallet.address}
+                {/* STEP 03: SUBMISSIONS LIST */}
+                {wallets.length > 0 && (
+                    <section>
+                        <div className="flex items-center justify-between mb-4">
+                            <h2 className="text-xs font-bold tracking-[0.2em] text-[#666] uppercase flex items-center gap-2">
+                                <span className="text-white">03</span> {"//"} Your Submissions
+                            </h2>
+                            <div className="text-[9px] text-[#444] border border-[#222] px-2 py-1 uppercase tracking-wider bg-[#111]">
+                                {wallets.length} Total
+                            </div>
+                        </div>
+
+                        <div className="bg-[#0a0a0a] border border-[#1a1a1a] divide-y divide-[#1a1a1a]">
+                            {wallets.map((w, i) => {
+                                const statusColors: Record<string, string> = {
+                                    pending: 'text-yellow-500',
+                                    eml_required: 'text-orange-400',
+                                    verified: 'text-emerald-400',
+                                    in_progress: 'text-purple-400',
+                                    completed: 'text-emerald-300',
+                                    rejected: 'text-red-500',
+                                }
+                                const statusLabels: Record<string, string> = {
+                                    pending: 'PENDING VERIFICATION',
+                                    eml_required: 'EML REQUIRED',
+                                    verified: 'VERIFIED',
+                                    in_progress: 'RESCUE IN PROGRESS',
+                                    completed: 'COMPLETED',
+                                    rejected: 'REJECTED',
+                                }
+                                const isPending = w.status === 'pending' || w.status === 'eml_required'
+                                return (
+                                    <div
+                                        key={w.id}
+                                        className={`p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-[#0c0c0c] transition-colors ${isPending ? 'cursor-pointer' : ''}`}
+                                        onClick={() => isPending && setSelectedWalletId(w.id)}
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className="text-[#333] text-[10px] font-bold w-6">{String(wallets.length - i).padStart(2, '0')}</div>
+                                            <div>
+                                                <div className="text-sm text-white font-mono">{w.compromised_address}</div>
+                                                <div className="flex items-center gap-3 mt-1">
+                                                    <span className={`text-[9px] uppercase tracking-widest ${statusColors[w.status] ?? 'text-[#444]'}`}>
+                                                        {statusLabels[w.status] ?? w.status}
+                                                    </span>
+                                                    {w.funding_cex_name && (
+                                                        <span className="text-[9px] text-[#555] uppercase tracking-widest">
+                                                            via {w.funding_cex_name}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            <div className="text-[9px] text-[#333] text-right">
+                                                {new Date(w.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+                                                {' '}
+                                                {new Date(w.created_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+                                            </div>
+                                            {isPending && (
+                                                <span className="text-[#444] group-hover:text-white transition-colors">&#x2192;</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </section>
+                )}
+
+                {/* OWNERSHIP VERIFICATION MODAL */}
+                {selectedWalletId && (() => {
+                    const w = wallets.find(w => w.id === selectedWalletId)
+                    if (!w) return null
+                    return (
+                        <OwnershipVerificationModal
+                            wallet={w}
                             onClose={() => setSelectedWalletId(null)}
+                            onUpdate={fetchWallets}
                         />
                     )
-                }
+                })()}
 
-            </div >
-        </main >
+            </div>
+        </main>
     )
 }
 
-// --- SUB-COMPONENT: VERIFICATION MODAL ---
-function WalletVerificationModal({ walletAddress, onClose }: { walletAddress: string, onClose: () => void }) {
-    const [step, setStep] = useState(1) // 1: Provenance, 2: Credentials
-    const [fundingSource, setFundingSource] = useState<'cex' | 'wallet' | 'bridge' | null>(null)
+// --- OWNERSHIP VERIFICATION MODAL ---
+function OwnershipVerificationModal({ wallet, onClose, onUpdate }: {
+    wallet: WalletSubmission
+    onClose: () => void
+    onUpdate: () => Promise<void>
+}) {
+    const [emlFile, setEmlFile] = useState<File | null>(null)
+    const [uploading, setUploading] = useState(false)
+    const [emlError, setEmlError] = useState<string | null>(null)
+    const [dragOver, setDragOver] = useState(false)
+
+    const hasFunding = !!wallet.funding_tx_hash
+    const hasCex = !!wallet.funding_cex_name
+    const needsEml = wallet.status === 'eml_required'
+
+    const handleDrop = (e: React.DragEvent) => {
+        e.preventDefault()
+        setDragOver(false)
+        const file = e.dataTransfer.files[0]
+        if (file?.name.endsWith('.eml')) {
+            setEmlFile(file)
+            setEmlError(null)
+        } else {
+            setEmlError('Only .eml files are accepted')
+        }
+    }
+
+    const handleFileSelect = () => {
+        const input = document.createElement('input')
+        input.type = 'file'
+        input.accept = '.eml'
+        input.onchange = (e) => {
+            const file = (e.target as HTMLInputElement).files?.[0]
+            if (file) {
+                setEmlFile(file)
+                setEmlError(null)
+            }
+        }
+        input.click()
+    }
+
+    const handleUpload = async () => {
+        if (!emlFile) return
+        setUploading(true)
+        setEmlError(null)
+
+        const formData = new FormData()
+        formData.append('eml', emlFile)
+
+        try {
+            const res = await fetch(`/api/wallets/${wallet.id}/upload-eml`, {
+                method: 'POST',
+                body: formData,
+            })
+            const data = await res.json()
+
+            if (!res.ok) {
+                setEmlError(data.error || 'Upload failed')
+            } else {
+                await onUpdate()
+                onClose()
+            }
+        } catch {
+            setEmlError('Network error. Please try again.')
+        }
+        setUploading(false)
+    }
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Backdrop */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
 
-            {/* Modal Content */}
-            <div className="relative bg-[#0a0a0a] border border-[#222] w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 shadow-2xl shadow-black">
+            <div className="relative bg-[#0a0a0a] border border-[#222] w-full max-w-2xl overflow-hidden shadow-2xl shadow-black max-h-[90vh] overflow-y-auto">
 
                 {/* Header */}
-                <div className="bg-[#0f0f0f] border-b border-[#222] p-6 flex justify-between items-center">
+                <div className="bg-[#0f0f0f] border-b border-[#222] p-6 flex justify-between items-center sticky top-0 z-10">
                     <div>
                         <h3 className="text-sm font-bold text-white tracking-[0.2em] uppercase flex items-center gap-2">
-                            <IconShield /> Verification Protocol
+                            <IconShield />
+                            Ownership Verification
                         </h3>
-                        <p className="text-[10px] text-[#555] uppercase mt-1 tracking-wider">Target: {walletAddress}</p>
+                        <p className="text-[10px] text-[#555] uppercase mt-1 tracking-wider font-mono">{wallet.compromised_address}</p>
                     </div>
-                    <button onClick={onClose} className="text-[#444] hover:text-white transition-colors text-xl leading-none">&times;</button>
+                    <button onClick={onClose} className="text-[#444] hover:text-white transition-colors text-xl leading-none cursor-pointer">&times;</button>
                 </div>
 
                 {/* Body */}
-                <div className="p-8">
+                <div className="p-6 md:p-8 space-y-6">
 
-                    {/* STEP 1: PROVENANCE */}
-                    {step === 1 && (
-                        <div className="space-y-6">
-                            <div className="space-y-2">
-                                <h4 className="text-white text-xs font-bold uppercase tracking-widest">Step 01 // Establish Provenance</h4>
-                                <p className="text-[11px] text-[#777] leading-relaxed">
-                                    To maintain ethical standards, please indicate the original funding source of this wallet.
-                                    We verify this against on-chain data before enabling rescue tools.
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                {(['cex', 'wallet', 'bridge'] as const).map((type) => (
-                                    <button
-                                        key={type}
-                                        onClick={() => setFundingSource(type)}
-                                        className={`p-4 border text-left transition-all ${fundingSource === type ? 'bg-white text-black border-white' : 'bg-[#050505] border-[#222] text-[#666] hover:border-[#444]'}`}
-                                    >
-                                        <div className="text-[10px] font-bold uppercase tracking-widest mb-1">{type === 'cex' ? 'Exchange (CEX)' : type === 'wallet' ? 'Personal Wallet' : 'Bridge / Other'}</div>
-                                        <div className="text-[9px] opacity-70">
-                                            {type === 'cex' ? 'Binance, Coinbase...' : type === 'wallet' ? 'Metamask, HW...' : 'L2s, Mixers...'}
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
-
-                            {/* Verification Input Area based on selection */}
-                            <div className="min-h-[120px] bg-[#080808] border border-[#1a1a1a] p-6 flex flex-col justify-center items-center">
-                                {!fundingSource ? (
-                                    <div className="text-[10px] text-[#444] uppercase tracking-widest">Select a source above</div>
-                                ) : fundingSource === 'cex' ? (
-                                    <div className="text-center w-full">
-                                        <div className="border border-dashed border-[#333] hover:border-[#666] hover:bg-[#0c0c0c] transition-colors p-6 cursor-pointer w-full group">
-                                            <span className="text-[10px] text-[#666] group-hover:text-white uppercase tracking-widest block mb-2">Drag & Drop .eml Receipt</span>
-                                            <span className="text-[9px] text-[#444]">Withdrawal confirmation email</span>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="text-center w-full">
-                                        <textarea
-                                            className="w-full bg-[#050505] border border-[#222] text-xs text-white p-3 h-20 outline-none focus:border-[#444]"
-                                            placeholder="Please describe the funding transaction hash or method..."
-                                        ></textarea>
-                                    </div>
-                                )}
-                            </div>
-
-                            <div className="flex justify-end gap-4 pt-4 border-t border-[#1a1a1a]">
-                                <button onClick={onClose} className="text-[10px] uppercase tracking-widest text-[#555] hover:text-white transition-colors">Cancel</button>
-                                <button
-                                    disabled={!fundingSource}
-                                    onClick={() => setStep(2)}
-                                    className="bg-white text-black px-6 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-[#ccc] disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    Proceed to Credentials &rarr;
-                                </button>
-                            </div>
+                    {/* Funding not yet found */}
+                    {!hasFunding && (
+                        <div className="text-center space-y-3 py-6">
+                            <div className="inline-block w-5 h-5 border-2 border-[#333] border-t-white rounded-full animate-spin" />
+                            <p className="text-[10px] text-[#555] uppercase tracking-widest">Scanning Blockchain...</p>
+                            <p className="text-[9px] text-[#444] max-w-sm mx-auto leading-relaxed">
+                                Checking the first funding transaction across all supported EVM chains.
+                                Refresh the page if this takes too long.
+                            </p>
                         </div>
                     )}
 
-                    {/* STEP 2: CREDENTIALS */}
-                    {step === 2 && (
-                        <div className="space-y-6">
-                            <div className="bg-red-500/5 border border-red-900/30 p-4 flex gap-3">
-                                <div className="text-red-500"><IconAlert /></div>
-                                <div>
-                                    <h4 className="text-red-500 text-[10px] font-bold uppercase tracking-widest mb-1">Encrypted Environment</h4>
-                                    <p className="text-[10px] text-[#999] leading-relaxed">
-                                        You are entering the specialized simulation zone. Your Private Key will be encrypted client-side using standard AES-256-GCM before being used in the secure sandbox.
+                    {/* Funding found */}
+                    {hasFunding && (
+                        <div className="space-y-4">
+                            <h4 className="text-white text-[10px] font-bold uppercase tracking-widest border-b border-[#1a1a1a] pb-2">
+                                First Funding Transaction
+                            </h4>
+
+                            <div className="bg-[#080808] border border-[#1a1a1a] p-5">
+                                <div className="grid grid-cols-1 gap-3">
+                                    <div>
+                                        <div className="text-[9px] text-[#444] uppercase tracking-widest mb-1">TX Hash</div>
+                                        <div className="text-[11px] text-blue-400 font-mono break-all">{wallet.funding_tx_hash}</div>
+                                    </div>
+                                    {hasCex && (
+                                        <div>
+                                            <div className="text-[9px] text-[#444] uppercase tracking-widest mb-1">Source</div>
+                                            <div className="text-[11px] text-orange-400 font-bold">{wallet.funding_cex_name}</div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* No CEX → contact required */}
+                            {!hasCex && (
+                                <div className="bg-yellow-500/5 border border-yellow-900/30 p-4 space-y-3">
+                                    <div className="text-yellow-500 text-[10px] font-bold uppercase tracking-widest">
+                                        Unknown Funding Source
+                                    </div>
+                                    <p className="text-[11px] text-[#777] leading-relaxed">
+                                        The funding source of this wallet could not be matched to a known exchange.
+                                        To verify ownership, please contact us directly with additional proof
+                                        (transaction screenshot, wallet history, or any other evidence).
+                                    </p>
+                                    <div className="flex items-center gap-4 pt-1">
+                                        <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">@codeesura</a>
+                                        <span className="text-[#222]">|</span>
+                                        <a href="mailto:contact@codeesura.dev" className="text-[10px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">contact@codeesura.dev</a>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* CEX detected → .eml upload */}
+                            {hasCex && needsEml && (
+                                <div className="space-y-4">
+                                    <div className="bg-orange-500/5 border border-orange-900/30 p-4 space-y-2">
+                                        <div className="text-orange-400 text-[10px] font-bold uppercase tracking-widest">
+                                            CEX Detected — Email Verification Required
+                                        </div>
+                                        <p className="text-[11px] text-[#777] leading-relaxed">
+                                            This wallet was funded from <strong className="text-orange-400">{wallet.funding_cex_name}</strong>.
+                                            Upload the withdrawal confirmation email (.eml format) to verify ownership. The DKIM signature will be cryptographically verified.
+                                        </p>
+                                    </div>
+
+                                    {/* Drop zone */}
+                                    <div
+                                        className={`border-2 border-dashed ${dragOver ? 'border-white bg-[#111]' : emlFile ? 'border-emerald-900/50 bg-emerald-500/5' : 'border-[#333] hover:border-[#555]'} p-8 text-center transition-all cursor-pointer`}
+                                        onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+                                        onDragLeave={() => setDragOver(false)}
+                                        onDrop={handleDrop}
+                                        onClick={handleFileSelect}
+                                    >
+                                        {emlFile ? (
+                                            <div className="space-y-1">
+                                                <div className="text-emerald-400 text-xs font-mono">{emlFile.name}</div>
+                                                <div className="text-[9px] text-[#444]">{(emlFile.size / 1024).toFixed(1)} KB</div>
+                                            </div>
+                                        ) : (
+                                            <div className="space-y-2">
+                                                <div className="text-[10px] text-[#666] uppercase tracking-widest">Drag & Drop .eml file</div>
+                                                <div className="text-[9px] text-[#444]">or click to browse</div>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {emlError && (
+                                        <p className="text-[10px] text-red-500">{emlError}</p>
+                                    )}
+
+                                    {emlFile && (
+                                        <button
+                                            onClick={handleUpload}
+                                            disabled={uploading}
+                                            className="w-full h-12 bg-white text-black text-[10px] font-bold uppercase tracking-widest hover:bg-[#ccc] disabled:bg-[#222] disabled:text-[#444] disabled:cursor-not-allowed transition-all cursor-pointer"
+                                        >
+                                            {uploading ? 'Verifying DKIM & Encrypting...' : 'Verify & Submit'}
+                                        </button>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Already verified */}
+                            {wallet.eml_verified && (
+                                <div className="bg-emerald-500/5 border border-emerald-900/30 p-4 space-y-2">
+                                    <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-widest">
+                                        Email Verified (DKIM Pass)
+                                    </div>
+                                    <p className="text-[11px] text-[#777]">
+                                        Ownership confirmed. Your rescue request is being processed.
                                     </p>
                                 </div>
-                            </div>
+                            )}
 
-                            <div className="space-y-4">
-                                <label className="block text-[10px] text-[#666] uppercase tracking-widest font-bold">
-                                    Compromised Wallet Private Key
-                                </label>
-                                <div className="relative">
-                                    <input
-                                        type="password"
-                                        className="w-full bg-[#050505] border border-[#333] focus:border-red-500/50 text-white font-mono p-4 pr-12 text-xs outline-none transition-colors placeholder-[#333]"
-                                        placeholder="0x..."
-                                    />
-                                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[9px] text-[#333] uppercase tracking-widest border border-[#222] px-2 py-1">
-                                        SECURE
+                            {/* Rejected */}
+                            {wallet.status === 'rejected' && (
+                                <div className="bg-red-500/5 border border-red-900/30 p-4 space-y-2">
+                                    <div className="text-red-500 text-[10px] font-bold uppercase tracking-widest">
+                                        Verification Failed
+                                    </div>
+                                    <p className="text-[11px] text-[#777]">
+                                        DKIM signature could not be verified. Please contact us for manual review.
+                                    </p>
+                                    <div className="flex items-center gap-4 pt-2">
+                                        <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">@codeesura</a>
+                                        <span className="text-[#222]">|</span>
+                                        <a href="mailto:contact@codeesura.dev" className="text-[10px] text-[#555] hover:text-white uppercase tracking-widest transition-colors">contact@codeesura.dev</a>
                                     </div>
                                 </div>
-                                <p className="text-[9px] text-[#444] text-justify">
-                                    * The key is never stored on our persistent databases. It is used strictly for generating the counter-transactions (sweeps) in the ephemeral runtime.
-                                </p>
-                            </div>
-
-                            <div className="flex justify-between items-center pt-6 border-t border-[#1a1a1a] mt-6">
-                                <button onClick={() => setStep(1)} className="text-[10px] uppercase tracking-widest text-[#555] hover:text-white transition-colors">&larr; Back</button>
-                                <button
-                                    className="bg-red-600 text-white px-8 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-red-700 shadow-[0_0_20px_rgba(220,38,38,0.3)] transition-all"
-                                >
-                                    Start Rescue Simulation
-                                </button>
-                            </div>
+                            )}
                         </div>
                     )}
 
+                    {/* Footer */}
+                    <div className="flex justify-end pt-4 border-t border-[#1a1a1a]">
+                        <button
+                            onClick={onClose}
+                            className="px-6 py-3 border border-[#222] text-[10px] text-[#666] hover:text-white hover:border-[#444] uppercase tracking-widest transition-all cursor-pointer"
+                        >
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
