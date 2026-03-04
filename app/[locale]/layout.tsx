@@ -87,6 +87,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       creator: "@codeesura",
+      images: [`${baseUrl}/opengraph-image`],
     },
     openGraph: {
       type: "website",
@@ -98,6 +99,14 @@ export async function generateMetadata({
         .filter((l) => l !== locale)
         .map((l) => ogLocaleMap[l] || l),
       url: `${baseUrl}/${locale}`,
+      images: [
+        {
+          url: `${baseUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: "Whitehat Rescue Ops // Secure Asset Recovery",
+        },
+      ],
     },
   };
 }
