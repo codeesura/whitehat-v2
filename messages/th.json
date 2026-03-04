@@ -45,7 +45,8 @@
       "connectX": "เชื่อมต่อ X.com",
       "connectDiscord": "เชื่อมต่อ Discord",
       "sessionNote": "เซสชันที่เข้ารหัสถูกสร้างขึ้นแล้ว <br></br> ข้อมูลรับรองทั้งหมดได้รับการปกป้องอย่างปลอดภัย",
-      "loginFailed": "เข้าสู่ระบบล้มเหลว: {error}"
+      "loginFailed": "เข้าสู่ระบบล้มเหลว: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

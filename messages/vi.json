@@ -45,7 +45,8 @@
       "connectX": "Kết nối X.com",
       "connectDiscord": "Kết nối Discord",
       "sessionNote": "Phiên mã hóa đã được thiết lập. <br></br> Tất cả thông tin xác thực được bảo vệ an toàn.",
-      "loginFailed": "Đăng nhập thất bại: {error}"
+      "loginFailed": "Đăng nhập thất bại: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

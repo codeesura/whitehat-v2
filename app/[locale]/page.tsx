@@ -139,6 +139,12 @@ export default function WhitehatTerminalPage() {
       <footer className="relative z-20 border-t border-[#1a1a1a] bg-[#050505] py-4 px-6 md:px-8 flex flex-col md:flex-row justify-between items-center text-[9px] text-[#aaa] tracking-[0.2em] shrink-0 gap-2 md:gap-0">
         <div>{t("Common.footer.location")}</div>
         <div className="flex items-center gap-6">
+          <a href="/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+            PRIVACY POLICY
+          </a>
+          <a href="/terms" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+            TERMS OF SERVICE
+          </a>
           <a href="https://x.com/codeesura" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
             {t("Common.footer.twitter")}
           </a>
@@ -157,6 +163,7 @@ export default function WhitehatTerminalPage() {
 }
 
 function LoginPanel({ onLogin, loginError }: { onLogin: (provider: 'twitter' | 'discord') => void, loginError: string | null }) {
+  const [agreedToTerms, setAgreedToTerms] = useState(true)
   const t = useTranslations("Landing.login")
   return (
     <div className="space-y-8">
@@ -169,10 +176,39 @@ function LoginPanel({ onLogin, loginError }: { onLogin: (provider: 'twitter' | '
         </p>
       </div>
 
+      {/* Terms consent checkbox */}
+      <div
+        onClick={() => setAgreedToTerms(!agreedToTerms)}
+        className="flex items-start gap-3 cursor-pointer select-none"
+      >
+        <div className={`mt-0.5 w-4 h-4 shrink-0 border flex items-center justify-center transition-all duration-200 ${agreedToTerms ? "border-[#555] bg-transparent" : "border-[#333] bg-transparent hover:border-[#555]"}`}>
+          {agreedToTerms && (
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="text-[#888]">
+              <path d="M2 5L4.5 7.5L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+            </svg>
+          )}
+        </div>
+        <span className="text-[10px] text-[#999] leading-relaxed">
+          {t.rich("agreeTerms", {
+            terms: (chunks) => (
+              <a href="/terms" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-white underline underline-offset-2 hover:text-[#ccc] transition-colors">
+                {chunks}
+              </a>
+            ),
+            privacy: (chunks) => (
+              <a href="/privacy" target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-white underline underline-offset-2 hover:text-[#ccc] transition-colors">
+                {chunks}
+              </a>
+            ),
+          })}
+        </span>
+      </div>
+
       <div className="space-y-4">
         <button
           onClick={() => onLogin('twitter')}
-          className="w-full bg-[#050505] border border-[#222] text-[#aaa] hover:text-white hover:border-white hover:bg-black py-5 px-6 flex items-center justify-between transition-all duration-300 group cursor-pointer"
+          disabled={!agreedToTerms}
+          className={`w-full bg-[#050505] border border-[#222] text-[#aaa] py-5 px-6 flex items-center justify-between transition-all duration-300 group ${agreedToTerms ? "hover:text-white hover:border-white hover:bg-black cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
         >
           <span className="flex items-center gap-3 font-bold text-[10px] tracking-[0.2em] uppercase">
             <Image src="/twitter.svg" alt="X" width={16} height={16} className="w-4 h-4 invert opacity-70 group-hover:opacity-100 transition-opacity" /> {t("connectX")}
@@ -182,7 +218,8 @@ function LoginPanel({ onLogin, loginError }: { onLogin: (provider: 'twitter' | '
 
         <button
           onClick={() => onLogin('discord')}
-          className="w-full bg-[#050505] border border-[#222] text-[#aaa] hover:text-white hover:border-white hover:bg-black py-5 px-6 flex items-center justify-between transition-all duration-300 group cursor-pointer"
+          disabled={!agreedToTerms}
+          className={`w-full bg-[#050505] border border-[#222] text-[#aaa] py-5 px-6 flex items-center justify-between transition-all duration-300 group ${agreedToTerms ? "hover:text-white hover:border-white hover:bg-black cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
         >
           <span className="flex items-center gap-3 font-bold text-[10px] tracking-[0.2em] uppercase">
             <Image src="/discord.svg" alt="Discord" width={16} height={16} className="w-4 h-4 invert opacity-70 group-hover:opacity-100 transition-opacity" /> {t("connectDiscord")}

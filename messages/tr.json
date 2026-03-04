@@ -45,7 +45,8 @@
       "connectX": "X.com ile Bağlan",
       "connectDiscord": "Discord ile Bağlan",
       "sessionNote": "Şifreli oturum kuruldu. <br></br> Tüm kimlik bilgileri güvenle korunmaktadır.",
-      "loginFailed": "Giriş başarısız: {error}"
+      "loginFailed": "Giriş başarısız: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

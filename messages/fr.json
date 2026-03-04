@@ -45,7 +45,8 @@
       "connectX": "Connecter X.com",
       "connectDiscord": "Connecter Discord",
       "sessionNote": "Session chiffrée établie. <br></br> Toutes les informations d'identification sont sécurisées.",
-      "loginFailed": "Échec de connexion : {error}"
+      "loginFailed": "Échec de connexion : {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

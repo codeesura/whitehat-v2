@@ -45,7 +45,8 @@
       "connectX": "Підключити X.com",
       "connectDiscord": "Підключити Discord",
       "sessionNote": "Зашифровану сесію встановлено. <br></br> Всі облікові дані надійно захищені.",
-      "loginFailed": "Помилка входу: {error}"
+      "loginFailed": "Помилка входу: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

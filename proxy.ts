@@ -8,7 +8,10 @@ const intlMiddleware = createIntlMiddleware(routing);
 function isPublicPath(pathname: string): boolean {
   return (
     pathname.startsWith("/api/") ||
-    pathname.startsWith("/auth/callback")
+    pathname.startsWith("/auth/callback") ||
+    pathname === "/privacy" ||
+    pathname === "/terms" ||
+    pathname === "/manifest.webmanifest"
   );
 }
 

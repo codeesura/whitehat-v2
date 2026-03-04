@@ -45,7 +45,8 @@
       "connectX": "连接 X.com",
       "connectDiscord": "连接 Discord",
       "sessionNote": "加密会话已建立。<br></br>所有凭证均受到安全保护。",
-      "loginFailed": "登录失败：{error}"
+      "loginFailed": "登录失败：{error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

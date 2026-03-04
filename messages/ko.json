@@ -45,7 +45,8 @@
       "connectX": "X.com 연결",
       "connectDiscord": "Discord 연결",
       "sessionNote": "암호화된 세션이 설정되었습니다. <br></br> 모든 자격 증명은 안전하게 보호됩니다.",
-      "loginFailed": "로그인 실패: {error}"
+      "loginFailed": "로그인 실패: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

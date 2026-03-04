@@ -28,11 +28,22 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://codeesura.dev";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://whitehat.codeesura.dev";
 
   return {
+    metadataBase: new URL(baseUrl),
     title: t("title"),
     description: t("description"),
+    icons: {
+      icon: "/icon.svg",
+      apple: "/icon.svg",
+    },
+    manifest: "/manifest.webmanifest",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true },
+    },
     alternates: {
       languages: {
         ...Object.fromEntries(
@@ -41,7 +52,14 @@ export async function generateMetadata({
         "x-default": `${baseUrl}/en`,
       },
     },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+    },
     openGraph: {
+      type: "website",
+      siteName: t("title"),
       title: t("title"),
       description: t("description"),
       locale: ogLocaleMap[locale] || "en_US",

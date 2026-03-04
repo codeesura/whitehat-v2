@@ -45,7 +45,8 @@
       "connectX": "Войти через X.com",
       "connectDiscord": "Войти через Discord",
       "sessionNote": "Зашифрованная сессия установлена. <br></br> Все данные надёжно защищены.",
-      "loginFailed": "Ошибка входа: {error}"
+      "loginFailed": "Ошибка входа: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

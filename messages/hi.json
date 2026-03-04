@@ -45,7 +45,8 @@
       "connectX": "X.com से कनेक्ट करें",
       "connectDiscord": "Discord से कनेक्ट करें",
       "sessionNote": "एन्क्रिप्टेड सेशन स्थापित किया गया। <br></br> सभी क्रेडेंशियल सुरक्षित रूप से संरक्षित हैं।",
-      "loginFailed": "लॉगिन विफल: {error}"
+      "loginFailed": "लॉगिन विफल: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

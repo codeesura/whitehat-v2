@@ -45,7 +45,8 @@
       "connectX": "Conectar X.com",
       "connectDiscord": "Conectar Discord",
       "sessionNote": "Sessão criptografada estabelecida. <br></br> Todas as credenciais estão protegidas com segurança.",
-      "loginFailed": "Falha no login: {error}"
+      "loginFailed": "Falha no login: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

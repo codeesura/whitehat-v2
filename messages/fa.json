@@ -45,7 +45,8 @@
       "connectX": "اتصال به X.com",
       "connectDiscord": "اتصال به Discord",
       "sessionNote": "نشست رمزگذاری‌شده برقرار شد. <br></br> تمام اطلاعات به‌طور ایمن محافظت می‌شوند.",
-      "loginFailed": "ورود ناموفق: {error}"
+      "loginFailed": "ورود ناموفق: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

@@ -45,7 +45,8 @@
       "connectX": "Connect X.com",
       "connectDiscord": "Connect Discord",
       "sessionNote": "Encrypted session established. <br></br> All credentials are securely protected.",
-      "loginFailed": "Login failed: {error}"
+      "loginFailed": "Login failed: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

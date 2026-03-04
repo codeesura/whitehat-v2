@@ -45,7 +45,8 @@
       "connectX": "ربط X.com",
       "connectDiscord": "ربط Discord",
       "sessionNote": "تم إنشاء جلسة مشفرة. <br></br> جميع بياناتك محمية بأمان تام.",
-      "loginFailed": "فشل تسجيل الدخول: {error}"
+      "loginFailed": "فشل تسجيل الدخول: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {

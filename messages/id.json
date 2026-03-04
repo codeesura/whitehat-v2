@@ -45,7 +45,8 @@
       "connectX": "Hubungkan X.com",
       "connectDiscord": "Hubungkan Discord",
       "sessionNote": "Sesi terenkripsi telah dibuat. <br></br> Semua kredensial dilindungi dengan aman.",
-      "loginFailed": "Login gagal: {error}"
+      "loginFailed": "Login gagal: {error}",
+      "agreeTerms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
   },
   "Dashboard": {
