@@ -11,7 +11,10 @@ function isPublicPath(pathname: string): boolean {
     pathname.startsWith("/auth/callback") ||
     pathname === "/privacy" ||
     pathname === "/terms" ||
-    pathname === "/manifest.webmanifest"
+    pathname === "/manifest.webmanifest" ||
+    pathname === "/robots.txt" ||
+    pathname === "/sitemap.xml" ||
+    pathname === "/opengraph-image"
   );
 }
 
