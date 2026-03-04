@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "系统：在线",
+    "footer": {
+      "location": "ETH ISTANBUL // 区块链取证",
+      "twitter": "TWITTER",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "关闭",
+      "cancel": "取消",
+      "retry": "重试",
+      "saving": "保存中...",
+      "change": "更改"
+    },
+    "loading": "加载中..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "救援行动",
+      "description": "密钥泄露并不意味着资产全部损失。我专注于<highlight>从被盗号器攻击的钱包中抢救资产</highlight>，覆盖所有 EVM 链——包括锁定的质押仓位、待领取的空投以及归属合约。"
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "提交您的钱包",
+        "description": "提供被盗钱包的私钥。该私钥在存储前会<highlight>在服务器端加密</highlight>，除我之外任何人均无法读取。您的钱包地址将从私钥中自动推导得出。"
+      },
+      "step02": {
+        "number": "02",
+        "title": "所有权验证",
+        "description": "系统将自动追踪您钱包在所有 EVM 链上的首笔充值交易。若资金来源于已知交易所，您将被要求上传原始提币确认邮件（.eml 格式）以进行<highlight>密码学验证</highlight>。"
+      },
+      "step03": {
+        "number": "03",
+        "title": "资产救援",
+        "description": "一旦所有权得到确认，系统将执行反盗号器策略，在恶意机器人作出反应之前，将您的资产——包括质押代币、待领空投、归属合约中的资产——转移至您指定的安全钱包。"
+      }
+    },
+    "login": {
+      "title": "发起救援",
+      "subtitle": "安全 Whitehat 入口访问",
+      "connectX": "连接 X.com",
+      "connectDiscord": "连接 Discord",
+      "sessionNote": "加密会话已建立。<br></br>所有凭证均受到安全保护。",
+      "loginFailed": "登录失败：{error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "正在初始化安全会话...",
+    "initError": {
+      "badge": "初始化错误",
+      "defaultMessage": "仪表盘加载失败。请检查您的网络连接后重试。"
+    },
+    "logout": "[ 退出登录 ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // 安全目标地址",
+      "savedBadge": "已保存",
+      "setTitle": "设置救援目标地址：",
+      "setDescription": "所有已恢复的资产将发送至此地址。请确保这是您完全掌控的钱包。",
+      "warning": "此地址将成为所有救援资金的<strong>永久目标地址</strong>。每 <strong>3 天</strong>只能更改一次。如需紧急更改，请联系 <xLink>@codeesura</xLink> 或 <emailLink>contact@codeesura.dev</emailLink>。",
+      "cexWarning": "<strong>请勿填写 CEX（交易所）地址。</strong>发送至交易所充值地址（Binance、Coinbase 等）的救援资金可能会永久丢失。请仅使用自托管钱包（MetaMask、Ledger、Rabby 等）。",
+      "placeholder": "0x...（安全接收地址）",
+      "formatHint": "格式：0x 后跟 40 个十六进制字符（a-f、0-9）",
+      "invalidAddress": "无效的以太坊地址。必须以 0x 开头，后跟 40 个十六进制字符。",
+      "confirmDestination": "确认目标地址",
+      "changeTitle": "更改目标地址：",
+      "changeDescription": "输入您的新安全钱包地址。",
+      "changeCexWarning": "<strong>请勿</strong>填写 CEX（交易所）地址。发送至交易所充值地址的资金可能会<highlight>永久丢失</highlight>。请仅使用您完全掌控的钱包（MetaMask、Ledger 等）。",
+      "newPlaceholder": "0x...（新安全接收地址）",
+      "confirmNewAddress": "确认新地址",
+      "label": "安全钱包",
+      "infoText": "地址更改每 3 天限一次。如有紧急需求，请直接联系我。",
+      "locked": "已锁定（{hours} 小时后解锁）"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // 提交被盗钱包",
+      "description": "输入被盗钱包的私钥。您的钱包地址将<strong>自动识别</strong>。私钥在存储前会被<strong>加密</strong>，仅我可访问以执行救援操作。",
+      "placeholder": "私钥（0x... 或原始十六进制）",
+      "valid": "有效",
+      "waiting": "等待中",
+      "derivedLabel": "被盗钱包地址",
+      "invalidKeyHint": "请输入有效的 EVM 私钥（64 个十六进制字符）。不支持助记词。",
+      "invalidKey": "无效的私钥。",
+      "networkError": "网络错误。请检查您的网络连接后重试。",
+      "submitting": "加密及验证中...",
+      "submit": "提交救援申请"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // 您的提交记录",
+      "verified": "{count} 个已验证",
+      "emlRequired": "{count} 个需上传 EML",
+      "pending": "{count} 个待处理",
+      "total": "{count} 个总计",
+      "statusPending": "待验证",
+      "statusEmlRequired": "需上传 EML",
+      "statusVerified": "已验证",
+      "statusInProgress": "救援进行中",
+      "statusCompleted": "已完成",
+      "statusRejected": "已拒绝",
+      "via": "通过 {cex}"
+    },
+    "modal": {
+      "title": "所有权验证",
+      "fundingUnavailable": {
+        "badge": "资金来源数据不可用",
+        "description": "无法自动检测该钱包的资金来源。这可能发生在跨链桥转账、合约部署或非标准充值方式的情况下。请直接联系我进行人工验证。"
+      },
+      "fundingTitle": "首笔充值交易",
+      "txHash": "交易哈希",
+      "source": "来源",
+      "manualVerification": {
+        "badge": "需要人工验证",
+        "description": "该钱包的资金并非来自已知交易所，无法进行自动邮件验证。请联系我并提供任何所有权证明（交易记录、消息签名或其他证据），以便我继续处理您的救援请求。"
+      },
+      "emlRequired": {
+        "badge": "检测到 CEX — 需要邮件验证",
+        "description": "该钱包的资金来自 <strong>{cex}</strong>。请上传 <strong>.eml 格式</strong>的原始提币确认邮件。"
+      },
+      "verificationChecks": "验证项目",
+      "checks": {
+        "authenticity": "邮件真实性",
+        "sender": "发件人匹配 {cex}",
+        "wallet": "您的钱包地址",
+        "txId": "交易 ID"
+      },
+      "emlGuide": {
+        "title": "如何下载 .eml 文件",
+        "step1": "打开您的邮箱，找到来自 {cex} 关于本次交易的<strong>提币确认邮件</strong>。",
+        "step2title": "将邮件下载为 <strong>.eml</strong> 文件：",
+        "gmail": "<strong>Gmail：</strong>打开邮件 → ⋮（右上角三个点）→「下载邮件」",
+        "outlook": "<strong>Outlook：</strong>打开邮件 → 文件 → 另存为 → 保存为 .eml 格式",
+        "yahoo": "<strong>Yahoo：</strong>打开邮件 → …（更多）→「下载邮件」",
+        "step3": "在下方上传已下载的 .eml 文件，系统将自动进行验证。",
+        "dkimWarning": "<strong>请勿转发</strong>邮件给自己或他人后再下载。转发操作会<strong>破坏 DKIM 签名</strong>，文件将被拒绝。请始终直接从您的收件箱下载原始邮件。"
+      },
+      "dropzone": {
+        "drag": "拖放 .eml 文件至此",
+        "browse": "或点击浏览文件",
+        "onlyEml": "仅接受 .eml 格式文件"
+      },
+      "uploading": "正在验证 DKIM 及加密中...",
+      "verifySubmit": "验证并提交",
+      "verified": {
+        "badge": "所有权已验证",
+        "description": "DKIM 签名验证成功。您的钱包已加入救援队列。我将尽快执行救援策略，您无需进行任何其他操作。"
+      },
+      "rejected": {
+        "badge": "验证失败",
+        "description": "上传的邮件无法通过验证。这可能是由于邮件经过转发、被修改，或未以原始 .eml 格式下载所致。请联系我进行人工审核。"
+      },
+      "uploadFailed": "上传失败",
+      "networkError": "网络错误。请重试。"
+    }
+  },
+  "AuthError": {
+    "badge": "身份验证失败",
+    "title": "出现错误",
+    "description": "我们无法完成身份验证流程。这可能是由于登录会话已过期或被中断。请重试。",
+    "returnButton": "返回登录页"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // 安全资产恢复",
+    "description": "针对被入侵EVM钱包的高级反扫描策略和安全资产提取。"
+  },
+  "NotFound": {
+    "title": "页面未找到",
+    "description": "您查找的页面不存在或已被移动。",
+    "returnHome": "返回首页"
+  }
+}

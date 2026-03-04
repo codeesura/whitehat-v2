@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "SYSTÈME : EN LIGNE",
+    "footer": {
+      "location": "ETH ISTANBUL // BLOCKCHAIN FORENSICS",
+      "twitter": "TWITTER",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "Fermer",
+      "cancel": "Annuler",
+      "retry": "Réessayer",
+      "saving": "Enregistrement...",
+      "change": "Modifier"
+    },
+    "loading": "Chargement..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "RESCUE OPS.",
+      "description": "Une clé compromise ne signifie pas une perte totale. Je suis spécialisé dans <highlight>la récupération d'actifs depuis des portefeuilles compromis par des sweepers</highlight> sur toutes les chaînes EVM — y compris les positions de staking verrouillées, les airdrops en attente et les contrats de vesting."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "Soumettre votre portefeuille",
+        "description": "Fournissez la clé privée de votre portefeuille compromis. La clé est <highlight>chiffrée sur le serveur</highlight> avant stockage et ne peut être lue que par moi. L'adresse de votre portefeuille est automatiquement dérivée de la clé."
+      },
+      "step02": {
+        "number": "02",
+        "title": "Vérification de propriété",
+        "description": "La première transaction de financement de votre portefeuille est automatiquement retracée sur toutes les chaînes EVM. Si elle provient d'une plateforme d'échange connue, il vous sera demandé de téléverser l'e-mail de confirmation de retrait original (.eml) pour une <highlight>vérification cryptographique</highlight>."
+      },
+      "step03": {
+        "number": "03",
+        "title": "Récupération d'actifs",
+        "description": "Une fois la propriété confirmée, une stratégie de contre-sweeper est exécutée pour extraire vos actifs — jetons stakés, airdrops en attente, contrats de vesting — et les transférer vers votre portefeuille sécurisé désigné avant que le bot malveillant ne puisse réagir."
+      }
+    },
+    "login": {
+      "title": "Initier la récupération",
+      "subtitle": "Accès sécurisé au portail Whitehat",
+      "connectX": "Connecter X.com",
+      "connectDiscord": "Connecter Discord",
+      "sessionNote": "Session chiffrée établie. <br></br> Toutes les informations d'identification sont sécurisées.",
+      "loginFailed": "Échec de connexion : {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "Initialisation de la session sécurisée...",
+    "initError": {
+      "badge": "Erreur d'initialisation",
+      "defaultMessage": "Échec du chargement du tableau de bord. Veuillez vérifier votre connexion et réessayer."
+    },
+    "logout": "[ Déconnexion ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // Destination sécurisée",
+      "savedBadge": "Enregistré",
+      "setTitle": "DÉFINIR LA DESTINATION DE RÉCUPÉRATION :",
+      "setDescription": "Tous les actifs récupérés seront envoyés à cette adresse. Assurez-vous qu'il s'agit d'un portefeuille que vous contrôlez entièrement.",
+      "warning": "Ce sera la <strong>destination permanente</strong> de tous les fonds récupérés. Vous ne pouvez modifier cette adresse qu'une fois tous les <strong>3 jours</strong>. Pour les modifications urgentes, contactez <xLink>@codeesura</xLink> ou <emailLink>contact@codeesura.dev</emailLink>.",
+      "cexWarning": "<strong>N'entrez PAS une adresse CEX (plateforme d'échange).</strong> Les fonds récupérés envoyés vers des adresses de dépôt d'échanges (Binance, Coinbase, etc.) peuvent être définitivement perdus. Utilisez uniquement un portefeuille en auto-garde (MetaMask, Ledger, Rabby, etc.).",
+      "placeholder": "0x... (Adresse du destinataire sécurisé)",
+      "formatHint": "Format : 0x suivi de 40 caractères hexadécimaux (a-f, 0-9)",
+      "invalidAddress": "Adresse Ethereum invalide. Elle doit commencer par 0x suivi de 40 caractères hexadécimaux.",
+      "confirmDestination": "Confirmer la destination",
+      "changeTitle": "MODIFIER LA DESTINATION :",
+      "changeDescription": "Entrez la nouvelle adresse de votre portefeuille sécurisé.",
+      "changeCexWarning": "<strong>N'entrez PAS</strong> une adresse CEX (plateforme d'échange). Les fonds envoyés vers des adresses de dépôt d'échanges peuvent être <highlight>définitivement perdus</highlight>. Utilisez uniquement un portefeuille que vous contrôlez entièrement (MetaMask, Ledger, etc.).",
+      "newPlaceholder": "0x... (Nouvelle adresse du destinataire sécurisé)",
+      "confirmNewAddress": "Confirmer la nouvelle adresse",
+      "label": "Portefeuille sécurisé",
+      "infoText": "Les modifications d'adresse sont limitées à une fois tous les 3 jours. Pour les demandes urgentes, contactez-moi.",
+      "locked": "Verrouillé ({hours}h)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // Soumettre le portefeuille compromis",
+      "description": "Entrez la clé privée de votre portefeuille compromis. L'adresse de votre portefeuille sera <strong>détectée automatiquement</strong>. La clé est <strong>chiffrée</strong> avant stockage et n'est accessible que par moi pour les opérations de récupération.",
+      "placeholder": "Clé privée (0x... ou hex brut)",
+      "valid": "VALIDE",
+      "waiting": "EN ATTENTE",
+      "derivedLabel": "Adresse du portefeuille compromis",
+      "invalidKeyHint": "Entrez une clé privée EVM valide (64 caractères hexadécimaux). Les phrases mnémoniques ne sont pas acceptées.",
+      "invalidKey": "Clé privée invalide.",
+      "networkError": "Erreur réseau. Veuillez vérifier votre connexion et réessayer.",
+      "submitting": "Chiffrement et vérification en cours...",
+      "submit": "Soumettre pour récupération"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // Vos soumissions",
+      "verified": "{count} vérifiée(s)",
+      "emlRequired": "{count} EML requis",
+      "pending": "{count} en attente",
+      "total": "{count} au total",
+      "statusPending": "EN ATTENTE DE VÉRIFICATION",
+      "statusEmlRequired": "EML REQUIS",
+      "statusVerified": "VÉRIFIÉ",
+      "statusInProgress": "RÉCUPÉRATION EN COURS",
+      "statusCompleted": "TERMINÉ",
+      "statusRejected": "REJETÉ",
+      "via": "via {cex}"
+    },
+    "modal": {
+      "title": "Vérification de propriété",
+      "fundingUnavailable": {
+        "badge": "Données de financement indisponibles",
+        "description": "La source de financement de ce portefeuille n'a pas pu être détectée automatiquement. Cela peut se produire avec des transactions de bridge, des déploiements de contrats ou des méthodes de financement non standard. Veuillez me contacter directement pour une vérification manuelle."
+      },
+      "fundingTitle": "Première transaction de financement",
+      "txHash": "Hash de TX",
+      "source": "Source",
+      "manualVerification": {
+        "badge": "Vérification manuelle requise",
+        "description": "Ce portefeuille n'a pas été financé depuis une plateforme d'échange reconnue. La vérification automatique par e-mail n'est pas disponible pour ce portefeuille. Veuillez me contacter avec toute preuve de propriété (historique des transactions, signature d'un message ou autre justificatif) afin que je puisse traiter votre demande de récupération."
+      },
+      "emlRequired": {
+        "badge": "CEX détecté — Vérification par e-mail requise",
+        "description": "Ce portefeuille a été financé depuis <strong>{cex}</strong>. Téléversez l'e-mail de confirmation de retrait original au <strong>format .eml</strong>."
+      },
+      "verificationChecks": "Contrôles de vérification",
+      "checks": {
+        "authenticity": "Authenticité de l'e-mail",
+        "sender": "L'expéditeur correspond à {cex}",
+        "wallet": "L'adresse de votre portefeuille",
+        "txId": "Identifiant de transaction"
+      },
+      "emlGuide": {
+        "title": "Comment télécharger le fichier .eml",
+        "step1": "Ouvrez votre boîte de réception et trouvez l'<strong>e-mail de confirmation de retrait</strong> de {cex} pour cette transaction spécifique.",
+        "step2title": "Téléchargez l'e-mail en tant que fichier <strong>.eml</strong> :",
+        "gmail": "<strong>Gmail :</strong> Ouvrir l'e-mail → ⋮ (trois points, en haut à droite) → « Télécharger le message »",
+        "outlook": "<strong>Outlook :</strong> Ouvrir l'e-mail → Fichier → Enregistrer sous → enregistrer en .eml",
+        "yahoo": "<strong>Yahoo :</strong> Ouvrir l'e-mail → … (plus) → « Télécharger le message »",
+        "step3": "Téléversez le fichier .eml téléchargé ci-dessous. Notre système le vérifiera automatiquement.",
+        "dkimWarning": "<strong>Ne transférez pas</strong> l'e-mail à vous-même ou à quelqu'un avant de le télécharger. Le transfert <strong>brise la signature DKIM</strong> et le fichier sera rejeté. Téléchargez toujours l'e-mail original directement depuis votre boîte de réception."
+      },
+      "dropzone": {
+        "drag": "Glisser-déposer le fichier .eml",
+        "browse": "ou cliquer pour parcourir",
+        "onlyEml": "Seuls les fichiers .eml sont acceptés"
+      },
+      "uploading": "Vérification DKIM et chiffrement en cours...",
+      "verifySubmit": "Vérifier et soumettre",
+      "verified": {
+        "badge": "Propriété vérifiée",
+        "description": "Signature DKIM vérifiée avec succès. Votre portefeuille a été ajouté à la file d'attente de récupération. Je vais exécuter la stratégie de récupération dès que possible. Aucune action supplémentaire n'est requise de votre part."
+      },
+      "rejected": {
+        "badge": "Vérification échouée",
+        "description": "L'e-mail téléversé n'a pas pu être vérifié. Cela peut se produire si l'e-mail a été transféré, modifié ou non téléchargé au format .eml original. Veuillez me contacter pour une révision manuelle."
+      },
+      "uploadFailed": "Échec du téléversement",
+      "networkError": "Erreur réseau. Veuillez réessayer."
+    }
+  },
+  "AuthError": {
+    "badge": "Authentification échouée",
+    "title": "Une erreur s'est produite",
+    "description": "Nous n'avons pas pu finaliser le processus d'authentification. Cela peut se produire si la session de connexion a expiré ou a été interrompue. Veuillez réessayer.",
+    "returnButton": "Retour à la connexion"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // Récupération Sécurisée d'Actifs",
+    "description": "Stratégies avancées contre les sweepers et extraction sécurisée d'actifs pour les portefeuilles EVM compromis."
+  },
+  "NotFound": {
+    "title": "Page Non Trouvée",
+    "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "returnHome": "Retour à l'Accueil"
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "SİSTEM: AKTİF",
+    "footer": {
+      "location": "ETH ISTANBUL // BLOCKCHAIN ADLİ BİLİŞİM",
+      "twitter": "TWITTER",
+      "allSystems": "TÜM_SİSTEMLER_AKTİF"
+    },
+    "actions": {
+      "close": "Kapat",
+      "cancel": "İptal",
+      "retry": "Tekrar Dene",
+      "saving": "Kaydediliyor...",
+      "change": "Değiştir"
+    },
+    "loading": "Yükleniyor..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "KURTARMA OPS.",
+      "description": "Ele geçirilmiş bir anahtar, her şeyin kaybı anlamına gelmez. Tüm EVM zincirleri genelinde — kilitli staking pozisyonları, bekleyen airdrop'lar ve vesting sözleşmeleri dahil — <highlight>sweeper tarafından ele geçirilmiş cüzdanlardan varlık kurtarma</highlight> konusunda uzmanlaşıyorum."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "Cüzdanınızı Gönderin",
+        "description": "Ele geçirilmiş cüzdanınızın özel anahtarını girin. Anahtar, depolanmadan önce <highlight>sunucuda şifrelenir</highlight> ve benden başka kimse tarafından okunamaz. Cüzdan adresiniz anahtardan otomatik olarak türetilir."
+      },
+      "step02": {
+        "number": "02",
+        "title": "Sahiplik Doğrulama",
+        "description": "Cüzdanınızın ilk fonlama işlemi, tüm EVM zincirleri genelinde otomatik olarak izlenir. Bilinen bir borsadan fonlanmışsa, <highlight>kriptografik doğrulama</highlight> için orijinal çekim e-postasını (.eml) yüklemeniz istenecektir."
+      },
+      "step03": {
+        "number": "03",
+        "title": "Varlık Kurtarma",
+        "description": "Sahiplik onaylandıktan sonra, varlıklarınızı — stake edilmiş tokenlar, bekleyen airdrop'lar, vesting sözleşmeleri — kötü niyetli bot tepki vermeden önce güvenli cüzdanınıza aktarmak için bir karşı-sweeper stratejisi yürütülür."
+      }
+    },
+    "login": {
+      "title": "Kurtarmayı Başlat",
+      "subtitle": "Güvenli Whitehat Portal Erişimi",
+      "connectX": "X.com ile Bağlan",
+      "connectDiscord": "Discord ile Bağlan",
+      "sessionNote": "Şifreli oturum kuruldu. <br></br> Tüm kimlik bilgileri güvenle korunmaktadır.",
+      "loginFailed": "Giriş başarısız: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "Güvenli Oturum Başlatılıyor...",
+    "initError": {
+      "badge": "Başlatma Hatası",
+      "defaultMessage": "Dashboard yüklenemedi. Lütfen bağlantınızı kontrol edip tekrar deneyin."
+    },
+    "logout": "[ Çıkış ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // Güvenli Hedef",
+      "savedBadge": "Kaydedildi",
+      "setTitle": "KURTARMA HEDEFİ BELİRLE:",
+      "setDescription": "Kurtarılan tüm varlıklar bu adrese gönderilecektir. Tamamen kontrol ettiğiniz bir cüzdan olduğundan emin olun.",
+      "warning": "Bu, kurtarılan tüm fonlar için <strong>kalıcı hedef</strong> olacaktır. Bu adresi yalnızca <strong>3 günde bir</strong> değiştirebilirsiniz. Acil değişiklikler için <xLink>@codeesura</xLink> veya <emailLink>contact@codeesura.dev</emailLink> ile iletişime geçin.",
+      "cexWarning": "<strong>CEX (borsa) adresi GİRMEYİN.</strong> Borsa yatırım adreslerine (Binance, Coinbase vb.) gönderilen kurtarılmış fonlar kalıcı olarak kaybolabilir. Yalnızca kendi kontrol ettiğiniz bir cüzdan (MetaMask, Ledger, Rabby vb.) kullanın.",
+      "placeholder": "0x... (Güvenli Alıcı Adresi)",
+      "formatHint": "Format: 0x ve ardından 40 hex karakter (a-f, 0-9)",
+      "invalidAddress": "Geçersiz Ethereum adresi. 0x ile başlamalı ve ardından 40 hex karakter gelmelidir.",
+      "confirmDestination": "Hedefi Onayla",
+      "changeTitle": "HEDEFİ DEĞİŞTİR:",
+      "changeDescription": "Yeni güvenli cüzdan adresinizi girin.",
+      "changeCexWarning": "CEX (borsa) adresi <strong>GİRMEYİN</strong>. Borsa yatırım adreslerine gönderilen fonlar <highlight>kalıcı olarak kaybolabilir</highlight>. Yalnızca tam kontrol ettiğiniz bir cüzdan (MetaMask, Ledger vb.) kullanın.",
+      "newPlaceholder": "0x... (Yeni Güvenli Alıcı Adresi)",
+      "confirmNewAddress": "Yeni Adresi Onayla",
+      "label": "Güvenli Cüzdan",
+      "infoText": "Adres değişiklikleri 3 günde bir ile sınırlıdır. Acil istekler için benimle iletişime geçin.",
+      "locked": "Kilitli ({hours}s)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // Ele Geçirilmiş Cüzdan Gönder",
+      "description": "Ele geçirilmiş cüzdanınızın özel anahtarını girin. Cüzdan adresiniz <strong>otomatik olarak algılanacaktır</strong>. Anahtar, depolanmadan önce <strong>şifrelenir</strong> ve yalnızca kurtarma operasyonları için tarafımdan erişilebilir.",
+      "placeholder": "Özel anahtar (0x... veya ham hex)",
+      "valid": "GEÇERLİ",
+      "waiting": "BEKLENİYOR",
+      "derivedLabel": "Ele Geçirilmiş Cüzdan Adresi",
+      "invalidKeyHint": "Geçerli bir EVM özel anahtarı (64 hex karakter) girin. Anımsatıcı ifadeler kabul edilmez.",
+      "invalidKey": "Geçersiz özel anahtar.",
+      "networkError": "Ağ hatası. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
+      "submitting": "Şifreleniyor ve Doğrulanıyor...",
+      "submit": "Kurtarma İçin Gönder"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // Gönderimleriniz",
+      "verified": "{count} Doğrulanmış",
+      "emlRequired": "{count} EML Gerekli",
+      "pending": "{count} Beklemede",
+      "total": "{count} Toplam",
+      "statusPending": "DOĞRULAMA BEKLENİYOR",
+      "statusEmlRequired": "EML GEREKLİ",
+      "statusVerified": "DOĞRULANDI",
+      "statusInProgress": "KURTARMA DEVAM EDİYOR",
+      "statusCompleted": "TAMAMLANDI",
+      "statusRejected": "REDDEDİLDİ",
+      "via": "{cex} üzerinden"
+    },
+    "modal": {
+      "title": "Sahiplik Doğrulama",
+      "fundingUnavailable": {
+        "badge": "Fonlama Verisi Bulunamadı",
+        "description": "Bu cüzdanın fonlama kaynağı otomatik olarak tespit edilemedi. Bu durum köprü işlemleri, sözleşme dağıtımları veya standart dışı fonlama yöntemlerinde yaşanabilir. Manuel doğrulama için doğrudan benimle iletişime geçin."
+      },
+      "fundingTitle": "İlk Fonlama İşlemi",
+      "txHash": "TX Hash",
+      "source": "Kaynak",
+      "manualVerification": {
+        "badge": "Manuel Doğrulama Gerekli",
+        "description": "Bu cüzdan tanınan bir borsadan fonlanmamıştır. Bu cüzdan için otomatik e-posta doğrulaması mevcut değildir. Kurtarma talebinize devam edebilmem için herhangi bir sahiplik kanıtı (işlem geçmişi, mesaj imzalama veya diğer kanıtlar) ile benimle iletişime geçin."
+      },
+      "emlRequired": {
+        "badge": "CEX Algılandı — E-posta Doğrulaması Gerekli",
+        "description": "Bu cüzdan <strong>{cex}</strong> üzerinden fonlanmıştır. Orijinal çekim onay e-postasını <strong>.eml formatında</strong> yükleyin."
+      },
+      "verificationChecks": "Doğrulama Kontrolleri",
+      "checks": {
+        "authenticity": "E-posta özgünlüğü",
+        "sender": "Gönderici {cex} ile eşleşiyor",
+        "wallet": "Cüzdan adresiniz",
+        "txId": "İşlem kimliği"
+      },
+      "emlGuide": {
+        "title": ".eml dosyası nasıl indirilir",
+        "step1": "E-posta gelen kutunuzu açın ve bu işlem için {cex}'ten gelen <strong>çekim onay e-postasını</strong> bulun.",
+        "step2title": "E-postayı <strong>.eml</strong> dosyası olarak indirin:",
+        "gmail": "<strong>Gmail:</strong> E-postayı aç → ⋮ (sağ üstteki üç nokta) → \"Mesajı indir\"",
+        "outlook": "<strong>Outlook:</strong> E-postayı aç → Dosya → Farklı Kaydet → .eml olarak kaydet",
+        "yahoo": "<strong>Yahoo:</strong> E-postayı aç → … (daha fazla) → \"Mesajı indir\"",
+        "step3": "İndirilen .eml dosyasını aşağıya yükleyin. Sistemimiz otomatik olarak doğrulayacaktır.",
+        "dkimWarning": "E-postayı indirmeden önce kendinize veya başkasına <strong>iletmeyin</strong>. İletme <strong>DKIM imzasını bozar</strong> ve dosya reddedilir. E-postayı her zaman doğrudan gelen kutunuzdan indirin."
+      },
+      "dropzone": {
+        "drag": ".eml Dosyasını Sürükle & Bırak",
+        "browse": "veya göz atmak için tıklayın",
+        "onlyEml": "Yalnızca .eml dosyaları kabul edilir"
+      },
+      "uploading": "DKIM Doğrulanıyor ve Şifreleniyor...",
+      "verifySubmit": "Doğrula ve Gönder",
+      "verified": {
+        "badge": "Sahiplik Doğrulandı",
+        "description": "DKIM imzası başarıyla doğrulandı. Cüzdanınız kurtarma kuyruğuna eklendi. Kurtarma stratejisini en kısa sürede uygulayacağım. Sizden başka bir işlem gerekmemektedir."
+      },
+      "rejected": {
+        "badge": "Doğrulama Başarısız",
+        "description": "Yüklenen e-posta doğrulanamadı. Bu durum, e-posta iletilmişse, değiştirilmişse veya orijinal .eml formatında indirilmemişse yaşanabilir. Manuel inceleme için benimle iletişime geçin."
+      },
+      "uploadFailed": "Yükleme başarısız",
+      "networkError": "Ağ hatası. Lütfen tekrar deneyin."
+    }
+  },
+  "AuthError": {
+    "badge": "Kimlik Doğrulama Başarısız",
+    "title": "Bir şeyler yanlış gitti",
+    "description": "Kimlik doğrulama işlemi tamamlanamadı. Bu durum, giriş oturumunun süresi dolmuşsa veya kesintiye uğramışsa yaşanabilir. Lütfen tekrar deneyin.",
+    "returnButton": "Girişe Dön"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Kurtarma Ops // Güvenli Varlık Kurtarma",
+    "description": "Ele geçirilmiş EVM cüzdanları için gelişmiş karşı-sweeper stratejileri ve güvenli varlık çıkarma."
+  },
+  "NotFound": {
+    "title": "Sayfa Bulunamadı",
+    "description": "Aradığınız sayfa mevcut değil veya taşınmış.",
+    "returnHome": "Ana Sayfaya Dön"
+  }
+}

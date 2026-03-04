@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "SYSTEM: ONLINE",
+    "footer": {
+      "location": "ETH ISTANBUL // BLOCKCHAIN FORENSICS",
+      "twitter": "TWITTER",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "Zamknij",
+      "cancel": "Anuluj",
+      "retry": "Ponów",
+      "saving": "Zapisywanie...",
+      "change": "Zmień"
+    },
+    "loading": "Ładowanie..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "RESCUE OPS.",
+      "description": "Skompromitowany klucz nie oznacza całkowitej utraty. Specjalizuję się w <highlight>odzyskiwaniu aktywów z portfeli przejętych przez sweepery</highlight> na wszystkich sieciach EVM — w tym zablokowanych pozycji stakingowych, oczekujących airdropów i kontraktów vestingowych."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "Prześlij Swój Portfel",
+        "description": "Podaj klucz prywatny swojego skompromitowanego portfela. Klucz jest <highlight>szyfrowany na serwerze</highlight> przed zapisem i nie może być odczytany przez nikogo poza mną. Adres portfela jest automatycznie wyprowadzany z klucza."
+      },
+      "step02": {
+        "number": "02",
+        "title": "Weryfikacja Własności",
+        "description": "Pierwsza transakcja zasilająca Twój portfel jest automatycznie śledzona we wszystkich sieciach EVM. Jeśli środki pochodziły ze znanej giełdy, zostaniesz poproszony o przesłanie oryginalnego e-maila potwierdzającego wypłatę (plik .eml) w celu <highlight>kryptograficznej weryfikacji</highlight>."
+      },
+      "step03": {
+        "number": "03",
+        "title": "Odzyskiwanie Aktywów",
+        "description": "Po potwierdzeniu własności uruchamiana jest strategia anty-sweeperowa, której celem jest wydobycie Twoich aktywów — stakowanych tokenów, oczekujących airdropów, kontraktów vestingowych — i przetransferowanie ich do wskazanego bezpiecznego portfela, zanim złośliwy bot zdąży zareagować."
+      }
+    },
+    "login": {
+      "title": "Rozpocznij Akcję Ratunkową",
+      "subtitle": "Bezpieczny Dostęp do Portalu Whitehat",
+      "connectX": "Połącz z X.com",
+      "connectDiscord": "Połącz z Discord",
+      "sessionNote": "Zaszyfrowana sesja została nawiązana. <br></br> Wszystkie dane uwierzytelniające są bezpiecznie chronione.",
+      "loginFailed": "Logowanie nieudane: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "Inicjowanie Bezpiecznej Sesji...",
+    "initError": {
+      "badge": "Błąd Inicjalizacji",
+      "defaultMessage": "Nie udało się załadować pulpitu. Sprawdź połączenie i spróbuj ponownie."
+    },
+    "logout": "[ Wyloguj ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // Bezpieczny Cel",
+      "savedBadge": "Zapisano",
+      "setTitle": "USTAW CEL ODZYSKIWANIA:",
+      "setDescription": "Wszystkie odzyskane aktywa zostaną wysłane na ten adres. Upewnij się, że jest to portfel, nad którym masz pełną kontrolę.",
+      "warning": "Będzie to <strong>stały adres docelowy</strong> dla wszystkich odzyskanych środków. Możesz zmienić ten adres tylko raz na <strong>3 dni</strong>. W pilnych przypadkach skontaktuj się przez <xLink>@codeesura</xLink> lub <emailLink>contact@codeesura.dev</emailLink>.",
+      "cexWarning": "<strong>NIE WPISUJ adresu CEX (giełdy).</strong> Odzyskane środki wysłane na adresy depozytowe giełd (Binance, Coinbase itp.) mogą zostać trwale utracone. Używaj wyłącznie portfela z własną kontrolą kluczy (MetaMask, Ledger, Rabby itp.).",
+      "placeholder": "0x... (Bezpieczny Adres Odbiorcy)",
+      "formatHint": "Format: 0x, a następnie 40 znaków szesnastkowych (a-f, 0-9)",
+      "invalidAddress": "Nieprawidłowy adres Ethereum. Musi zaczynać się od 0x, a następnie zawierać 40 znaków szesnastkowych.",
+      "confirmDestination": "Potwierdź Adres Docelowy",
+      "changeTitle": "ZMIEŃ ADRES DOCELOWY:",
+      "changeDescription": "Wprowadź nowy adres bezpiecznego portfela.",
+      "changeCexWarning": "<strong>NIE WPISUJ</strong> adresu CEX (giełdy). Środki wysłane na adresy depozytowe giełd mogą zostać <highlight>trwale utracone</highlight>. Używaj wyłącznie portfela, nad którym masz pełną kontrolę (MetaMask, Ledger itp.).",
+      "newPlaceholder": "0x... (Nowy Bezpieczny Adres Odbiorcy)",
+      "confirmNewAddress": "Potwierdź Nowy Adres",
+      "label": "Bezpieczny Portfel",
+      "infoText": "Zmiany adresu są ograniczone do jednej co 3 dni. W pilnych sprawach skontaktuj się ze mną.",
+      "locked": "Zablokowany ({hours}h)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // Prześlij Skompromitowany Portfel",
+      "description": "Wprowadź klucz prywatny swojego skompromitowanego portfela. Adres portfela zostanie <strong>wykryty automatycznie</strong>. Klucz jest <strong>szyfrowany</strong> przed zapisem i dostępny wyłącznie dla mnie na potrzeby operacji ratunkowych.",
+      "placeholder": "Klucz prywatny (0x... lub surowy hex)",
+      "valid": "POPRAWNY",
+      "waiting": "OCZEKIWANIE",
+      "derivedLabel": "Adres Skompromitowanego Portfela",
+      "invalidKeyHint": "Wprowadź prawidłowy klucz prywatny EVM (64 znaki szesnastkowe). Frazy mnemoniczne nie są akceptowane.",
+      "invalidKey": "Nieprawidłowy klucz prywatny.",
+      "networkError": "Błąd sieci. Sprawdź połączenie i spróbuj ponownie.",
+      "submitting": "Szyfrowanie i weryfikacja...",
+      "submit": "Prześlij do Odzyskania"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // Twoje Zgłoszenia",
+      "verified": "{count} Zweryfikowane",
+      "emlRequired": "{count} Wymaga EML",
+      "pending": "{count} Oczekujące",
+      "total": "{count} Łącznie",
+      "statusPending": "OCZEKUJE NA WERYFIKACJĘ",
+      "statusEmlRequired": "WYMAGANY EML",
+      "statusVerified": "ZWERYFIKOWANE",
+      "statusInProgress": "ODZYSKIWANIE W TOKU",
+      "statusCompleted": "ZAKOŃCZONE",
+      "statusRejected": "ODRZUCONE",
+      "via": "przez {cex}"
+    },
+    "modal": {
+      "title": "Weryfikacja Własności",
+      "fundingUnavailable": {
+        "badge": "Brak Danych o Źródle Finansowania",
+        "description": "Nie udało się automatycznie wykryć źródła finansowania tego portfela. Może się to zdarzyć w przypadku transakcji bridge, wdrożeń kontraktów lub niestandardowych metod zasilania. Skontaktuj się ze mną bezpośrednio w celu ręcznej weryfikacji."
+      },
+      "fundingTitle": "Pierwsza Transakcja Zasilająca",
+      "txHash": "Hash TX",
+      "source": "Źródło",
+      "manualVerification": {
+        "badge": "Wymagana Ręczna Weryfikacja",
+        "description": "Ten portfel nie został zasilony ze znanej giełdy. Automatyczna weryfikacja e-mailowa nie jest dostępna dla tego portfela. Skontaktuj się ze mną, przedstawiając dowód własności (historię transakcji, podpisanie wiadomości lub inne dowody), abym mógł przystąpić do realizacji Twojego zgłoszenia."
+      },
+      "emlRequired": {
+        "badge": "Wykryto CEX — Wymagana Weryfikacja E-mailowa",
+        "description": "Ten portfel został zasilony z <strong>{cex}</strong>. Prześlij oryginalny e-mail potwierdzający wypłatę w <strong>formacie .eml</strong>."
+      },
+      "verificationChecks": "Kontrole Weryfikacyjne",
+      "checks": {
+        "authenticity": "Autentyczność wiadomości e-mail",
+        "sender": "Nadawca zgodny z {cex}",
+        "wallet": "Adres Twojego portfela",
+        "txId": "ID transakcji"
+      },
+      "emlGuide": {
+        "title": "Jak pobrać plik .eml",
+        "step1": "Otwórz skrzynkę e-mail i znajdź <strong>e-mail potwierdzający wypłatę</strong> z {cex} dla tej konkretnej transakcji.",
+        "step2title": "Pobierz wiadomość e-mail jako plik <strong>.eml</strong>:",
+        "gmail": "<strong>Gmail:</strong> Otwórz e-mail → ⋮ (trzy kropki, prawy górny róg) → “Pobierz wiadomość”",
+        "outlook": "<strong>Outlook:</strong> Otwórz e-mail → Plik → Zapisz jako → zapisz jako .eml",
+        "yahoo": "<strong>Yahoo:</strong> Otwórz e-mail → … (więcej) → “Pobierz wiadomość”",
+        "step3": "Prześlij pobrany plik .eml poniżej. Nasz system automatycznie go zweryfikuje.",
+        "dkimWarning": "<strong>Nie przesyłaj dalej</strong> wiadomości e-mail do siebie ani do nikogo innego przed jej pobraniem. Przesłanie wiadomości dalej <strong>niszczy podpis DKIM</strong> i plik zostanie odrzucony. Zawsze pobieraj oryginalną wiadomość e-mail bezpośrednio ze swojej skrzynki odbiorczej."
+      },
+      "dropzone": {
+        "drag": "Przeciągnij i upuść plik .eml",
+        "browse": "lub kliknij, aby przeglądać",
+        "onlyEml": "Akceptowane są wyłącznie pliki .eml"
+      },
+      "uploading": "Weryfikacja DKIM i szyfrowanie...",
+      "verifySubmit": "Zweryfikuj i Prześlij",
+      "verified": {
+        "badge": "Własność Zweryfikowana",
+        "description": "Podpis DKIM zweryfikowany pomyślnie. Twój portfel został dodany do kolejki odzyskiwania. Zrealizuję strategię ratunkową najszybciej jak to możliwe. Nie musisz podejmować żadnych dalszych działań."
+      },
+      "rejected": {
+        "badge": "Weryfikacja Nieudana",
+        "description": "Przesłany e-mail nie mógł zostać zweryfikowany. Może się to zdarzyć, jeśli wiadomość została przesłana dalej, zmodyfikowana lub nie pobrana w oryginalnym formacie .eml. Skontaktuj się ze mną w celu ręcznego przeglądu."
+      },
+      "uploadFailed": "Przesyłanie nieudane",
+      "networkError": "Błąd sieci. Spróbuj ponownie."
+    }
+  },
+  "AuthError": {
+    "badge": "Uwierzytelnianie Nieudane",
+    "title": "Coś poszło nie tak",
+    "description": "Nie udało się ukończyć procesu uwierzytelniania. Może się to zdarzyć, jeśli sesja logowania wygasła lub została przerwana. Spróbuj ponownie.",
+    "returnButton": "Wróć do Logowania"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // Bezpieczne Odzyskiwanie Aktywów",
+    "description": "Zaawansowane strategie counter-sweeper i bezpieczna ekstrakcja aktywów z przejętych portfeli EVM."
+  },
+  "NotFound": {
+    "title": "Strona Nie Znaleziona",
+    "description": "Strona, której szukasz, nie istnieje lub została przeniesiona.",
+    "returnHome": "Wróć na Stronę Główną"
+  }
+}

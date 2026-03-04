@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "SISTEM: ONLINE",
+    "footer": {
+      "location": "ETH ISTANBUL // BLOCKCHAIN FORENSICS",
+      "twitter": "TWITTER",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "Tutup",
+      "cancel": "Batal",
+      "retry": "Coba Lagi",
+      "saving": "Menyimpan...",
+      "change": "Ubah"
+    },
+    "loading": "Memuat..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "RESCUE OPS.",
+      "description": "Kunci yang telah dikompromikan bukan berarti semua aset hilang. Saya berspesialisasi dalam <highlight>menyelamatkan aset dari wallet yang dikuasai sweeper</highlight> di seluruh jaringan EVM — termasuk posisi staking yang terkunci, airdrop yang tertunda, dan kontrak vesting."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "Kirim Wallet Anda",
+        "description": "Berikan private key dari wallet Anda yang telah dikompromikan. Kunci tersebut <highlight>dienkripsi di server</highlight> sebelum disimpan dan tidak dapat dibaca oleh siapa pun selain saya. Alamat wallet Anda secara otomatis diturunkan dari kunci tersebut."
+      },
+      "step02": {
+        "number": "02",
+        "title": "Verifikasi Kepemilikan",
+        "description": "Transaksi pendanaan pertama wallet Anda secara otomatis dilacak di seluruh jaringan EVM. Jika didanai dari bursa yang dikenal, Anda akan diminta mengunggah email konfirmasi penarikan asli (.eml) untuk <highlight>verifikasi kriptografis</highlight>."
+      },
+      "step03": {
+        "number": "03",
+        "title": "Penyelamatan Aset",
+        "description": "Setelah kepemilikan dikonfirmasi, strategi counter-sweeper dijalankan untuk mengekstrak aset Anda — token yang di-stake, airdrop yang tertunda, kontrak vesting — dan mentransfernya ke wallet aman yang Anda tentukan sebelum bot berbahaya sempat bereaksi."
+      }
+    },
+    "login": {
+      "title": "Mulai Penyelamatan",
+      "subtitle": "Akses Portal Whitehat yang Aman",
+      "connectX": "Hubungkan X.com",
+      "connectDiscord": "Hubungkan Discord",
+      "sessionNote": "Sesi terenkripsi telah dibuat. <br></br> Semua kredensial dilindungi dengan aman.",
+      "loginFailed": "Login gagal: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "Menginisialisasi Sesi Aman...",
+    "initError": {
+      "badge": "Kesalahan Inisialisasi",
+      "defaultMessage": "Gagal memuat dashboard. Silakan periksa koneksi Anda dan coba lagi."
+    },
+    "logout": "[ Keluar ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // Tujuan Aman",
+      "savedBadge": "Tersimpan",
+      "setTitle": "TETAPKAN TUJUAN PENYELAMATAN:",
+      "setDescription": "Semua aset yang berhasil dipulihkan akan dikirim ke alamat ini. Pastikan ini adalah wallet yang sepenuhnya Anda kendalikan.",
+      "warning": "Ini akan menjadi <strong>tujuan permanen</strong> untuk semua dana yang diselamatkan. Anda hanya dapat mengubah alamat ini sekali setiap <strong>3 hari</strong>. Untuk perubahan mendesak, hubungi <xLink>@codeesura</xLink> atau <emailLink>contact@codeesura.dev</emailLink>.",
+      "cexWarning": "<strong>JANGAN masukkan alamat CEX (bursa).</strong> Dana yang diselamatkan yang dikirim ke alamat deposit bursa (Binance, Coinbase, dll.) dapat hilang secara permanen. Gunakan hanya wallet self-custody (MetaMask, Ledger, Rabby, dll.).",
+      "placeholder": "0x... (Alamat Penerima Aman)",
+      "formatHint": "Format: 0x diikuti oleh 40 karakter heksadesimal (a-f, 0-9)",
+      "invalidAddress": "Alamat Ethereum tidak valid. Harus diawali dengan 0x diikuti 40 karakter heksadesimal.",
+      "confirmDestination": "Konfirmasi Tujuan",
+      "changeTitle": "UBAH TUJUAN:",
+      "changeDescription": "Masukkan alamat wallet aman baru Anda.",
+      "changeCexWarning": "<strong>JANGAN</strong> masukkan alamat CEX (bursa). Dana yang dikirim ke alamat deposit bursa dapat <highlight>hilang secara permanen</highlight>. Gunakan hanya wallet yang sepenuhnya Anda kendalikan (MetaMask, Ledger, dll.).",
+      "newPlaceholder": "0x... (Alamat Penerima Aman Baru)",
+      "confirmNewAddress": "Konfirmasi Alamat Baru",
+      "label": "Wallet Aman",
+      "infoText": "Perubahan alamat dibatasi sekali setiap 3 hari. Untuk permintaan mendesak, hubungi saya.",
+      "locked": "Terkunci ({hours} jam)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // Kirim Wallet yang Dikompromikan",
+      "description": "Masukkan private key dari wallet yang dikompromikan. Alamat wallet Anda akan <strong>terdeteksi secara otomatis</strong>. Kunci tersebut <strong>dienkripsi</strong> sebelum disimpan dan hanya dapat diakses oleh saya untuk operasi penyelamatan.",
+      "placeholder": "Private key (0x... atau hex mentah)",
+      "valid": "VALID",
+      "waiting": "MENUNGGU",
+      "derivedLabel": "Alamat Wallet yang Dikompromikan",
+      "invalidKeyHint": "Masukkan private key EVM yang valid (64 karakter heksadesimal). Frasa mnemonic tidak diterima.",
+      "invalidKey": "Private key tidak valid.",
+      "networkError": "Kesalahan jaringan. Silakan periksa koneksi Anda dan coba lagi.",
+      "submitting": "Mengenkripsi & Memverifikasi...",
+      "submit": "Kirim untuk Diselamatkan"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // Pengiriman Anda",
+      "verified": "{count} Terverifikasi",
+      "emlRequired": "{count} EML Diperlukan",
+      "pending": "{count} Tertunda",
+      "total": "{count} Total",
+      "statusPending": "MENUNGGU VERIFIKASI",
+      "statusEmlRequired": "EML DIPERLUKAN",
+      "statusVerified": "TERVERIFIKASI",
+      "statusInProgress": "PENYELAMATAN SEDANG BERLANGSUNG",
+      "statusCompleted": "SELESAI",
+      "statusRejected": "DITOLAK",
+      "via": "melalui {cex}"
+    },
+    "modal": {
+      "title": "Verifikasi Kepemilikan",
+      "fundingUnavailable": {
+        "badge": "Data Pendanaan Tidak Tersedia",
+        "description": "Sumber pendanaan wallet ini tidak dapat terdeteksi secara otomatis. Hal ini dapat terjadi dengan transaksi bridge, deployment kontrak, atau metode pendanaan non-standar. Silakan hubungi saya langsung untuk verifikasi manual."
+      },
+      "fundingTitle": "Transaksi Pendanaan Pertama",
+      "txHash": "TX Hash",
+      "source": "Sumber",
+      "manualVerification": {
+        "badge": "Verifikasi Manual Diperlukan",
+        "description": "Wallet ini tidak didanai dari bursa yang dikenal. Verifikasi email otomatis tidak tersedia untuk wallet ini. Silakan hubungi saya dengan bukti kepemilikan apa pun (riwayat transaksi, penandatanganan pesan, atau bukti lainnya) agar saya dapat melanjutkan permintaan penyelamatan Anda."
+      },
+      "emlRequired": {
+        "badge": "CEX Terdeteksi — Verifikasi Email Diperlukan",
+        "description": "Wallet ini didanai dari <strong>{cex}</strong>. Unggah email konfirmasi penarikan asli dalam <strong>format .eml</strong>."
+      },
+      "verificationChecks": "Pemeriksaan Verifikasi",
+      "checks": {
+        "authenticity": "Keaslian email",
+        "sender": "Pengirim sesuai dengan {cex}",
+        "wallet": "Alamat wallet Anda",
+        "txId": "ID Transaksi"
+      },
+      "emlGuide": {
+        "title": "Cara mengunduh file .eml",
+        "step1": "Buka kotak masuk email Anda dan temukan <strong>email konfirmasi penarikan</strong> dari {cex} untuk transaksi spesifik ini.",
+        "step2title": "Unduh email sebagai file <strong>.eml</strong>:",
+        "gmail": "<strong>Gmail:</strong> Buka email → ⋮ (tiga titik, kanan atas) → “Unduh pesan”",
+        "outlook": "<strong>Outlook:</strong> Buka email → File → Simpan Sebagai → simpan sebagai .eml",
+        "yahoo": "<strong>Yahoo:</strong> Buka email → … (lainnya) → “Unduh pesan”",
+        "step3": "Unggah file .eml yang telah diunduh di bawah ini. Sistem kami akan memverifikasinya secara otomatis.",
+        "dkimWarning": "<strong>Jangan teruskan</strong> email tersebut ke diri sendiri atau siapa pun sebelum mengunduhnya. Meneruskan email <strong>merusak tanda tangan DKIM</strong> dan file akan ditolak. Selalu unduh email asli langsung dari kotak masuk Anda."
+      },
+      "dropzone": {
+        "drag": "Seret & Lepas file .eml",
+        "browse": "atau klik untuk mencari",
+        "onlyEml": "Hanya file .eml yang diterima"
+      },
+      "uploading": "Memverifikasi DKIM & Mengenkripsi...",
+      "verifySubmit": "Verifikasi & Kirim",
+      "verified": {
+        "badge": "Kepemilikan Terverifikasi",
+        "description": "Tanda tangan DKIM berhasil diverifikasi. Wallet Anda telah ditambahkan ke antrean penyelamatan. Saya akan menjalankan strategi penyelamatan sesegera mungkin. Tidak ada tindakan lebih lanjut yang diperlukan dari Anda."
+      },
+      "rejected": {
+        "badge": "Verifikasi Gagal",
+        "description": "Email yang diunggah tidak dapat diverifikasi. Hal ini dapat terjadi jika email diteruskan, dimodifikasi, atau tidak diunduh dalam format .eml asli. Silakan hubungi saya untuk tinjauan manual."
+      },
+      "uploadFailed": "Pengunggahan gagal",
+      "networkError": "Kesalahan jaringan. Silakan coba lagi."
+    }
+  },
+  "AuthError": {
+    "badge": "Autentikasi Gagal",
+    "title": "Terjadi kesalahan",
+    "description": "Kami tidak dapat menyelesaikan proses autentikasi. Hal ini dapat terjadi jika sesi login kedaluwarsa atau terputus. Silakan coba lagi.",
+    "returnButton": "Kembali ke Halaman Login"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // Pemulihan Aset Aman",
+    "description": "Strategi counter-sweeper canggih dan ekstraksi aset aman untuk dompet EVM yang terkompromi."
+  },
+  "NotFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "description": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
+    "returnHome": "Kembali ke Beranda"
+  }
+}

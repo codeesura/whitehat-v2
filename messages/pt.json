@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "SISTEMA: ONLINE",
+    "footer": {
+      "location": "ETH ISTANBUL // BLOCKCHAIN FORENSICS",
+      "twitter": "TWITTER",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "Fechar",
+      "cancel": "Cancelar",
+      "retry": "Tentar novamente",
+      "saving": "Salvando...",
+      "change": "Alterar"
+    },
+    "loading": "Carregando..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "RESCUE OPS.",
+      "description": "Uma chave comprometida não significa perda total. Sou especialista em <highlight>resgatar ativos de carteiras comprometidas por sweepers</highlight> em todas as redes EVM — incluindo posições de staking bloqueadas, airdrops pendentes e contratos de vesting."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "Envie Sua Carteira",
+        "description": "Forneça a chave privada da sua carteira comprometida. A chave é <highlight>criptografada no servidor</highlight> antes do armazenamento e não pode ser lida por ninguém além de mim. O endereço da sua carteira é derivado automaticamente da chave."
+      },
+      "step02": {
+        "number": "02",
+        "title": "Verificação de Propriedade",
+        "description": "A primeira transação de financiamento da sua carteira é rastreada automaticamente em todas as redes EVM. Se foi financiada por uma exchange conhecida, você será solicitado a enviar o e-mail original de saque (.eml) para <highlight>verificação criptográfica</highlight>."
+      },
+      "step03": {
+        "number": "03",
+        "title": "Resgate de Ativos",
+        "description": "Após a confirmação da propriedade, uma estratégia de contra-sweeper é executada para extrair seus ativos — tokens em staking, airdrops pendentes, contratos de vesting — e transferi-los para sua carteira segura designada antes que o bot malicioso possa reagir."
+      }
+    },
+    "login": {
+      "title": "Iniciar Resgate",
+      "subtitle": "Acesso Seguro ao Portal Whitehat",
+      "connectX": "Conectar X.com",
+      "connectDiscord": "Conectar Discord",
+      "sessionNote": "Sessão criptografada estabelecida. <br></br> Todas as credenciais estão protegidas com segurança.",
+      "loginFailed": "Falha no login: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "Inicializando Sessão Segura...",
+    "initError": {
+      "badge": "Erro de Inicialização",
+      "defaultMessage": "Falha ao carregar o painel. Verifique sua conexão e tente novamente."
+    },
+    "logout": "[ Sair ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // Destino Seguro",
+      "savedBadge": "Salvo",
+      "setTitle": "DEFINIR DESTINO DE RESGATE:",
+      "setDescription": "Todos os ativos recuperados serão enviados para este endereço. Certifique-se de que é uma carteira que você controla totalmente.",
+      "warning": "Este será o <strong>destino permanente</strong> de todos os fundos resgatados. Você só pode alterar este endereço uma vez a cada <strong>3 dias</strong>. Para alterações urgentes, entre em contato com <xLink>@codeesura</xLink> ou <emailLink>contact@codeesura.dev</emailLink>.",
+      "cexWarning": "<strong>NÃO insira um endereço de CEX (exchange).</strong> Fundos resgatados enviados para endereços de depósito de exchanges (Binance, Coinbase, etc.) podem ser perdidos permanentemente. Use apenas uma carteira de autocustódia (MetaMask, Ledger, Rabby, etc.).",
+      "placeholder": "0x... (Endereço do Receptor Seguro)",
+      "formatHint": "Formato: 0x seguido de 40 caracteres hexadecimais (a-f, 0-9)",
+      "invalidAddress": "Endereço Ethereum inválido. Deve começar com 0x seguido de 40 caracteres hexadecimais.",
+      "confirmDestination": "Confirmar Destino",
+      "changeTitle": "ALTERAR DESTINO:",
+      "changeDescription": "Insira o novo endereço da sua carteira segura.",
+      "changeCexWarning": "<strong>NÃO</strong> insira um endereço de CEX (exchange). Fundos enviados para endereços de depósito de exchanges podem ser <highlight>perdidos permanentemente</highlight>. Use apenas uma carteira que você controla totalmente (MetaMask, Ledger, etc.).",
+      "newPlaceholder": "0x... (Novo Endereço do Receptor Seguro)",
+      "confirmNewAddress": "Confirmar Novo Endereço",
+      "label": "Carteira Segura",
+      "infoText": "As alterações de endereço são limitadas a uma vez a cada 3 dias. Para solicitações urgentes, entre em contato comigo.",
+      "locked": "Bloqueado ({hours}h)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // Enviar Carteira Comprometida",
+      "description": "Insira a chave privada da sua carteira comprometida. O endereço da sua carteira será <strong>detectado automaticamente</strong>. A chave é <strong>criptografada</strong> antes do armazenamento e só pode ser acessada por mim para operações de resgate.",
+      "placeholder": "Chave privada (0x... ou hex bruto)",
+      "valid": "VÁLIDA",
+      "waiting": "AGUARDANDO",
+      "derivedLabel": "Endereço da Carteira Comprometida",
+      "invalidKeyHint": "Insira uma chave privada EVM válida (64 caracteres hexadecimais). Frases mnemônicas não são aceitas.",
+      "invalidKey": "Chave privada inválida.",
+      "networkError": "Erro de rede. Verifique sua conexão e tente novamente.",
+      "submitting": "Criptografando e Verificando...",
+      "submit": "Enviar para Resgate"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // Seus Envios",
+      "verified": "{count} Verificado(s)",
+      "emlRequired": "{count} EML Necessário(s)",
+      "pending": "{count} Pendente(s)",
+      "total": "{count} Total",
+      "statusPending": "VERIFICAÇÃO PENDENTE",
+      "statusEmlRequired": "EML NECESSÁRIO",
+      "statusVerified": "VERIFICADO",
+      "statusInProgress": "RESGATE EM ANDAMENTO",
+      "statusCompleted": "CONCLUÍDO",
+      "statusRejected": "REJEITADO",
+      "via": "via {cex}"
+    },
+    "modal": {
+      "title": "Verificação de Propriedade",
+      "fundingUnavailable": {
+        "badge": "Dados de Financiamento Indisponíveis",
+        "description": "A origem do financiamento desta carteira não pôde ser detectada automaticamente. Isso pode ocorrer com transações via bridge, implantações de contratos ou métodos de financiamento não convencionais. Entre em contato comigo diretamente para verificação manual."
+      },
+      "fundingTitle": "Primeira Transação de Financiamento",
+      "txHash": "Hash da TX",
+      "source": "Origem",
+      "manualVerification": {
+        "badge": "Verificação Manual Necessária",
+        "description": "Esta carteira não foi financiada por uma exchange reconhecida. A verificação automática por e-mail não está disponível para esta carteira. Entre em contato comigo com qualquer comprovante de propriedade (histórico de transações, assinatura de mensagem ou outras evidências) para que eu possa prosseguir com sua solicitação de resgate."
+      },
+      "emlRequired": {
+        "badge": "CEX Detectada — Verificação por E-mail Necessária",
+        "description": "Esta carteira foi financiada pela <strong>{cex}</strong>. Envie o e-mail original de confirmação de saque no <strong>formato .eml</strong>."
+      },
+      "verificationChecks": "Verificações de Autenticidade",
+      "checks": {
+        "authenticity": "Autenticidade do e-mail",
+        "sender": "Remetente corresponde à {cex}",
+        "wallet": "Endereço da sua carteira",
+        "txId": "ID da transação"
+      },
+      "emlGuide": {
+        "title": "Como baixar o arquivo .eml",
+        "step1": "Abra sua caixa de entrada e encontre o <strong>e-mail de confirmação de saque</strong> da {cex} referente a esta transação específica.",
+        "step2title": "Baixe o e-mail como arquivo <strong>.eml</strong>:",
+        "gmail": "<strong>Gmail:</strong> Abra o e-mail → ⋮ (três pontos, canto superior direito) → \"Baixar mensagem\"",
+        "outlook": "<strong>Outlook:</strong> Abra o e-mail → Arquivo → Salvar Como → salve como .eml",
+        "yahoo": "<strong>Yahoo:</strong> Abra o e-mail → … (mais) → \"Baixar mensagem\"",
+        "step3": "Envie o arquivo .eml baixado abaixo. Nosso sistema irá verificá-lo automaticamente.",
+        "dkimWarning": "<strong>Não encaminhe</strong> o e-mail para você mesmo ou para ninguém antes de baixá-lo. Encaminhar o e-mail <strong>invalida a assinatura DKIM</strong> e o arquivo será rejeitado. Sempre baixe o e-mail original diretamente da sua caixa de entrada."
+      },
+      "dropzone": {
+        "drag": "Arraste e solte o arquivo .eml",
+        "browse": "ou clique para navegar",
+        "onlyEml": "Apenas arquivos .eml são aceitos"
+      },
+      "uploading": "Verificando DKIM e Criptografando...",
+      "verifySubmit": "Verificar e Enviar",
+      "verified": {
+        "badge": "Propriedade Verificada",
+        "description": "Assinatura DKIM verificada com sucesso. Sua carteira foi adicionada à fila de resgate. Sua carteira está na fila de resgate. Executarei a estratégia de resgate o mais rápido possível. Nenhuma ação adicional é necessária da sua parte."
+      },
+      "rejected": {
+        "badge": "Verificação Falhou",
+        "description": "O e-mail enviado não pôde ser verificado. Isso pode ocorrer se o e-mail foi encaminhado, modificado ou não baixado no formato .eml original. Entre em contato comigo para revisão manual."
+      },
+      "uploadFailed": "Falha no envio",
+      "networkError": "Erro de rede. Por favor, tente novamente."
+    }
+  },
+  "AuthError": {
+    "badge": "Autenticação Falhou",
+    "title": "Algo deu errado",
+    "description": "Não foi possível concluir o processo de autenticação. Isso pode ocorrer se a sessão de login expirou ou foi interrompida. Por favor, tente novamente.",
+    "returnButton": "Voltar ao Login"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // Recuperação Segura de Ativos",
+    "description": "Estratégias avançadas contra sweepers e extração segura de ativos para carteiras EVM comprometidas."
+  },
+  "NotFound": {
+    "title": "Página Não Encontrada",
+    "description": "A página que você procura não existe ou foi movida.",
+    "returnHome": "Voltar ao Início"
+  }
+}

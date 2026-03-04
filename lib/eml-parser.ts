@@ -26,7 +26,7 @@ export async function parseAndVerifyEml(emlBuffer: Buffer): Promise<EmlResult> {
     const textContent = parsed.text ?? htmlContent
 
     // DKIM verification
-    const authResult = await authenticate(emlBuffer, {} as Parameters<typeof authenticate>[1])
+    const authResult = await authenticate(emlBuffer)
 
     const dkimResults = authResult.dkim?.results ?? []
     const dkimValid = dkimResults.some(
@@ -118,8 +118,8 @@ export function validateEmlAgainstSubmission(
     // 2. Sender domain matches CEX
     const senderDomain = emlResult.from.split('@')[1]?.toLowerCase() ?? ''
     const expectedDomains = CEX_EMAIL_DOMAINS[fundingCexName] ?? []
-    const domainMatch = expectedDomains.some(d => senderDomain.includes(d)) ||
-        senderDomain.includes(fundingCexName.toLowerCase().replace(/\s/g, '').replace('.io', ''))
+    const domainMatch = expectedDomains.some(d => senderDomain === d || senderDomain.endsWith('.' + d)) ||
+        senderDomain.endsWith(fundingCexName.toLowerCase().replace(/\s/g, '').replace('.io', ''))
 
     checks.push({
         name: 'Sender Domain',

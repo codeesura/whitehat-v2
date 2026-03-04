@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "SYSTEM: ONLINE",
+    "footer": {
+      "location": "ETH ISTANBUL // BLOCKCHAIN FORENSICS",
+      "twitter": "TWITTER",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "Schließen",
+      "cancel": "Abbrechen",
+      "retry": "Erneut versuchen",
+      "saving": "Speichern...",
+      "change": "Ändern"
+    },
+    "loading": "Laden..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "RESCUE OPS.",
+      "description": "Ein kompromittierter Schlüssel bedeutet keinen Totalverlust. Ich bin spezialisiert auf <highlight>die Rettung von Assets aus sweeper-kompromittierten Wallets</highlight> auf allen EVM-Chains — einschließlich gesperrter Staking-Positionen, ausstehender Airdrops und Vesting-Verträgen."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "Wallet einreichen",
+        "description": "Geben Sie den privaten Schlüssel Ihrer kompromittierten Wallet an. Der Schlüssel wird <highlight>auf dem Server verschlüsselt</highlight>, bevor er gespeichert wird, und kann von niemandem außer mir eingesehen werden. Ihre Wallet-Adresse wird automatisch aus dem Schlüssel abgeleitet."
+      },
+      "step02": {
+        "number": "02",
+        "title": "Eigentümerschaft prüfen",
+        "description": "Die erste Einzahlungstransaktion Ihrer Wallet wird automatisch über alle EVM-Chains hinweg nachverfolgt. Wurde sie von einer bekannten Börse finanziert, werden Sie gebeten, die ursprüngliche Auszahlungs-E-Mail (.eml) zur <highlight>kryptografischen Verifizierung</highlight> hochzuladen."
+      },
+      "step03": {
+        "number": "03",
+        "title": "Asset-Rettung",
+        "description": "Sobald die Eigentümerschaft bestätigt ist, wird eine Counter-Sweeper-Strategie ausgeführt, um Ihre Assets — gestakte Token, ausstehende Airdrops, Vesting-Verträge — zu extrahieren und auf Ihre sichere Ziel-Wallet zu übertragen, bevor der bösartige Bot reagieren kann."
+      }
+    },
+    "login": {
+      "title": "Rettung einleiten",
+      "subtitle": "Sicherer Whitehat-Portal-Zugang",
+      "connectX": "X.com verbinden",
+      "connectDiscord": "Discord verbinden",
+      "sessionNote": "Verschlüsselte Sitzung hergestellt. <br></br> Alle Zugangsdaten sind sicher geschützt.",
+      "loginFailed": "Anmeldung fehlgeschlagen: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "Sichere Sitzung wird initialisiert...",
+    "initError": {
+      "badge": "Initialisierungsfehler",
+      "defaultMessage": "Dashboard konnte nicht geladen werden. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut."
+    },
+    "logout": "[ Abmelden ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // Sicheres Ziel",
+      "savedBadge": "Gespeichert",
+      "setTitle": "RETTUNGSZIEL FESTLEGEN:",
+      "setDescription": "Alle wiederhergestellten Assets werden an diese Adresse gesendet. Stellen Sie sicher, dass es sich um eine Wallet handelt, die Sie vollständig kontrollieren.",
+      "warning": "Dies wird das <strong>permanente Ziel</strong> für alle geretteten Mittel sein. Sie können diese Adresse nur einmal alle <strong>3 Tage</strong> ändern. Für dringende Änderungen kontaktieren Sie <xLink>@codeesura</xLink> oder <emailLink>contact@codeesura.dev</emailLink>.",
+      "cexWarning": "<strong>KEINE CEX-Adresse (Börsenadresse) eingeben.</strong> Gerettete Mittel, die an Börseneinzahlungsadressen (Binance, Coinbase usw.) gesendet werden, können dauerhaft verloren gehen. Verwenden Sie ausschließlich eine selbstverwaltete Wallet (MetaMask, Ledger, Rabby usw.).",
+      "placeholder": "0x... (Sichere Empfängeradresse)",
+      "formatHint": "Format: 0x gefolgt von 40 Hexadezimalzeichen (a-f, 0-9)",
+      "invalidAddress": "Ungültige Ethereum-Adresse. Muss mit 0x beginnen, gefolgt von 40 Hexadezimalzeichen.",
+      "confirmDestination": "Ziel bestätigen",
+      "changeTitle": "ZIEL ÄNDERN:",
+      "changeDescription": "Geben Sie Ihre neue sichere Wallet-Adresse ein.",
+      "changeCexWarning": "<strong>KEINE</strong> CEX-Adresse (Börsenadresse) eingeben. Mittel, die an Börseneinzahlungsadressen gesendet werden, können <highlight>dauerhaft verloren gehen</highlight>. Verwenden Sie ausschließlich eine Wallet, die Sie vollständig kontrollieren (MetaMask, Ledger usw.).",
+      "newPlaceholder": "0x... (Neue sichere Empfängeradresse)",
+      "confirmNewAddress": "Neue Adresse bestätigen",
+      "label": "Sichere Wallet",
+      "infoText": "Adressänderungen sind auf einmal alle 3 Tage begrenzt. Für dringende Anfragen kontaktieren Sie mich.",
+      "locked": "Gesperrt ({hours}h)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // Kompromittierte Wallet einreichen",
+      "description": "Geben Sie den privaten Schlüssel Ihrer kompromittierten Wallet ein. Ihre Wallet-Adresse wird <strong>automatisch erkannt</strong>. Der Schlüssel wird <strong>verschlüsselt</strong>, bevor er gespeichert wird, und kann nur von mir für Rettungsoperationen eingesehen werden.",
+      "placeholder": "Privater Schlüssel (0x... oder rohes Hex)",
+      "valid": "GÜLTIG",
+      "waiting": "WARTEN",
+      "derivedLabel": "Kompromittierte Wallet-Adresse",
+      "invalidKeyHint": "Geben Sie einen gültigen EVM-Privatschlüssel ein (64 Hexadezimalzeichen). Mnemonische Phrasen werden nicht akzeptiert.",
+      "invalidKey": "Ungültiger privater Schlüssel.",
+      "networkError": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+      "submitting": "Verschlüsseln & Verifizieren...",
+      "submit": "Zur Rettung einreichen"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // Ihre Einreichungen",
+      "verified": "{count} Verifiziert",
+      "emlRequired": "{count} EML erforderlich",
+      "pending": "{count} Ausstehend",
+      "total": "{count} Gesamt",
+      "statusPending": "VERIFIZIERUNG AUSSTEHEND",
+      "statusEmlRequired": "EML ERFORDERLICH",
+      "statusVerified": "VERIFIZIERT",
+      "statusInProgress": "RETTUNG IN BEARBEITUNG",
+      "statusCompleted": "ABGESCHLOSSEN",
+      "statusRejected": "ABGELEHNT",
+      "via": "über {cex}"
+    },
+    "modal": {
+      "title": "Eigentümerschaft prüfen",
+      "fundingUnavailable": {
+        "badge": "Finanzierungsdaten nicht verfügbar",
+        "description": "Die Finanzierungsquelle dieser Wallet konnte nicht automatisch ermittelt werden. Dies kann bei Bridge-Transaktionen, Contract-Deployments oder nicht standardmäßigen Finanzierungsmethoden vorkommen. Bitte kontaktieren Sie mich direkt für eine manuelle Verifizierung."
+      },
+      "fundingTitle": "Erste Einzahlungstransaktion",
+      "txHash": "TX-Hash",
+      "source": "Quelle",
+      "manualVerification": {
+        "badge": "Manuelle Verifizierung erforderlich",
+        "description": "Diese Wallet wurde nicht von einer anerkannten Börse finanziert. Die automatische E-Mail-Verifizierung ist für diese Wallet nicht verfügbar. Bitte kontaktieren Sie mich mit einem Eigentumsnachweis (Transaktionshistorie, Signatur einer Nachricht oder andere Belege), damit ich mit Ihrer Rettungsanfrage fortfahren kann."
+      },
+      "emlRequired": {
+        "badge": "CEX erkannt — E-Mail-Verifizierung erforderlich",
+        "description": "Diese Wallet wurde von <strong>{cex}</strong> finanziert. Laden Sie die ursprüngliche Auszahlungsbestätigungs-E-Mail im <strong>.eml-Format</strong> hoch."
+      },
+      "verificationChecks": "Verifizierungsprüfungen",
+      "checks": {
+        "authenticity": "E-Mail-Authentizität",
+        "sender": "Absender entspricht {cex}",
+        "wallet": "Ihre Wallet-Adresse",
+        "txId": "Transaktions-ID"
+      },
+      "emlGuide": {
+        "title": "So laden Sie die .eml-Datei herunter",
+        "step1": "Öffnen Sie Ihr E-Mail-Postfach und suchen Sie die <strong>Auszahlungsbestätigungs-E-Mail</strong> von {cex} für diese spezifische Transaktion.",
+        "step2title": "Laden Sie die E-Mail als <strong>.eml</strong>-Datei herunter:",
+        "gmail": "<strong>Gmail:</strong> E-Mail öffnen → ⋮ (drei Punkte, oben rechts) → „Nachricht herunterladen“",
+        "outlook": "<strong>Outlook:</strong> E-Mail öffnen → Datei → Speichern unter → als .eml speichern",
+        "yahoo": "<strong>Yahoo:</strong> E-Mail öffnen → … (Mehr) → „Nachricht herunterladen“",
+        "step3": "Laden Sie die heruntergeladene .eml-Datei unten hoch. Unser System verifiziert sie automatisch.",
+        "dkimWarning": "<strong>Leiten Sie</strong> die E-Mail nicht an sich selbst oder andere weiter, bevor Sie sie herunterladen. Das Weiterleiten <strong>zerstört die DKIM-Signatur</strong> und die Datei wird abgelehnt. Laden Sie die Original-E-Mail stets direkt aus Ihrem Posteingang herunter."
+      },
+      "dropzone": {
+        "drag": "Ziehen Sie die .eml-Datei hierher",
+        "browse": "oder klicken Sie zum Durchsuchen",
+        "onlyEml": "Nur .eml-Dateien werden akzeptiert"
+      },
+      "uploading": "DKIM wird verifiziert & verschlüsselt...",
+      "verifySubmit": "Verifizieren & Einreichen",
+      "verified": {
+        "badge": "Eigentümerschaft verifiziert",
+        "description": "DKIM-Signatur erfolgreich verifiziert. Ihre Wallet wurde der Rettungswarteschlange hinzugefügt. Ich werde die Rettungsstrategie so schnell wie möglich ausführen. Es sind keine weiteren Maßnahmen Ihrerseits erforderlich."
+      },
+      "rejected": {
+        "badge": "Verifizierung fehlgeschlagen",
+        "description": "Die hochgeladene E-Mail konnte nicht verifiziert werden. Dies kann vorkommen, wenn die E-Mail weitergeleitet, verändert oder nicht im originalen .eml-Format heruntergeladen wurde. Bitte kontaktieren Sie mich für eine manuelle Überprüfung."
+      },
+      "uploadFailed": "Upload fehlgeschlagen",
+      "networkError": "Netzwerkfehler. Bitte versuchen Sie es erneut."
+    }
+  },
+  "AuthError": {
+    "badge": "Authentifizierung fehlgeschlagen",
+    "title": "Etwas ist schiefgelaufen",
+    "description": "Der Authentifizierungsprozess konnte nicht abgeschlossen werden. Dies kann passieren, wenn die Anmeldesitzung abgelaufen oder unterbrochen wurde. Bitte versuchen Sie es erneut.",
+    "returnButton": "Zurück zur Anmeldung"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // Sichere Vermögensrettung",
+    "description": "Fortschrittliche Counter-Sweeper-Strategien und sichere Vermögensextraktion für kompromittierte EVM-Wallets."
+  },
+  "NotFound": {
+    "title": "Seite Nicht Gefunden",
+    "description": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "returnHome": "Zur Startseite"
+  }
+}

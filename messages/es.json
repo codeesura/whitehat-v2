@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "SISTEMA: EN LÍNEA",
+    "footer": {
+      "location": "ETH ISTANBUL // BLOCKCHAIN FORENSICS",
+      "twitter": "TWITTER",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "Cerrar",
+      "cancel": "Cancelar",
+      "retry": "Reintentar",
+      "saving": "Guardando...",
+      "change": "Cambiar"
+    },
+    "loading": "Cargando..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "RESCUE OPS.",
+      "description": "Una clave comprometida no significa pérdida total. Me especializo en <highlight>rescatar activos de billeteras comprometidas por sweepers</highlight> en todas las cadenas EVM, incluyendo posiciones de staking bloqueadas, airdrops pendientes y contratos de vesting."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "Envía Tu Billetera",
+        "description": "Proporciona la clave privada de tu billetera comprometida. La clave es <highlight>cifrada en el servidor</highlight> antes de almacenarse y no puede ser leída por nadie excepto por mí. La dirección de tu billetera se deriva automáticamente de la clave."
+      },
+      "step02": {
+        "number": "02",
+        "title": "Verificación de Propiedad",
+        "description": "La primera transacción de fondeo de tu billetera se rastrea automáticamente en todas las cadenas EVM. Si fue financiada desde un exchange conocido, se te pedirá que subas el correo electrónico original de retiro (.eml) para <highlight>verificación criptográfica</highlight>."
+      },
+      "step03": {
+        "number": "03",
+        "title": "Rescate de Activos",
+        "description": "Una vez confirmada la propiedad, se ejecuta una estrategia de contra-sweeper para extraer tus activos —tokens en staking, airdrops pendientes, contratos de vesting— y transferirlos a tu billetera segura designada antes de que el bot malicioso pueda reaccionar."
+      }
+    },
+    "login": {
+      "title": "Iniciar Rescate",
+      "subtitle": "Acceso Seguro al Portal Whitehat",
+      "connectX": "Conectar X.com",
+      "connectDiscord": "Conectar Discord",
+      "sessionNote": "Sesión cifrada establecida. <br></br> Todas las credenciales están protegidas de forma segura.",
+      "loginFailed": "Error de inicio de sesión: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "Inicializando Sesión Segura...",
+    "initError": {
+      "badge": "Error de Inicialización",
+      "defaultMessage": "Error al cargar el panel. Por favor, verifica tu conexión e inténtalo de nuevo."
+    },
+    "logout": "[ Cerrar Sesión ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // Destino Seguro",
+      "savedBadge": "Guardado",
+      "setTitle": "ESTABLECER DESTINO DE RESCATE:",
+      "setDescription": "Todos los activos recuperados serán enviados a esta dirección. Asegúrate de que sea una billetera que controles completamente.",
+      "warning": "Esta será la <strong>dirección de destino permanente</strong> para todos los fondos rescatados. Solo puedes cambiar esta dirección una vez cada <strong>3 días</strong>. Para cambios urgentes, contacta a <xLink>@codeesura</xLink> o a <emailLink>contact@codeesura.dev</emailLink>.",
+      "cexWarning": "<strong>NO ingreses una dirección de CEX (exchange).</strong> Los fondos rescatados enviados a direcciones de depósito de exchanges (Binance, Coinbase, etc.) pueden perderse de forma permanente. Utiliza únicamente una billetera de autocustodia (MetaMask, Ledger, Rabby, etc.).",
+      "placeholder": "0x... (Dirección del Receptor Seguro)",
+      "formatHint": "Formato: 0x seguido de 40 caracteres hexadecimales (a-f, 0-9)",
+      "invalidAddress": "Dirección Ethereum inválida. Debe comenzar con 0x seguido de 40 caracteres hexadecimales.",
+      "confirmDestination": "Confirmar Destino",
+      "changeTitle": "CAMBIAR DESTINO:",
+      "changeDescription": "Ingresa tu nueva dirección de billetera segura.",
+      "changeCexWarning": "<strong>NO</strong> ingreses una dirección de CEX (exchange). Los fondos enviados a direcciones de depósito de exchanges pueden <highlight>perderse de forma permanente</highlight>. Utiliza únicamente una billetera que controles completamente (MetaMask, Ledger, etc.).",
+      "newPlaceholder": "0x... (Nueva Dirección del Receptor Seguro)",
+      "confirmNewAddress": "Confirmar Nueva Dirección",
+      "label": "Billetera Segura",
+      "infoText": "Los cambios de dirección están limitados a una vez cada 3 días. Para solicitudes urgentes, contáctame.",
+      "locked": "Bloqueado ({hours}h)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // Enviar Billetera Comprometida",
+      "description": "Ingresa la clave privada de tu billetera comprometida. La dirección de tu billetera será <strong>detectada automáticamente</strong>. La clave es <strong>cifrada</strong> antes de almacenarse y solo yo puedo acceder a ella para las operaciones de rescate.",
+      "placeholder": "Clave privada (0x... o hex sin prefijo)",
+      "valid": "VÁLIDA",
+      "waiting": "EN ESPERA",
+      "derivedLabel": "Dirección de la Billetera Comprometida",
+      "invalidKeyHint": "Ingresa una clave privada EVM válida (64 caracteres hexadecimales). No se aceptan frases mnemónicas.",
+      "invalidKey": "Clave privada inválida.",
+      "networkError": "Error de red. Por favor, verifica tu conexión e inténtalo de nuevo.",
+      "submitting": "Cifrando y Verificando...",
+      "submit": "Enviar para Rescate"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // Tus Envíos",
+      "verified": "{count} Verificado(s)",
+      "emlRequired": "{count} EML Requerido(s)",
+      "pending": "{count} Pendiente(s)",
+      "total": "{count} Total",
+      "statusPending": "VERIFICACIÓN PENDIENTE",
+      "statusEmlRequired": "EML REQUERIDO",
+      "statusVerified": "VERIFICADO",
+      "statusInProgress": "RESCATE EN PROGRESO",
+      "statusCompleted": "COMPLETADO",
+      "statusRejected": "RECHAZADO",
+      "via": "mediante {cex}"
+    },
+    "modal": {
+      "title": "Verificación de Propiedad",
+      "fundingUnavailable": {
+        "badge": "Datos de Fondeo No Disponibles",
+        "description": "No se pudo detectar automáticamente la fuente de fondeo de esta billetera. Esto puede ocurrir con transacciones puente, despliegues de contratos o métodos de fondeo no estándar. Por favor, contáctame directamente para una verificación manual."
+      },
+      "fundingTitle": "Primera Transacción de Fondeo",
+      "txHash": "Hash TX",
+      "source": "Origen",
+      "manualVerification": {
+        "badge": "Verificación Manual Requerida",
+        "description": "Esta billetera no fue financiada desde un exchange reconocido. La verificación automática por correo electrónico no está disponible para esta billetera. Por favor, contáctame con cualquier prueba de propiedad (historial de transacciones, firma de un mensaje u otra evidencia) para que pueda proceder con tu solicitud de rescate."
+      },
+      "emlRequired": {
+        "badge": "CEX Detectado — Verificación por Correo Electrónico Requerida",
+        "description": "Esta billetera fue financiada desde <strong>{cex}</strong>. Sube el correo electrónico original de confirmación de retiro en <strong>formato .eml</strong>."
+      },
+      "verificationChecks": "Verificaciones",
+      "checks": {
+        "authenticity": "Autenticidad del correo electrónico",
+        "sender": "El remitente coincide con {cex}",
+        "wallet": "La dirección de tu billetera",
+        "txId": "ID de Transacción"
+      },
+      "emlGuide": {
+        "title": "Cómo descargar un archivo .eml",
+        "step1": "Abre tu bandeja de entrada y encuentra el <strong>correo de confirmación de retiro</strong> de {cex} para esta transacción específica.",
+        "step2title": "Descarga el correo como archivo <strong>.eml</strong>:",
+        "gmail": "<strong>Gmail:</strong> Abre el correo → ⋮ (tres puntos, arriba a la derecha) → \"Descargar mensaje\"",
+        "outlook": "<strong>Outlook:</strong> Abre el correo → Archivo → Guardar como → guardar como .eml",
+        "yahoo": "<strong>Yahoo:</strong> Abre el correo → … (más) → \"Descargar mensaje\"",
+        "step3": "Sube el archivo .eml descargado a continuación. Nuestro sistema lo verificará automáticamente.",
+        "dkimWarning": "<strong>No reenvíes</strong> el correo a ti mismo ni a nadie antes de descargarlo. Reenviar el correo <strong>rompe la firma DKIM</strong> y el archivo será rechazado. Siempre descarga el correo original directamente desde tu bandeja de entrada."
+      },
+      "dropzone": {
+        "drag": "Arrastra y suelta el archivo .eml",
+        "browse": "o haz clic para buscar",
+        "onlyEml": "Solo se aceptan archivos .eml"
+      },
+      "uploading": "Verificando DKIM y Cifrando...",
+      "verifySubmit": "Verificar y Enviar",
+      "verified": {
+        "badge": "Propiedad Verificada",
+        "description": "Firma DKIM verificada correctamente. Tu billetera ha sido añadida a la cola de rescate. Ejecutaré la estrategia de rescate lo antes posible. No necesitas realizar ninguna otra acción."
+      },
+      "rejected": {
+        "badge": "Verificación Fallida",
+        "description": "No se pudo verificar el correo electrónico subido. Esto puede ocurrir si el correo fue reenviado, modificado o no descargado en el formato .eml original. Por favor, contáctame para una revisión manual."
+      },
+      "uploadFailed": "Error al subir el archivo",
+      "networkError": "Error de red. Por favor, inténtalo de nuevo."
+    }
+  },
+  "AuthError": {
+    "badge": "Autenticación Fallida",
+    "title": "Algo salió mal",
+    "description": "No pudimos completar el proceso de autenticación. Esto puede ocurrir si la sesión de inicio de sesión expiró o fue interrumpida. Por favor, inténtalo de nuevo.",
+    "returnButton": "Volver al Inicio de Sesión"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // Recuperación Segura de Activos",
+    "description": "Estrategias avanzadas contra sweepers y extracción segura de activos para billeteras EVM comprometidas."
+  },
+  "NotFound": {
+    "title": "Página No Encontrada",
+    "description": "La página que buscas no existe o ha sido movida.",
+    "returnHome": "Volver al Inicio"
+  }
+}

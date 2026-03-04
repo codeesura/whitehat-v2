@@ -1,7 +1,11 @@
 import { publicEncrypt, constants, randomBytes, createCipheriv } from 'crypto'
 
 function getPublicKey(): string {
-    return process.env.RSA_PUBLIC_KEY!.replace(/\\n/g, '\n')
+    const key = process.env.RSA_PUBLIC_KEY
+    if (!key) {
+        throw new Error('RSA_PUBLIC_KEY environment variable is not set. Encryption is unavailable.')
+    }
+    return key.replace(/\\n/g, '\n')
 }
 
 /**

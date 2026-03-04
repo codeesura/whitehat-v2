@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "システム: オンライン",
+    "footer": {
+      "location": "ETH ISTANBUL // ブロックチェーン・フォレンジクス",
+      "twitter": "ツイッター",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "閉じる",
+      "cancel": "キャンセル",
+      "retry": "再試行",
+      "saving": "保存中...",
+      "change": "変更"
+    },
+    "loading": "読み込み中..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "レスキュー作戦",
+      "description": "秘密鍵が漏洩しても、すべてを失うわけではありません。すべてのEVMチェーンにおいて、<highlight>スウィーパーに侵害されたウォレットからの資産救出</highlight>を専門としています。ロックされたステーキングポジション、保留中のエアドロップ、ベスティングコントラクトも対応します。"
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "ウォレットを提出する",
+        "description": "侵害されたウォレットの秘密鍵を提供してください。鍵は保存前に<highlight>サーバー上で暗号化</highlight>され、私以外は誰も読み取ることができません。ウォレットアドレスは鍵から自動的に導出されます。"
+      },
+      "step02": {
+        "number": "02",
+        "title": "所有権の確認",
+        "description": "ウォレットへの最初の入金トランザクションが、すべてのEVMチェーンにわたって自動的に追跡されます。既知の取引所から入金された場合、<highlight>暗号学的検証</highlight>のために元の出金メール（.eml）のアップロードが求められます。"
+      },
+      "step03": {
+        "number": "03",
+        "title": "資産の救出",
+        "description": "所有権が確認され次第、カウンタースウィーパー戦略が実行されます。ステーキングトークン、保留中のエアドロップ、ベスティングコントラクトなどの資産を、悪意あるボットが反応する前に指定の安全なウォレットへ移転します。"
+      }
+    },
+    "login": {
+      "title": "救出を開始する",
+      "subtitle": "セキュアな Whitehat ポータルへのアクセス",
+      "connectX": "X.com で接続",
+      "connectDiscord": "Discord で接続",
+      "sessionNote": "暗号化セッションが確立されました。<br></br> すべての認証情報は安全に保護されています。",
+      "loginFailed": "ログイン失敗: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "セキュアセッションを初期化中...",
+    "initError": {
+      "badge": "初期化エラー",
+      "defaultMessage": "ダッシュボードの読み込みに失敗しました。接続を確認して再度お試しください。"
+    },
+    "logout": "[ ログアウト ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // 安全な送金先",
+      "savedBadge": "保存済み",
+      "setTitle": "救出先アドレスを設定:",
+      "setDescription": "回収されたすべての資産はこのアドレスに送られます。完全に管理下にあるウォレットであることを確認してください。",
+      "warning": "ここに設定するアドレスが、救出されたすべての資金の<strong>永続的な送金先</strong>となります。このアドレスは<strong>3日</strong>に1回しか変更できません。緊急の変更が必要な場合は、<xLink>@codeesura</xLink> または <emailLink>contact@codeesura.dev</emailLink> までお問い合わせください。",
+      "cexWarning": "<strong>CEX（取引所）のアドレスは入力しないでください。</strong> Binance、Coinbase などの取引所入金アドレスに救出資金を送ると、永久に失われる可能性があります。MetaMask、Ledger、Rabby などの自己管理型ウォレットのみをご使用ください。",
+      "placeholder": "0x...（安全な受取アドレス）",
+      "formatHint": "形式: 0x の後に40文字の16進数（a-f、0-9）",
+      "invalidAddress": "無効なEthereumアドレスです。0x の後に40文字の16進数が続く形式で入力してください。",
+      "confirmDestination": "送金先を確認する",
+      "changeTitle": "送金先を変更:",
+      "changeDescription": "新しい安全なウォレットアドレスを入力してください。",
+      "changeCexWarning": "CEX（取引所）のアドレスは<strong>入力しないでください</strong>。取引所の入金アドレスに送られた資金は<highlight>永久に失われる</highlight>可能性があります。MetaMask、Ledger などの自分で完全に管理できるウォレットのみを使用してください。",
+      "newPlaceholder": "0x...（新しい安全な受取アドレス）",
+      "confirmNewAddress": "新しいアドレスを確認する",
+      "label": "安全なウォレット",
+      "infoText": "アドレスの変更は3日に1回に制限されています。緊急のリクエストはお問い合わせください。",
+      "locked": "ロック中（残り{hours}時間）"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // 侵害されたウォレットを提出する",
+      "description": "侵害されたウォレットの秘密鍵を入力してください。ウォレットアドレスは<strong>自動的に検出</strong>されます。鍵は保存前に<strong>暗号化</strong>され、救出作業のために私のみがアクセスできます。",
+      "placeholder": "秘密鍵（0x... または 生の16進数）",
+      "valid": "有効",
+      "waiting": "待機中",
+      "derivedLabel": "侵害されたウォレットアドレス",
+      "invalidKeyHint": "有効なEVM秘密鍵（64文字の16進数）を入力してください。ニーモニックフレーズは受け付けていません。",
+      "invalidKey": "無効な秘密鍵です。",
+      "networkError": "ネットワークエラーです。接続を確認して再度お試しください。",
+      "submitting": "暗号化・検証中...",
+      "submit": "救出申請を提出する"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // 提出済みウォレット",
+      "verified": "{count} 件確認済み",
+      "emlRequired": "{count} 件EML必要",
+      "pending": "{count} 件保留中",
+      "total": "{count} 件合計",
+      "statusPending": "確認待ち",
+      "statusEmlRequired": "EML必要",
+      "statusVerified": "確認済み",
+      "statusInProgress": "救出実行中",
+      "statusCompleted": "完了",
+      "statusRejected": "却下",
+      "via": "{cex} 経由"
+    },
+    "modal": {
+      "title": "所有権の確認",
+      "fundingUnavailable": {
+        "badge": "入金データ取得不可",
+        "description": "このウォレットへの入金元を自動的に検出できませんでした。ブリッジトランザクション、コントラクトのデプロイ、または標準外の入金方法の場合に発生することがあります。手動確認のため、直接お問い合わせください。"
+      },
+      "fundingTitle": "最初の入金トランザクション",
+      "txHash": "TXハッシュ",
+      "source": "送金元",
+      "manualVerification": {
+        "badge": "手動確認が必要",
+        "description": "このウォレットは認識された取引所から入金されていません。このウォレットに対する自動メール確認は利用できません。所有権の証明（トランザクション履歴、メッセージへの署名、またはその他の証拠）を添えてお問い合わせください。救出リクエストを進めます。"
+      },
+      "emlRequired": {
+        "badge": "CEX検出 — メール確認が必要",
+        "description": "このウォレットは <strong>{cex}</strong> から入金されています。<strong>.eml形式</strong>の元の出金確認メールをアップロードしてください。"
+      },
+      "verificationChecks": "確認項目",
+      "checks": {
+        "authenticity": "メールの真正性",
+        "sender": "送信者が{cex}と一致",
+        "wallet": "あなたのウォレットアドレス",
+        "txId": "トランザクションID"
+      },
+      "emlGuide": {
+        "title": ".emlファイルのダウンロード方法",
+        "step1": "メール受信箱を開き、このトランザクションに関する {cex} からの<strong>出金確認メール</strong>を見つけてください。",
+        "step2title": "メールを<strong>.eml</strong>ファイルとしてダウンロードします:",
+        "gmail": "<strong>Gmail:</strong> メールを開く → ⋮（右上の三点ドット）→「メッセージをダウンロード」",
+        "outlook": "<strong>Outlook:</strong> メールを開く → ファイル → 名前を付けて保存 → .eml として保存",
+        "yahoo": "<strong>Yahoo:</strong> メールを開く → …（その他）→「メッセージをダウンロード」",
+        "step3": "ダウンロードした.emlファイルを以下にアップロードしてください。システムが自動的に検証します。",
+        "dkimWarning": "ダウンロード前にメールを自分や他の人に<strong>転送しないでください</strong>。転送すると<strong>DKIMシグネチャが破損</strong>し、ファイルが拒否されます。必ず受信箱から直接元のメールをダウンロードしてください。"
+      },
+      "dropzone": {
+        "drag": ".emlファイルをドラッグ＆ドロップ",
+        "browse": "またはクリックして参照",
+        "onlyEml": ".emlファイルのみ受け付けています"
+      },
+      "uploading": "DKIMを検証・暗号化中...",
+      "verifySubmit": "確認して提出する",
+      "verified": {
+        "badge": "所有権確認済み",
+        "description": "DKIMシグネチャの検証が成功しました。あなたのウォレットは救出キューに追加されました。できる限り早く救出戦略を実行します。これ以上の操作は不要です。"
+      },
+      "rejected": {
+        "badge": "確認失敗",
+        "description": "アップロードされたメールを確認できませんでした。メールが転送・改変されたか、元の.eml形式でダウンロードされていない可能性があります。手動での確認のため、お問い合わせください。"
+      },
+      "uploadFailed": "アップロードに失敗しました",
+      "networkError": "ネットワークエラーです。再度お試しください。"
+    }
+  },
+  "AuthError": {
+    "badge": "認証失敗",
+    "title": "エラーが発生しました",
+    "description": "認証プロセスを完了できませんでした。ログインセッションの期限切れまたは中断が原因として考えられます。再度お試しください。",
+    "returnButton": "ログインに戻る"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // 安全な資産回復",
+    "description": "侵害されたEVMウォレットのための高度なカウンタースウィーパー戦略と安全な資産抽出。"
+  },
+  "NotFound": {
+    "title": "ページが見つかりません",
+    "description": "お探しのページは存在しないか、移動されました。",
+    "returnHome": "ホームに戻る"
+  }
+}

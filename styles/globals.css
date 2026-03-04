@@ -9,8 +9,43 @@
 body {
   background: #0a0a0a;
   color: #ededed;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-family:
+    var(--font-geist-mono),
+    ui-monospace,
+    /* CJK fallbacks */
+    "Noto Sans Mono CJK SC", "Noto Sans Mono CJK TC", "Noto Sans Mono CJK JP", "Noto Sans Mono CJK KR",
+    "PingFang SC", "Hiragino Sans", "Yu Gothic", "Malgun Gothic", "Microsoft YaHei",
+    /* Arabic/Persian/Hindi/Thai */
+    "Noto Sans Arabic", "Noto Sans Devanagari", "Noto Sans Thai",
+    "Tahoma", "Segoe UI",
+    monospace;
 }
+
+/* RTL support — flip directional borders and paddings */
+[dir="rtl"] .border-l-2 {
+  border-left-width: 0;
+  border-right-width: 2px;
+}
+[dir="rtl"] .border-l {
+  border-left-width: 0;
+  border-right-width: 1px;
+}
+[dir="rtl"] .border-r {
+  border-right-width: 0;
+  border-left-width: 1px;
+}
+[dir="rtl"] .pl-2 { padding-left: 0; padding-right: 0.5rem; }
+[dir="rtl"] .pl-6 { padding-left: 0; padding-right: 1.5rem; }
+[dir="rtl"] .pr-6 { padding-right: 0; padding-left: 1.5rem; }
+[dir="rtl"] .pr-28 { padding-right: 0; padding-left: 7rem; }
+[dir="rtl"] .text-right { text-align: left; }
+[dir="rtl"] .text-left { text-align: right; }
+[dir="rtl"] .text-justify { text-align: justify; }
+[dir="rtl"] .right-0 { right: auto; left: 0; }
+[dir="rtl"] .right-4 { right: auto; left: 1rem; }
+[dir="rtl"] .translate-x-1 { --tw-translate-x: -0.25rem; }
+[dir="rtl"] .group-hover\:translate-x-1:is(:where(.group):hover *) { --tw-translate-x: -0.25rem; }
+[dir="rtl"] .rotate-90 { --tw-rotate: -90deg; }
 
 * {
   scrollbar-width: thin;

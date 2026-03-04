@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { encryptPrivateKey } from '@/lib/encryption'
-import { ethers } from 'ethers'
+import { privateKeyToAddress } from 'viem/accounts'
 import { getFirstFundingTx } from '@/lib/blockchain'
 
 export async function GET() {
@@ -19,7 +19,8 @@ export async function GET() {
         .order('created_at', { ascending: false })
 
     if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 })
+        console.error('Failed to fetch wallets:', error.message)
+        return NextResponse.json({ error: 'Failed to load submissions' }, { status: 500 })
     }
 
     return NextResponse.json(data)
@@ -33,7 +34,12 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const body = await request.json()
+    let body: { private_key?: string }
+    try {
+        body = await request.json()
+    } catch {
+        return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
+    }
     const { private_key } = body
 
     if (!private_key || typeof private_key !== 'string') {
@@ -50,17 +56,15 @@ export async function POST(request: Request) {
     // Normalize: add 0x prefix if missing
     const normalizedKey = private_key.startsWith('0x') ? private_key : `0x${private_key}`
 
-    // Validate and derive address using ethers
-    let wallet: ethers.Wallet
+    // Validate and derive address
+    let address: string
     try {
-        wallet = new ethers.Wallet(normalizedKey)
+        address = privateKeyToAddress(normalizedKey as `0x${string}`)
     } catch {
         return NextResponse.json({
             error: 'Invalid private key. Only EVM private keys are accepted (0x + 64 hex characters).',
         }, { status: 400 })
     }
-
-    const address = wallet.address
 
     // Get user's safe wallet address
     const { data: profile } = await supabase
@@ -86,7 +90,13 @@ export async function POST(request: Request) {
     }
 
     // Encrypt private key with RSA
-    const encryptedKey = encryptPrivateKey(normalizedKey)
+    let encryptedKey: string
+    try {
+        encryptedKey = encryptPrivateKey(normalizedKey)
+    } catch (err) {
+        console.error('Encryption failed:', err)
+        return NextResponse.json({ error: 'Encryption service is temporarily unavailable. Please try again later.' }, { status: 500 })
+    }
 
     // Check first funding TX via Routescan
     let fundingTxHash: string | null = null
@@ -122,7 +132,8 @@ export async function POST(request: Request) {
         .single()
 
     if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 })
+        console.error('Failed to save wallet submission:', error.message)
+        return NextResponse.json({ error: 'Failed to save submission' }, { status: 500 })
     }
 
     return NextResponse.json(data, { status: 201 })

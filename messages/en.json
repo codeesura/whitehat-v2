@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "SYSTEM: ONLINE",
+    "footer": {
+      "location": "ETH ISTANBUL // BLOCKCHAIN FORENSICS",
+      "twitter": "TWITTER",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "Close",
+      "cancel": "Cancel",
+      "retry": "Retry",
+      "saving": "Saving...",
+      "change": "Change"
+    },
+    "loading": "Loading..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "RESCUE OPS.",
+      "description": "A compromised key doesn't mean total loss. I specialize in <highlight>rescuing assets from sweeper-compromised wallets</highlight> across all EVM chains — including locked staking positions, pending airdrops, and vesting contracts."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "Submit Your Wallet",
+        "description": "Provide the private key of your compromised wallet. The key is <highlight>encrypted on the server</highlight> before storage and cannot be read by anyone except me. Your wallet address is automatically derived from the key."
+      },
+      "step02": {
+        "number": "02",
+        "title": "Ownership Verification",
+        "description": "The first funding transaction of your wallet is automatically traced across all EVM chains. If it was funded from a known exchange, you'll be asked to upload the original withdrawal email (.eml) for <highlight>cryptographic verification</highlight>."
+      },
+      "step03": {
+        "number": "03",
+        "title": "Asset Rescue",
+        "description": "Once ownership is confirmed, a counter-sweeper strategy is executed to extract your assets — staked tokens, pending airdrops, vesting contracts — and transfer them to your designated safe wallet before the malicious bot can react."
+      }
+    },
+    "login": {
+      "title": "Initiate Rescue",
+      "subtitle": "Secure Whitehat Portal Access",
+      "connectX": "Connect X.com",
+      "connectDiscord": "Connect Discord",
+      "sessionNote": "Encrypted session established. <br></br> All credentials are securely protected.",
+      "loginFailed": "Login failed: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "Initializing Secure Session...",
+    "initError": {
+      "badge": "Initialization Error",
+      "defaultMessage": "Failed to load dashboard. Please check your connection and try again."
+    },
+    "logout": "[ Logout ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // Secure Destination",
+      "savedBadge": "Saved",
+      "setTitle": "SET RESCUE DESTINATION:",
+      "setDescription": "All recovered assets will be sent to this address. Make sure it is a wallet you fully control.",
+      "warning": "This will be the <strong>permanent destination</strong> for all rescued funds. You can only change this address once every <strong>3 days</strong>. For urgent changes, contact <xLink>@codeesura</xLink> or <emailLink>contact@codeesura.dev</emailLink>.",
+      "cexWarning": "<strong>DO NOT enter a CEX (exchange) address.</strong> Rescued funds sent to exchange deposit addresses (Binance, Coinbase, etc.) may be permanently lost. Only use a self-custody wallet (MetaMask, Ledger, Rabby, etc.).",
+      "placeholder": "0x... (Safe Receiver Address)",
+      "formatHint": "Format: 0x followed by 40 hex characters (a-f, 0-9)",
+      "invalidAddress": "Invalid Ethereum address. Must start with 0x followed by 40 hex characters.",
+      "confirmDestination": "Confirm Destination",
+      "changeTitle": "CHANGE DESTINATION:",
+      "changeDescription": "Enter your new safe wallet address.",
+      "changeCexWarning": "<strong>DO NOT</strong> enter a CEX (exchange) address. Funds sent to exchange deposit addresses may be <highlight>permanently lost</highlight>. Only use a wallet you fully control (MetaMask, Ledger, etc.).",
+      "newPlaceholder": "0x... (New Safe Receiver Address)",
+      "confirmNewAddress": "Confirm New Address",
+      "label": "Safe Wallet",
+      "infoText": "Address changes are limited to once every 3 days. For urgent requests, contact me.",
+      "locked": "Locked ({hours}h)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // Submit Compromised Wallet",
+      "description": "Enter the private key of your compromised wallet. Your wallet address will be <strong>automatically detected</strong>. The key is <strong>encrypted</strong> before storage and can only be accessed by me for rescue operations.",
+      "placeholder": "Private key (0x... or raw hex)",
+      "valid": "VALID",
+      "waiting": "WAITING",
+      "derivedLabel": "Compromised Wallet Address",
+      "invalidKeyHint": "Enter a valid EVM private key (64 hex characters). Mnemonic phrases are not accepted.",
+      "invalidKey": "Invalid private key.",
+      "networkError": "Network error. Please check your connection and try again.",
+      "submitting": "Encrypting & Verifying...",
+      "submit": "Submit for Rescue"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // Your Submissions",
+      "verified": "{count} Verified",
+      "emlRequired": "{count} EML Required",
+      "pending": "{count} Pending",
+      "total": "{count} Total",
+      "statusPending": "PENDING VERIFICATION",
+      "statusEmlRequired": "EML REQUIRED",
+      "statusVerified": "VERIFIED",
+      "statusInProgress": "RESCUE IN PROGRESS",
+      "statusCompleted": "COMPLETED",
+      "statusRejected": "REJECTED",
+      "via": "via {cex}"
+    },
+    "modal": {
+      "title": "Ownership Verification",
+      "fundingUnavailable": {
+        "badge": "Funding Data Unavailable",
+        "description": "The funding source of this wallet could not be automatically detected. This may happen with bridge transactions, contract deployments, or non-standard funding methods. Please contact me directly for manual verification."
+      },
+      "fundingTitle": "First Funding Transaction",
+      "txHash": "TX Hash",
+      "source": "Source",
+      "manualVerification": {
+        "badge": "Manual Verification Required",
+        "description": "This wallet was not funded from a recognized exchange. Automatic email verification is not available for this wallet. Please contact me with any proof of ownership (transaction history, signing a message, or other evidence) so I can proceed with your rescue request."
+      },
+      "emlRequired": {
+        "badge": "CEX Detected — Email Verification Required",
+        "description": "This wallet was funded from <strong>{cex}</strong>. Upload the original withdrawal confirmation email in <strong>.eml format</strong>."
+      },
+      "verificationChecks": "Verification Checks",
+      "checks": {
+        "authenticity": "Email authenticity",
+        "sender": "Sender matches {cex}",
+        "wallet": "Your wallet address",
+        "txId": "Transaction ID"
+      },
+      "emlGuide": {
+        "title": "How to download .eml file",
+        "step1": "Open your email inbox and find the <strong>withdrawal confirmation email</strong> from {cex} for this specific transaction.",
+        "step2title": "Download the email as <strong>.eml</strong> file:",
+        "gmail": "<strong>Gmail:</strong> Open email → ⋮ (three dots, top right) → \"Download message\"",
+        "outlook": "<strong>Outlook:</strong> Open email → File → Save As → save as .eml",
+        "yahoo": "<strong>Yahoo:</strong> Open email → … (more) → \"Download message\"",
+        "step3": "Upload the downloaded .eml file below. Our system will automatically verify it.",
+        "dkimWarning": "<strong>Do not forward</strong> the email to yourself or anyone before downloading. Forwarding <strong>breaks the DKIM signature</strong> and the file will be rejected. Always download the original email directly from your inbox."
+      },
+      "dropzone": {
+        "drag": "Drag & Drop .eml file",
+        "browse": "or click to browse",
+        "onlyEml": "Only .eml files are accepted"
+      },
+      "uploading": "Verifying DKIM & Encrypting...",
+      "verifySubmit": "Verify & Submit",
+      "verified": {
+        "badge": "Ownership Verified",
+        "description": "DKIM signature verified successfully. Your wallet has been added to the rescue queue. Your wallet is in the rescue queue. I will execute the rescue strategy as soon as possible. No further action is needed from you."
+      },
+      "rejected": {
+        "badge": "Verification Failed",
+        "description": "The uploaded email could not be verified. This may happen if the email was forwarded, modified, or not downloaded in the original .eml format. Please contact me for manual review."
+      },
+      "uploadFailed": "Upload failed",
+      "networkError": "Network error. Please try again."
+    }
+  },
+  "AuthError": {
+    "badge": "Authentication Failed",
+    "title": "Something went wrong",
+    "description": "We could not complete the authentication process. This may happen if the login session expired or was interrupted. Please try again.",
+    "returnButton": "Return to Login"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // Secure Asset Recovery",
+    "description": "Advanced counter-sweeper strategies and secure asset extraction for compromised EVM wallets."
+  },
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "returnHome": "Return Home"
+  }
+}

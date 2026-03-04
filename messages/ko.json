@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "시스템: 온라인",
+    "footer": {
+      "location": "ETH 이스탄불 // 블록체인 포렌식",
+      "twitter": "트위터",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "닫기",
+      "cancel": "취소",
+      "retry": "재시도",
+      "saving": "저장 중...",
+      "change": "변경"
+    },
+    "loading": "로딩 중..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "자산 구조 작전.",
+      "description": "개인 키가 탈취되었다고 해서 모든 것을 잃은 건 아닙니다. 저는 스위퍼에 의해 침해된 지갑에서 <highlight>자산을 구조하는 것</highlight>을 전문으로 합니다 — 모든 EVM 체인에서 잠긴 스테이킹 포지션, 미수령 에어드랍, 베스팅 컨트랙트까지 포함합니다."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "지갑 제출",
+        "description": "침해된 지갑의 개인 키를 제공하세요. 키는 저장되기 전에 <highlight>서버에서 암호화</highlight>되며 저를 제외한 누구도 열람할 수 없습니다. 지갑 주소는 키로부터 자동으로 도출됩니다."
+      },
+      "step02": {
+        "number": "02",
+        "title": "소유권 확인",
+        "description": "지갑의 최초 입금 트랜잭션이 모든 EVM 체인에서 자동으로 추적됩니다. 알려진 거래소에서 입금된 경우, <highlight>암호화 검증</highlight>을 위해 원본 출금 이메일(.eml)을 업로드하도록 안내됩니다."
+      },
+      "step03": {
+        "number": "03",
+        "title": "자산 구조",
+        "description": "소유권이 확인되면, 카운터 스위퍼 전략이 실행됩니다 — 스테이킹된 토큰, 미수령 에어드랍, 베스팅 컨트랙트 등 자산을 추출하여 악성 봇이 반응하기 전에 지정된 안전한 지갑으로 전송합니다."
+      }
+    },
+    "login": {
+      "title": "구조 신청 시작",
+      "subtitle": "보안 Whitehat 포털 접속",
+      "connectX": "X.com 연결",
+      "connectDiscord": "Discord 연결",
+      "sessionNote": "암호화된 세션이 설정되었습니다. <br></br> 모든 자격 증명은 안전하게 보호됩니다.",
+      "loginFailed": "로그인 실패: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "보안 세션 초기화 중...",
+    "initError": {
+      "badge": "초기화 오류",
+      "defaultMessage": "대시보드를 불러오지 못했습니다. 연결 상태를 확인한 후 다시 시도해 주세요."
+    },
+    "logout": "[ 로그아웃 ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // 안전한 수신 주소",
+      "savedBadge": "저장됨",
+      "setTitle": "구조 대상 주소 설정:",
+      "setDescription": "복구된 모든 자산은 이 주소로 전송됩니다. 본인이 완전히 통제할 수 있는 지갑인지 확인해 주세요.",
+      "warning": "이 주소는 구조된 모든 자금의 <strong>영구 수신 주소</strong>가 됩니다. 주소는 <strong>3일</strong>에 한 번만 변경할 수 있습니다. 긴급 변경이 필요한 경우 <xLink>@codeesura</xLink> 또는 <emailLink>contact@codeesura.dev</emailLink>로 연락해 주세요.",
+      "cexWarning": "<strong>CEX(거래소) 주소는 절대 입력하지 마세요.</strong> 거래소 입금 주소(Binance, Coinbase 등)로 전송된 자금은 영구적으로 손실될 수 있습니다. 반드시 자기 관리형 지갑(MetaMask, Ledger, Rabby 등)만 사용하세요.",
+      "placeholder": "0x... (안전한 수신 주소)",
+      "formatHint": "형식: 0x 뒤에 40개의 16진수 문자(a-f, 0-9)",
+      "invalidAddress": "유효하지 않은 이더리움 주소입니다. 0x로 시작하고 40개의 16진수 문자가 뒤따라야 합니다.",
+      "confirmDestination": "수신 주소 확인",
+      "changeTitle": "수신 주소 변경:",
+      "changeDescription": "새로운 안전한 지갑 주소를 입력하세요.",
+      "changeCexWarning": "<strong>절대</strong> CEX(거래소) 주소를 입력하지 마세요. 거래소 입금 주소로 전송된 자금은 <highlight>영구적으로 손실</highlight>될 수 있습니다. 본인이 완전히 통제하는 지갑(MetaMask, Ledger 등)만 사용하세요.",
+      "newPlaceholder": "0x... (새로운 안전한 수신 주소)",
+      "confirmNewAddress": "새 주소 확인",
+      "label": "안전한 지갑",
+      "infoText": "주소 변경은 3일에 한 번으로 제한됩니다. 긴급 요청의 경우 저에게 연락해 주세요.",
+      "locked": "잠김 ({hours}시간 후 변경 가능)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // 침해된 지갑 제출",
+      "description": "침해된 지갑의 개인 키를 입력하세요. 지갑 주소는 <strong>자동으로 감지</strong>됩니다. 키는 저장 전 <strong>암호화</strong>되며 오직 저만 구조 작업을 위해 접근할 수 있습니다.",
+      "placeholder": "개인 키 (0x... 또는 원시 16진수)",
+      "valid": "유효",
+      "waiting": "대기 중",
+      "derivedLabel": "침해된 지갑 주소",
+      "invalidKeyHint": "유효한 EVM 개인 키(64개의 16진수 문자)를 입력하세요. 니모닉 구문은 허용되지 않습니다.",
+      "invalidKey": "유효하지 않은 개인 키입니다.",
+      "networkError": "네트워크 오류. 연결 상태를 확인한 후 다시 시도해 주세요.",
+      "submitting": "암호화 및 검증 중...",
+      "submit": "구조 신청 제출"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // 제출 내역",
+      "verified": "{count}개 확인됨",
+      "emlRequired": "{count}개 EML 필요",
+      "pending": "{count}개 대기 중",
+      "total": "{count}개 합계",
+      "statusPending": "검증 대기 중",
+      "statusEmlRequired": "EML 필요",
+      "statusVerified": "확인됨",
+      "statusInProgress": "구조 진행 중",
+      "statusCompleted": "완료됨",
+      "statusRejected": "거부됨",
+      "via": "{cex} 경유"
+    },
+    "modal": {
+      "title": "소유권 확인",
+      "fundingUnavailable": {
+        "badge": "입금 데이터 확인 불가",
+        "description": "이 지갑의 입금 출처를 자동으로 감지할 수 없습니다. 브릿지 트랜잭션, 컨트랙트 배포 또는 비표준 입금 방식에서 발생할 수 있습니다. 수동 확인을 위해 직접 연락해 주세요."
+      },
+      "fundingTitle": "최초 입금 트랜잭션",
+      "txHash": "TX 해시",
+      "source": "출처",
+      "manualVerification": {
+        "badge": "수동 확인 필요",
+        "description": "이 지갑은 알려진 거래소에서 입금되지 않았습니다. 이 지갑에 대해 자동 이메일 확인을 사용할 수 없습니다. 소유권 증명(트랜잭션 내역, 메시지 서명 또는 기타 증거)과 함께 직접 연락해 주시면 구조 요청을 진행하겠습니다."
+      },
+      "emlRequired": {
+        "badge": "CEX 감지됨 — 이메일 확인 필요",
+        "description": "이 지갑은 <strong>{cex}</strong>에서 입금되었습니다. 원본 출금 확인 이메일을 <strong>.eml 형식</strong>으로 업로드하세요."
+      },
+      "verificationChecks": "확인 항목",
+      "checks": {
+        "authenticity": "이메일 진위",
+        "sender": "발신자가 {cex}와 일치",
+        "wallet": "지갑 주소",
+        "txId": "트랜잭션 ID"
+      },
+      "emlGuide": {
+        "title": ".eml 파일 다운로드 방법",
+        "step1": "이메일 받은 편지함을 열고 이 특정 트랜잭션에 대해 {cex}로부터 받은 <strong>출금 확인 이메일</strong>을 찾으세요.",
+        "step2title": "이메일을 <strong>.eml</strong> 파일로 다운로드하세요:",
+        "gmail": "<strong>Gmail:</strong> 이메일 열기 → ⋮ (우측 상단 점 세 개) → \"메시지 다운로드\"",
+        "outlook": "<strong>Outlook:</strong> 이메일 열기 → 파일 → 다른 이름으로 저장 → .eml로 저장",
+        "yahoo": "<strong>Yahoo:</strong> 이메일 열기 → … (더 보기) → \"메시지 다운로드\"",
+        "step3": "다운로드한 .eml 파일을 아래에 업로드하세요. 시스템이 자동으로 검증합니다.",
+        "dkimWarning": "다운로드 전에 이메일을 본인이나 다른 사람에게 <strong>전달하지 마세요</strong>. 전달 시 <strong>DKIM 서명이 손상</strong>되어 파일이 거부됩니다. 항상 받은 편지함에서 직접 원본 이메일을 다운로드하세요."
+      },
+      "dropzone": {
+        "drag": ".eml 파일을 끌어다 놓으세요",
+        "browse": "또는 클릭하여 파일 탐색",
+        "onlyEml": ".eml 파일만 허용됩니다"
+      },
+      "uploading": "DKIM 검증 및 암호화 중...",
+      "verifySubmit": "확인 및 제출",
+      "verified": {
+        "badge": "소유권 확인됨",
+        "description": "DKIM 서명이 성공적으로 검증되었습니다. 지갑이 구조 대기열에 추가되었습니다. 최대한 빨리 구조 전략을 실행하겠습니다. 추가 조치는 필요하지 않습니다."
+      },
+      "rejected": {
+        "badge": "확인 실패",
+        "description": "업로드된 이메일을 확인할 수 없습니다. 이메일이 전달되었거나 수정되었거나 원본 .eml 형식으로 다운로드되지 않은 경우 발생할 수 있습니다. 수동 검토를 위해 직접 연락해 주세요."
+      },
+      "uploadFailed": "업로드 실패",
+      "networkError": "네트워크 오류. 다시 시도해 주세요."
+    }
+  },
+  "AuthError": {
+    "badge": "인증 실패",
+    "title": "문제가 발생했습니다",
+    "description": "인증 프로세스를 완료할 수 없습니다. 로그인 세션이 만료되었거나 중단된 경우 발생할 수 있습니다. 다시 시도해 주세요.",
+    "returnButton": "로그인으로 돌아가기"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // 안전한 자산 복구",
+    "description": "침해된 EVM 지갑을 위한 고급 카운터 스위퍼 전략 및 안전한 자산 추출."
+  },
+  "NotFound": {
+    "title": "페이지를 찾을 수 없습니다",
+    "description": "찾고 계신 페이지가 존재하지 않거나 이동되었습니다.",
+    "returnHome": "홈으로 돌아가기"
+  }
+}

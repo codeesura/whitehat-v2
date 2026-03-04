@@ -32,7 +32,12 @@ export async function POST(
     }
 
     // Parse multipart form data
-    const formData = await request.formData()
+    let formData: FormData
+    try {
+        formData = await request.formData()
+    } catch {
+        return NextResponse.json({ error: 'Invalid form data' }, { status: 400 })
+    }
     const file = formData.get('eml') as File | null
 
     if (!file) {
@@ -41,6 +46,12 @@ export async function POST(
 
     if (!file.name.endsWith('.eml')) {
         return NextResponse.json({ error: 'Only .eml files are accepted' }, { status: 400 })
+    }
+
+    // Enforce 10MB file size limit
+    const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
+    if (file.size > MAX_FILE_SIZE) {
+        return NextResponse.json({ error: 'File too large. Maximum size is 10MB.' }, { status: 413 })
     }
 
     const arrayBuffer = await file.arrayBuffer()
@@ -64,13 +75,17 @@ export async function POST(
                 .filter(c => !c.passed)
                 .map(c => `${c.name}: ${c.detail}`)
 
-            await supabase
+            const { error: updateError } = await supabase
                 .from('wallet_submissions')
                 .update({
                     status: 'eml_required',
                     notes: `EML verification failed:\n${failedChecks.join('\n')}`,
                 })
                 .eq('id', id)
+
+            if (updateError) {
+                console.error('Failed to update submission after EML rejection:', updateError.message)
+            }
 
             return NextResponse.json({
                 verified: false,
@@ -81,7 +96,7 @@ export async function POST(
         // All checks passed — encrypt .eml and save
         const encryptedEml = hybridEncrypt(emlBuffer)
 
-        await supabase
+        const { error: saveError } = await supabase
             .from('wallet_submissions')
             .update({
                 encrypted_eml: encryptedEml,
@@ -91,9 +106,14 @@ export async function POST(
             })
             .eq('id', id)
 
+        if (saveError) {
+            console.error('Failed to save verified EML:', saveError.message)
+            return NextResponse.json({ error: 'Verification succeeded but failed to save. Please try again.' }, { status: 500 })
+        }
+
         return NextResponse.json({ verified: true })
     } catch (err) {
-        const message = err instanceof Error ? err.message : 'EML processing failed'
-        return NextResponse.json({ error: message }, { status: 500 })
+        console.error('EML processing failed:', err instanceof Error ? err.message : err)
+        return NextResponse.json({ error: 'EML processing failed. Please try again.' }, { status: 500 })
     }
 }

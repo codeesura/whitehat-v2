@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "HỄ THỐNG: TRỰC TUYẼN",
+    "footer": {
+      "location": "ETH ISTANBUL // BLOCKCHAIN FORENSICS",
+      "twitter": "TWITTER",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "Đóng",
+      "cancel": "Hủy",
+      "retry": "Thử lại",
+      "saving": "Đang lưu...",
+      "change": "Thay đổi"
+    },
+    "loading": "Đang tải..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "RESCUE OPS.",
+      "description": "Khóa bị xâm phạm không có nghĩa là mất trắng. Tôi chuyên <highlight>giải cứu tài sản từ các ví bị sweeper tấn công</highlight> trên tất cả các chuỗi EVM — bao gồm các vị trí staking đã khóa, airdrop chưa nhận và hợp đồng vesting."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "Gửi Ví Của Bạn",
+        "description": "Cung cấp khóa riêng tư của ví bị xâm phạm. Khóa được <highlight>mã hóa trên máy chủ</highlight> trước khi lưu trữ và không ai ngoài tôi có thể đọc được. Địa chỉ ví của bạn sẽ được tự động suy ra từ khóa."
+      },
+      "step02": {
+        "number": "02",
+        "title": "Xác Minh Quyền Sở Hữu",
+        "description": "Giao dịch nạp tiền đầu tiên của ví sẽ được tự động truy vết trên tất cả các chuỗi EVM. Nếu ví được nạp tiền từ một sàn giao dịch đã biết, bạn sẽ được yêu cầu tải lên email rút tiền gốc (.eml) để <highlight>xác minh bằng mã hóa</highlight>."
+      },
+      "step03": {
+        "number": "03",
+        "title": "Giải Cứu Tài Sản",
+        "description": "Sau khi quyền sở hữu được xác nhận, chiến lược counter-sweeper sẽ được thực thi để rút tài sản của bạn — token đang staking, airdrop chưa nhận, hợp đồng vesting — và chuyển chúng đến ví an toàn bạn chỉ định trước khi bot độc hại kịp phản ứng."
+      }
+    },
+    "login": {
+      "title": "Khở Động Giải Cứu",
+      "subtitle": "Truy Cập Cổng WHITEHAT An Toàn",
+      "connectX": "Kết nối X.com",
+      "connectDiscord": "Kết nối Discord",
+      "sessionNote": "Phiên mã hóa đã được thiết lập. <br></br> Tất cả thông tin xác thực được bảo vệ an toàn.",
+      "loginFailed": "Đăng nhập thất bại: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "Đang Khở Tạo Phiên An Toàn...",
+    "initError": {
+      "badge": "Lỗi Khở Tạo",
+      "defaultMessage": "Không thể tải bảng điều khiển. Vui lòng kiểm tra kết nối của bạn và thử lại."
+    },
+    "logout": "[ Đăng xuất ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // Đích Đến An Toàn",
+      "savedBadge": "Đã lưu",
+      "setTitle": "ĐẶT ĐÍCH ĐẼN GIẢI CỨU:",
+      "setDescription": "Tất cả tài sản được phục hồi sẽ được gửi đến địa chỉ này. Hãy chắc chắn đó là ví bạn kiểm soát hoàn toàn.",
+      "warning": "Đây sẽ là <strong>đích đến vĩnh viễn</strong> cho tất cả tài sản được giải cứu. Bạn chỉ có thể thay đổi địa chỉ này mỗi <strong>3 ngày</strong> một lần. Đối với các thay đổi khẩn cấp, hãy liên hệ <xLink>@codeesura</xLink> hoặc <emailLink>contact@codeesura.dev</emailLink>.",
+      "cexWarning": "<strong>KHÔNG nhập địa chỉ CEX (sàn giao dịch).</strong> Tài sản được giải cứu gửi đến địa chỉ nạp tiền của sàn (Binance, Coinbase, v.v.) có thể bị mất vĩnh viễn. Chỉ sử dụng ví tự quản (MetaMask, Ledger, Rabby, v.v.).",
+      "placeholder": "0x... (Địa chỉ Nhận An Toàn)",
+      "formatHint": "Định dạng: 0x tiếp theo là 40 ký tự hex (a-f, 0-9)",
+      "invalidAddress": "Địa chỉ Ethereum không hợp lệ. Phải bắt đầu bằng 0x tiếp theo là 40 ký tự hex.",
+      "confirmDestination": "Xác Nhận Đích Đến",
+      "changeTitle": "THAY ĐỔI ĐÍCH ĐẼN:",
+      "changeDescription": "Nhập địa chỉ ví an toàn mới của bạn.",
+      "changeCexWarning": "<strong>KHÔNG</strong> nhập địa chỉ CEX (sàn giao dịch). Tài sản gửi đến địa chỉ nạp của sàn có thể bị <highlight>mất vĩnh viễn</highlight>. Chỉ sử dụng ví bạn kiểm soát hoàn toàn (MetaMask, Ledger, v.v.).",
+      "newPlaceholder": "0x... (Địa chỉ Nhận An Toàn Mới)",
+      "confirmNewAddress": "Xác Nhận Địa Chỉ Mới",
+      "label": "Ví An Toàn",
+      "infoText": "Thay đổi địa chỉ bị giới hạn mỗi 3 ngày một lần. Đối với yêu cầu khẩn cấp, hãy liên hệ tôi.",
+      "locked": "Đã khóa ({hours}h)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // Gửi Ví Bị Xâm Phạm",
+      "description": "Nhập khóa riêng tư của ví bị xâm phạm. Địa chỉ ví của bạn sẽ được <strong>tự động phát hiện</strong>. Khóa được <strong>mã hóa</strong> trước khi lưu trữ và chỉ có tôi mới có thể truy cập để thực hiện giải cứu.",
+      "placeholder": "Khóa riêng tư (0x... hoặc hex thọ)",
+      "valid": "HỢP LỆ",
+      "waiting": "ĐANG CHỜ",
+      "derivedLabel": "Địa Chỉ Ví Bị Xâm Phạm",
+      "invalidKeyHint": "Nhập khóa riêng tư EVM hợp lệ (64 ký tự hex). Cụm từ ghi nhớ (mnemonic) không được chấp nhận.",
+      "invalidKey": "Khóa riêng tư không hợp lệ.",
+      "networkError": "Lỗi mạng. Vui lòng kiểm tra kết nối của bạn và thử lại.",
+      "submitting": "Đang Mã Hóa & Xác Minh...",
+      "submit": "Gửi Để Giải Cứu"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // Các Yêu Cầu Của Bạn",
+      "verified": "{count} Đã xác minh",
+      "emlRequired": "{count} Cần EML",
+      "pending": "{count} Đang chờ",
+      "total": "{count} Tổng",
+      "statusPending": "CHỜ XÁC MINH",
+      "statusEmlRequired": "CẦN EML",
+      "statusVerified": "ĐÃ XÁC MINH",
+      "statusInProgress": "ĐANG GIẢI CỨU",
+      "statusCompleted": "HOÀN THÀNH",
+      "statusRejected": "Bị Từ CHỐI",
+      "via": "qua {cex}"
+    },
+    "modal": {
+      "title": "Xác Minh Quyền Sở Hữu",
+      "fundingUnavailable": {
+        "badge": "Không Có Dữ Liệu Nạp Tiền",
+        "description": "Không thể tự động phát hiện nguồn nạp tiền của ví này. Điều này có thể xảy ra với các giao dịch bridge, triển khai hợp đồng hoặc các phương thức nạp tiền không cứú chuẩn. Vui lòng liên hệ tôi trực tiếp để xác minh thủ công."
+      },
+      "fundingTitle": "Giao Dịch Nạp Tiền Đầu Tiên",
+      "txHash": "TX Hash",
+      "source": "Nguồn",
+      "manualVerification": {
+        "badge": "CẦn Xác Minh Thủ Công",
+        "description": "Ví này không được nạp tiền từ một sàn giao dịch đã được nhận diện. Xác minh email tự động không khả dụng cho ví này. Vui lòng liên hệ tôi với bất kỳ bằng chứng sở hữu nào (lịch sử giao dịch, ký một thông điệp, hoặc bằng chứng khác) để tôi có thể xử lý yêu cầu giải cứu của bạn."
+      },
+      "emlRequired": {
+        "badge": "Phát Hiện CEX — Cần Xác Minh Email",
+        "description": "Ví này được nạp tiền từ <strong>{cex}</strong>. Tải lên email xác nhận rút tiền gốc ở định dạng <strong>.eml</strong>."
+      },
+      "verificationChecks": "Các Kiểm Tra Xác Minh",
+      "checks": {
+        "authenticity": "Tính xác thực của email",
+        "sender": "Người gửi khớp với {cex}",
+        "wallet": "Địa chỉ ví của bạn",
+        "txId": "Mã giao dịch"
+      },
+      "emlGuide": {
+        "title": "Cách tải file .eml",
+        "step1": "Mở hộp thư của bạn và tìm <strong>email xác nhận rút tiền</strong> từ {cex} cho giao dịch cụ thể này.",
+        "step2title": "Tải email dưới dạng file <strong>.eml</strong>:",
+        "gmail": "<strong>Gmail:</strong> Mở email → ⋮ (ba chấm, góc trên bên phải) → “Tiết kiệm thư” (Download message)",
+        "outlook": "<strong>Outlook:</strong> Mở email → Tệp → Lưu thành → lưu dưới dạng .eml",
+        "yahoo": "<strong>Yahoo:</strong> Mở email → … (thêm) → “Tải xuống thư” (Download message)",
+        "step3": "Tải lên file .eml đã tải bên dưới. Hệ thống của chúng tôi sẽ tự động xác minh.",
+        "dkimWarning": "<strong>Không chuyển tiếp</strong> email cho bản thân hoặc bất kỳ ai trước khi tải xuống. Việc chuyển tiếp <strong>phá vỡ chữ ký DKIM</strong> và file sẽ bị từ chối. Luôn tải email gốc trực tiếp từ hộp thư của bạn."
+      },
+      "dropzone": {
+        "drag": "Kéo & Thả file .eml",
+        "browse": "hoặc nhấp để tìm kiếm",
+        "onlyEml": "Chỉ chấp nhận file .eml"
+      },
+      "uploading": "Đang Xác Minh DKIM & Mã Hóa...",
+      "verifySubmit": "Xác Minh & Gửi",
+      "verified": {
+        "badge": "Quyền Sở Hữu Đã Được Xác Minh",
+        "description": "Chữ ký DKIM đã được xác minh thành công. Ví của bạn đã được thêm vào hàng đợi giải cứu. Tôi sẽ thực hiện chiến lược giải cứu sớm nhất có thể. Bạn không cần thực hiện thêm bất kỳ hành động nào."
+      },
+      "rejected": {
+        "badge": "Xác Minh Thất Bại",
+        "description": "Email đã tải lên không thể được xác minh. Điều này có thể xảy ra nếu email đã được chuyển tiếp, chỉnh sửa hoặc không được tải xuống ở định dạng .eml gốc. Vui lòng liên hệ tôi để xem xét thủ công."
+      },
+      "uploadFailed": "Tải lên thất bại",
+      "networkError": "Lỗi mạng. Vui lòng thử lại."
+    }
+  },
+  "AuthError": {
+    "badge": "Xác Thực Thất Bại",
+    "title": "Có lỗi xảy ra",
+    "description": "Chúng tôi không thể hoàn tất quá trình xác thực. Điều này có thể xảy ra nếu phiên đăng nhập hết hạn hoặc bị gián đoạn. Vui lòng thử lại.",
+    "returnButton": "Quay Lại Đăng Nhập"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // Khôi Phục Tài Sản An Toàn",
+    "description": "Chiến lược chống sweeper tiên tiến và trích xuất tài sản an toàn cho các ví EVM bị xâm nhập."
+  },
+  "NotFound": {
+    "title": "Không Tìm Thấy Trang",
+    "description": "Trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển.",
+    "returnHome": "Về Trang Chủ"
+  }
+}

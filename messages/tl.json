@@ -1,0 +1,178 @@
+{
+  "Common": {
+    "brand": "CODEESURA // V2",
+    "systemOnline": "SISTEMA: ONLINE",
+    "footer": {
+      "location": "ETH ISTANBUL // BLOCKCHAIN FORENSICS",
+      "twitter": "TWITTER",
+      "allSystems": "ALL_SYSTEMS_GO"
+    },
+    "actions": {
+      "close": "Isara",
+      "cancel": "Kanselahin",
+      "retry": "Subukang Muli",
+      "saving": "Sine-save...",
+      "change": "Baguhin"
+    },
+    "loading": "Naglo-load..."
+  },
+  "Landing": {
+    "hero": {
+      "title1": "WHITEHAT",
+      "title2": "RESCUE OPS.",
+      "description": "Ang nakompromisong key ay hindi nangangahulugang ganap na pagkawala. Nag-specialize ako sa <highlight>pagliligtas ng mga asset mula sa mga wallet na nakompromiso ng sweeper</highlight> sa lahat ng EVM chain — kabilang ang mga naka-lock na staking position, pending na airdrop, at mga vesting contract."
+    },
+    "steps": {
+      "step01": {
+        "number": "01",
+        "title": "Isumite ang Iyong Wallet",
+        "description": "Ibigay ang private key ng iyong nakompromisong wallet. Ang key ay <highlight>ine-encrypt sa server</highlight> bago i-store at hindi mababasa ng sinuman maliban sa akin. Ang address ng iyong wallet ay awtomatikong kinukuha mula sa key."
+      },
+      "step02": {
+        "number": "02",
+        "title": "Pag-verify ng Pagmamay-ari",
+        "description": "Ang unang funding transaction ng iyong wallet ay awtomatikong tina-trace sa lahat ng EVM chain. Kung ito ay pino-fund mula sa isang kilalang exchange, hihilingin sa iyo na mag-upload ng orihinal na withdrawal email (.eml) para sa <highlight>cryptographic verification</highlight>."
+      },
+      "step03": {
+        "number": "03",
+        "title": "Pagliligtas ng Asset",
+        "description": "Kapag nakumpirma na ang pagmamay-ari, isasagawa ang isang counter-sweeper strategy upang kunin ang iyong mga asset — mga staked token, pending na airdrop, mga vesting contract — at ilipat ang mga ito sa iyong itinalagang ligtas na wallet bago makakilos ang malisyosong bot."
+      }
+    },
+    "login": {
+      "title": "Simulan ang Rescue",
+      "subtitle": "Ligtas na Access sa Whitehat Portal",
+      "connectX": "I-connect ang X.com",
+      "connectDiscord": "I-connect ang Discord",
+      "sessionNote": "Naitatag na ang encrypted session. <br></br> Lahat ng kredensyal ay ligtas na protektado.",
+      "loginFailed": "Nabigo ang pag-login: {error}"
+    }
+  },
+  "Dashboard": {
+    "loading": "Inisyalisa ang Ligtas na Session...",
+    "initError": {
+      "badge": "Error sa Initialization",
+      "defaultMessage": "Nabigo ang pag-load ng dashboard. Pakisuri ang iyong koneksyon at subukang muli."
+    },
+    "logout": "[ Mag-logout ]",
+    "headerBrand": "WHITEHAT // OPS",
+    "safeWallet": {
+      "sectionTitle": "<white>01</white> // Ligtas na Destinasyon",
+      "savedBadge": "Nai-save",
+      "setTitle": "ITAKDA ANG RESCUE DESTINATION:",
+      "setDescription": "Lahat ng na-recover na asset ay ipapadala sa address na ito. Tiyakin na ito ay isang wallet na ganap mong kontrolado.",
+      "warning": "Ito ang magiging <strong>permanenteng destinasyon</strong> para sa lahat ng na-rescue na pondo. Maaari mo lamang baguhin ang address na ito minsan bawat <strong>3 araw</strong>. Para sa mga agarang pagbabago, makipag-ugnayan sa <xLink>@codeesura</xLink> o <emailLink>contact@codeesura.dev</emailLink>.",
+      "cexWarning": "<strong>HUWAG maglagay ng CEX (exchange) address.</strong> Ang mga na-rescue na pondo na ipinadala sa mga exchange deposit address (Binance, Coinbase, atbp.) ay maaaring permanenteng mawala. Gumamit lamang ng self-custody wallet (MetaMask, Ledger, Rabby, atbp.).",
+      "placeholder": "0x... (Ligtas na Receiver Address)",
+      "formatHint": "Format: 0x na sinusundan ng 40 hex na karakter (a-f, 0-9)",
+      "invalidAddress": "Invalid na Ethereum address. Dapat magsimula sa 0x na sinusundan ng 40 hex na karakter.",
+      "confirmDestination": "Kumpirmahin ang Destinasyon",
+      "changeTitle": "BAGUHIN ANG DESTINASYON:",
+      "changeDescription": "Ilagay ang iyong bagong ligtas na wallet address.",
+      "changeCexWarning": "<strong>HUWAG</strong> maglagay ng CEX (exchange) address. Ang mga pondong ipinadala sa mga exchange deposit address ay maaaring <highlight>permanenteng mawala</highlight>. Gumamit lamang ng wallet na ganap mong kontrolado (MetaMask, Ledger, atbp.).",
+      "newPlaceholder": "0x... (Bagong Ligtas na Receiver Address)",
+      "confirmNewAddress": "Kumpirmahin ang Bagong Address",
+      "label": "Ligtas na Wallet",
+      "infoText": "Ang mga pagbabago sa address ay limitado sa minsan bawat 3 araw. Para sa mga agarang kahilingan, makipag-ugnayan sa akin.",
+      "locked": "Naka-lock ({hours}h)"
+    },
+    "submitWallet": {
+      "sectionTitle": "<white>02</white> // Isumite ang Nakompromisong Wallet",
+      "description": "Ilagay ang private key ng iyong nakompromisong wallet. Ang address ng iyong wallet ay <strong>awtomatikong madi-detect</strong>. Ang key ay <strong>ine-encrypt</strong> bago i-store at maaari lamang ma-access ng akin para sa mga rescue operation.",
+      "placeholder": "Private key (0x... o raw hex)",
+      "valid": "VALID",
+      "waiting": "NAGHIHINTAY",
+      "derivedLabel": "Address ng Nakompromisong Wallet",
+      "invalidKeyHint": "Maglagay ng valid na EVM private key (64 hex na karakter). Hindi tinatanggap ang mga mnemonic phrase.",
+      "invalidKey": "Invalid na private key.",
+      "networkError": "Network error. Pakisuri ang iyong koneksyon at subukang muli.",
+      "submitting": "Ine-encrypt at Vine-verify...",
+      "submit": "Isumite para sa Rescue"
+    },
+    "submissions": {
+      "sectionTitle": "<white>03</white> // Ang Iyong mga Submission",
+      "verified": "{count} Verified",
+      "emlRequired": "{count} Nangangailangan ng EML",
+      "pending": "{count} Pending",
+      "total": "{count} Kabuuan",
+      "statusPending": "NAGHIHINTAY NG VERIFICATION",
+      "statusEmlRequired": "KAILANGAN NG EML",
+      "statusVerified": "VERIFIED",
+      "statusInProgress": "RESCUE IN PROGRESS",
+      "statusCompleted": "NAKUMPLETO",
+      "statusRejected": "TINANGGIHAN",
+      "via": "sa pamamagitan ng {cex}"
+    },
+    "modal": {
+      "title": "Pag-verify ng Pagmamay-ari",
+      "fundingUnavailable": {
+        "badge": "Hindi Available ang Funding Data",
+        "description": "Hindi awtomatikong ma-detect ang pinagmulan ng funding ng wallet na ito. Maaaring mangyari ito sa mga bridge transaction, contract deployment, o hindi karaniwang paraan ng funding. Makipag-ugnayan sa akin nang direkta para sa manual na verification."
+      },
+      "fundingTitle": "Unang Funding Transaction",
+      "txHash": "TX Hash",
+      "source": "Pinagmulan",
+      "manualVerification": {
+        "badge": "Kailangan ng Manual na Verification",
+        "description": "Ang wallet na ito ay hindi pino-fund mula sa isang kilalang exchange. Hindi available ang awtomatikong email verification para sa wallet na ito. Makipag-ugnayan sa akin na may anumang patunay ng pagmamay-ari (kasaysayan ng transaksyon, pag-sign ng mensahe, o iba pang ebidensya) upang makapagpatuloy sa iyong rescue request."
+      },
+      "emlRequired": {
+        "badge": "Natukoy ang CEX — Kailangan ng Email Verification",
+        "description": "Ang wallet na ito ay pino-fund mula sa <strong>{cex}</strong>. I-upload ang orihinal na withdrawal confirmation email sa <strong>.eml format</strong>."
+      },
+      "verificationChecks": "Mga Verification Check",
+      "checks": {
+        "authenticity": "Pagiging tunay ng email",
+        "sender": "Ang nagpadala ay tumutugma sa {cex}",
+        "wallet": "Ang address ng iyong wallet",
+        "txId": "Transaction ID"
+      },
+      "emlGuide": {
+        "title": "Paano mag-download ng .eml file",
+        "step1": "Buksan ang iyong email inbox at hanapin ang <strong>withdrawal confirmation email</strong> mula sa {cex} para sa partikular na transaksyong ito.",
+        "step2title": "I-download ang email bilang <strong>.eml</strong> file:",
+        "gmail": "<strong>Gmail:</strong> Buksan ang email → ⋮ (tatlong tuldok, kanang itaas) → “Download message”",
+        "outlook": "<strong>Outlook:</strong> Buksan ang email → File → Save As → i-save bilang .eml",
+        "yahoo": "<strong>Yahoo:</strong> Buksan ang email → … (higit pa) → “Download message”",
+        "step3": "I-upload ang na-download na .eml file sa ibaba. Awtomatiko itong vive-verify ng aming sistema.",
+        "dkimWarning": "<strong>Huwag i-forward</strong> ang email sa iyong sarili o sa sinuman bago mag-download. Ang pag-forward ay <strong>sisira sa DKIM signature</strong> at ang file ay tatanggihan. Laging i-download ang orihinal na email nang direkta mula sa iyong inbox."
+      },
+      "dropzone": {
+        "drag": "I-drag at I-drop ang .eml file",
+        "browse": "o i-click upang mag-browse",
+        "onlyEml": "Tinatanggap lamang ang mga .eml file"
+      },
+      "uploading": "Vine-verify ang DKIM at Ine-encrypt...",
+      "verifySubmit": "I-verify at Isumite",
+      "verified": {
+        "badge": "Verified ang Pagmamay-ari",
+        "description": "Matagumpay na na-verify ang DKIM signature. Ang iyong wallet ay naidagdag na sa rescue queue. Isasagawa ko ang rescue strategy sa lalong madaling panahon. Hindi na kailangan pang gumawa ng anumang aksyon mula sa iyo."
+      },
+      "rejected": {
+        "badge": "Nabigo ang Verification",
+        "description": "Hindi ma-verify ang na-upload na email. Maaaring mangyari ito kung ang email ay na-forward, binago, o hindi na-download sa orihinal na .eml format. Makipag-ugnayan sa akin para sa manual na pagsusuri."
+      },
+      "uploadFailed": "Nabigo ang pag-upload",
+      "networkError": "Network error. Subukang muli."
+    }
+  },
+  "AuthError": {
+    "badge": "Nabigo ang Authentication",
+    "title": "May nangyaring mali",
+    "description": "Hindi namin makumpleto ang proseso ng authentication. Maaaring mangyari ito kung ang login session ay nag-expire o naputol. Subukang muli.",
+    "returnButton": "Bumalik sa Login"
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "tr": "TR"
+  },
+  "Metadata": {
+    "title": "Whitehat Rescue Ops // Ligtas na Pagbawi ng Asset",
+    "description": "Advanced na counter-sweeper na estratehiya at ligtas na pagkuha ng asset para sa mga nakompromisong EVM wallet."
+  },
+  "NotFound": {
+    "title": "Hindi Nahanap ang Pahina",
+    "description": "Ang pahina na hinahanap mo ay hindi umiiral o inilipat na.",
+    "returnHome": "Bumalik sa Home"
+  }
+}
