@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
@@ -21,6 +21,13 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#050505",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -32,8 +39,25 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL(baseUrl),
-    title: t("title"),
+    title: {
+      default: t("title"),
+      template: `%s | ${t("title")}`,
+    },
     description: t("description"),
+    keywords: [
+      "Whitehat",
+      "Wallet Recovery",
+      "Compromised Wallet",
+      "Sweeper Bot",
+      "Counter-Sweeper",
+      "EVM",
+      "Asset Rescue",
+      "Private Key",
+      "Blockchain Security",
+      "codeesura",
+    ],
+    authors: [{ name: "codeesura", url: "https://codeesura.dev" }],
+    creator: "codeesura",
     icons: {
       icon: "/icon.svg",
       apple: "/icon.svg",
@@ -42,7 +66,13 @@ export async function generateMetadata({
     robots: {
       index: true,
       follow: true,
-      googleBot: { index: true, follow: true },
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
     alternates: {
       languages: {
@@ -56,10 +86,11 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
+      creator: "@codeesura",
     },
     openGraph: {
       type: "website",
-      siteName: t("title"),
+      siteName: "Whitehat Rescue Ops",
       title: t("title"),
       description: t("description"),
       locale: ogLocaleMap[locale] || "en_US",
@@ -92,10 +123,47 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
   const dir = rtlLocales.has(locale) ? "rtl" : "ltr";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://whitehat.codeesura.dev";
 
   return (
     <html lang={locale} dir={dir}>
       <body className={`${geistMono.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebApplication",
+                  "@id": `${baseUrl}/#app`,
+                  name: "Whitehat Rescue Ops",
+                  url: baseUrl,
+                  description: "Secure asset recovery service for compromised EVM wallets using counter-sweeper strategies.",
+                  applicationCategory: "SecurityApplication",
+                  operatingSystem: "Web",
+                  creator: {
+                    "@type": "Person",
+                    name: "codeesura",
+                    url: "https://codeesura.dev",
+                    sameAs: [
+                      "https://twitter.com/codeesura",
+                      "https://github.com/codeesura",
+                    ],
+                  },
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": `${baseUrl}/#website`,
+                  url: baseUrl,
+                  name: "Whitehat Rescue Ops",
+                  description: "Secure asset recovery for compromised EVM wallets",
+                  inLanguage: locale,
+                },
+              ],
+            }),
+          }}
+        />
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

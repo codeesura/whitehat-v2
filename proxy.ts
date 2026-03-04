@@ -14,7 +14,8 @@ function isPublicPath(pathname: string): boolean {
     pathname === "/manifest.webmanifest" ||
     pathname === "/robots.txt" ||
     pathname === "/sitemap.xml" ||
-    pathname === "/opengraph-image"
+    pathname === "/opengraph-image" ||
+    pathname === "/twitter-image"
   );
 }
 
